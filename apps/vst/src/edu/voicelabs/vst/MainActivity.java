@@ -1,4 +1,4 @@
-package edu.voicelabs.example.vst;
+package edu.voicelabs.vst;
 
 import java.util.Date;
 
