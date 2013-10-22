@@ -2,10 +2,12 @@ package edu.voicelabs.vst;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+import android.content.Context;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import edu.cmu.pocketsphinx.Config;
 import edu.cmu.pocketsphinx.Decoder;
@@ -137,6 +139,12 @@ public class RecognizerTask implements Runnable {
 	enum Event {
 		NONE, START, STOP, SHUTDOWN
 	};
+	
+	/**
+	 * Passed to constructor, to indicate the type of match to check for.
+	 *
+	 */
+	public static enum Mode {PHONEME, SYLLABLE, WORD};
 
 	/**
 	 * Current event.
@@ -159,40 +167,51 @@ public class RecognizerTask implements Runnable {
 		return this.use_partials;
 	}
 
-	public RecognizerTask() {
-		pocketsphinx
-				.setLogfile("/sdcard/Android/data/edu.cmu.pocketsphinx/pocketsphinx.log");
-		Config c = new Config();
-		/*
-		 * In 2.2 and above we can use getExternalFilesDir() or whatever it's
-		 * called
-		 */
-		
-		/*
-		c.setString("-hmm",
-				"/sdcard/Android/data/edu.cmu.pocketsphinx/hmm/en_US/hub4wsj_sc_8k");
-		c.setString("-dict",
-				"/sdcard/Android/data/edu.cmu.pocketsphinx/lm/en_US/hub4.5000.dic");
-		c.setString("-lm",
-				"/sdcard/Android/data/edu.cmu.pocketsphinx/lm/en_US/hub4.5000.DMP");
-		*/
 
-		c.setString("-hmm",
-				"/sdcard/Android/data/edu.cmu.pocketsphinx/hmm/en_US/hub4wsj_sc_8k");
-		c.setString("-dict",
-				"/sdcard/Android/data/edu.cmu.pocketsphinx/lm/en_US_one2five/hub4.5000.dic");
-		c.setString("-lm",
-				"/sdcard/Android/data/edu.cmu.pocketsphinx/lm/en_US_one2five/hub4.5000.DMP");
-				
-		/*
-		c.setString("-hmm",
-		"/sdcard/Android/data/edu.cmu.pocketsphinx/hmm/zh/tdt_sc_8k");
-		c.setString("-dict",
-		"/sdcard/Android/data/edu.cmu.pocketsphinx/lm/zh_TW/mandarin_notone.dic");
-		c.setString("-lm",
-		"/sdcard/Android/data/edu.cmu.pocketsphinx/lm/zh_TW/gigatdt.5000.DMP");
-		*/
-		c.setString("-rawlogdir", "/sdcard/Android/data/edu.cmu.pocketsphinx");
+	/**
+	 * A creator with context, so we can get properly stored data files. 
+	 * Uses normal (non-phoneme) form by default.
+	 * 
+	 * @param context
+	 */
+	public RecognizerTask(Context context) {
+		this(context, Mode.WORD);
+	}
+	/**
+	 * A creator with context, so we can get properly stored data files. 
+	 * If usePhonemeMode is true, it operates in a special phoneme-only mode.
+	 * 
+	 * @param context
+	 * @param mode
+	 */
+	public RecognizerTask(Context context, Mode mode) {
+		
+		// Copy data files to storage
+		String base_dir = context.getFilesDir().getAbsolutePath();
+		pocketsphinx.setLogfile(Environment.getExternalStorageDirectory().getPath() + "/pocketsphinx.log");
+		Config c = new Config();
+		
+		c.setString("-hmm", base_dir + "/hmm");
+		switch (mode) {
+		case PHONEME:
+//			c.setString("-mode", "allphone");
+//			c.setString("-dict", base_dir + "/lm/phone.dict");
+//			c.setString("-lm", base_dir + "/lm/interp_nodx.arpa.dmp");
+			c.setString("-dict", base_dir + "/lm/hub4.5000.dic");
+			c.setString("-lm", base_dir + "/lm/hub4.5000.dmp");
+			c.setString("-fdict", base_dir + "/lm/filler.dict");
+			break;
+		case SYLLABLE:
+			c.setString("-dict", base_dir + "/lm/hub4.5000.dic");
+			c.setString("-lm", base_dir + "/lm/hub4.5000.dmp");
+			break;
+		default:	// WORD
+			c.setString("-dict", base_dir + "/lm/hub4.5000.dic");
+			c.setString("-lm", base_dir + "/lm/hub4.5000.dmp");
+		}
+		
+		
+		c.setString("-rawlogdir", base_dir);
 		c.setFloat("-samprate", 8000.0);
 		c.setInt("-maxhmmpf", 10000);
 		c.setBoolean("-backtrace", true);
@@ -203,6 +222,8 @@ public class RecognizerTask implements Runnable {
 		this.use_partials = false;
 		this.mailbox = Event.NONE;
 	}
+	
+	
 
 	public void run() {
 		/* Main loop for this thread. */
@@ -222,6 +243,7 @@ public class RecognizerTask implements Runnable {
 					try {
 						Log.d(getClass().getName(), "waiting");
 						this.mailbox.wait();
+						//this.mailbox.wait(5000);	//JAM limit wait time
 						todo = this.mailbox;
 						Log.d(getClass().getName(), "got" + todo);
 					} catch (InterruptedException e) {
@@ -238,6 +260,7 @@ public class RecognizerTask implements Runnable {
 			case NONE:
 				if (state == State.IDLE)
 					Log.e(getClass().getName(), "Received NONE in mailbox when IDLE, threading error?");
+					//done = true;	//JAM shutdown if time limit reached with no input
 				break;
 			case START:
 				if (state == State.IDLE) { 

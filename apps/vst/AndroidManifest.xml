@@ -7,21 +7,30 @@
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.NoTitleBar" >
         <activity
-            android:name="edu.voicelabs.vst.MainActivity"
-            android:label="@string/app_name" >
+            android:name="edu.voicelabs.vst.StartActivity"
+            android:label="@string/app_name" 
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="edu.voicelabs.vst.DebugScreenActivity"
+            android:screenOrientation="landscape" >
+            
+        </activity>
+        <activity android:name="edu.voicelabs.vst.PhonemeSelectActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="edu.voicelabs.vst.PracticeGameActivity" android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
