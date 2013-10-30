@@ -27,7 +27,7 @@
         </activity>
         <activity android:name="edu.voicelabs.vst.DebugScreenActivity"
             android:screenOrientation="landscape" >
-            
+
         </activity>
         <activity android:name="edu.voicelabs.vst.PhonemeSelectActivity" android:screenOrientation="landscape"></activity>
         <activity android:name="edu.voicelabs.vst.PracticeGameActivity" android:screenOrientation="landscape"></activity>

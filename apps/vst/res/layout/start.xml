@@ -2,16 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_start" >
+    android:background="@drawable/bg_splash_w_text" >
 
     <ImageButton
         android:id="@+id/imageButtonStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/btn_start"
+        android:visibility="visible"
+        android:contentDescription="@string/start_button"
+        android:layout_above="@+id/buttonGoToDebug"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:src="@android:drawable/btn_default"
-        android:visibility="invisible" />
+        android:background="@android:color/transparent"/>
 
     <Button
         android:id="@+id/buttonGoToDebug"
@@ -19,6 +21,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="Debug Screen" />
+        android:text="Debug Screen"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:background="@drawable/anim_leo_blinkonly"
+        android:minHeight="300dp"
+        android:minWidth="300dp"
+        android:layout_alignBottom="@+id/buttonGoToDebug"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/anim_leo_justblink0001" />
 
 </RelativeLayout>

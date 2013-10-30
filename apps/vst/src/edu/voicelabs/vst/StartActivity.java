@@ -42,7 +42,7 @@ public class StartActivity extends Activity implements OnTouchListener {
 		if (hasFocus) {
 			//imageButtonStart.setVisibility(View.INVISIBLE);
 			//SystemClock.sleep(10000);
-			imageButtonStart.setVisibility(View.VISIBLE);	
+			imageButtonStart.setVisibility(View.VISIBLE);
 		}
 	}
 	
