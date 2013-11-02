@@ -30,7 +30,7 @@
 
         </activity>
         <activity android:name="edu.voicelabs.vst.PhonemeSelectActivity" android:screenOrientation="landscape"></activity>
-        <activity android:name="edu.voicelabs.vst.PracticeGameActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="edu.voicelabs.vst.PhonemeGameActivity" android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

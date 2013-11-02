@@ -192,24 +192,23 @@ public class RecognizerTask implements Runnable {
 		Config c = new Config();
 		
 		c.setString("-hmm", base_dir + "/hmm");
+		c.setString("-fdict", base_dir + "/lm/filler.dict");
 		switch (mode) {
 		case PHONEME:
-//			c.setString("-mode", "allphone");
+//			c.setString("-mode", "allphone");	// Not supported in this version, by may be useful in the future
+			
 //			c.setString("-dict", base_dir + "/lm/phone.dict");
-//			c.setString("-lm", base_dir + "/lm/interp_nodx.arpa.dmp");
+			c.setString("-lm", base_dir + "/lm/interp_nodx.arpa.dmp");	// Better suited to phonemes
 			c.setString("-dict", base_dir + "/lm/hub4.5000.dic");
-			c.setString("-lm", base_dir + "/lm/hub4.5000.dmp");
-			c.setString("-fdict", base_dir + "/lm/filler.dict");
 			break;
 		case SYLLABLE:
 			c.setString("-dict", base_dir + "/lm/hub4.5000.dic");
 			c.setString("-lm", base_dir + "/lm/hub4.5000.dmp");
 			break;
-		default:	// WORD
+		default:	// catches WORD
 			c.setString("-dict", base_dir + "/lm/hub4.5000.dic");
 			c.setString("-lm", base_dir + "/lm/hub4.5000.dmp");
 		}
-		
 		
 		c.setString("-rawlogdir", base_dir);
 		c.setFloat("-samprate", 8000.0);
