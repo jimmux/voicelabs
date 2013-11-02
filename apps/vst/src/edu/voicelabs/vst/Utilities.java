@@ -27,9 +27,8 @@ public class Utilities {
 	public void SetupSpeechData() {
 		String base_dir = context.getFilesDir().getAbsolutePath();
 		this.CopyAssetDirectoryToStorage("speech_data/hmm/en_US/hub4wsj_sc_8k", base_dir + "/hmm");
-//		this.CopyAssetDirectoryToStorage("speech_data/lm/en_US_one2five", base_dir + "/lm");
 		this.CopyAssetDirectoryToStorage("speech_data/lm/en_US_phonemes_initials", base_dir + "/lm");
-		this.CopyAssetDirectoryToStorage("speech_data/lm/en_US_allphone", base_dir + "/lm");			//JAM
+		this.CopyAssetDirectoryToStorage("speech_data/lm/en_US_allphone", base_dir + "/lm");		
 		try {			
 			File log = new File(Environment.getExternalStorageDirectory().getPath(), "pocketsphinx.log");
 			log.createNewFile();			

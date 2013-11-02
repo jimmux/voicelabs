@@ -242,7 +242,6 @@ public class RecognizerTask implements Runnable {
 					try {
 						Log.d(getClass().getName(), "waiting");
 						this.mailbox.wait();
-						//this.mailbox.wait(5000);	//JAM limit wait time
 						todo = this.mailbox;
 						Log.d(getClass().getName(), "got" + todo);
 					} catch (InterruptedException e) {
@@ -259,7 +258,6 @@ public class RecognizerTask implements Runnable {
 			case NONE:
 				if (state == State.IDLE)
 					Log.e(getClass().getName(), "Received NONE in mailbox when IDLE, threading error?");
-					//done = true;	//JAM shutdown if time limit reached with no input
 				break;
 			case START:
 				if (state == State.IDLE) { 

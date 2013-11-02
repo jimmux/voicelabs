@@ -25,12 +25,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="edu.voicelabs.vst.DebugScreenActivity"
+        <activity android:name="DebugScreenActivity"
             android:screenOrientation="landscape" >
 
         </activity>
-        <activity android:name="edu.voicelabs.vst.PhonemeSelectActivity" android:screenOrientation="landscape"></activity>
-        <activity android:name="edu.voicelabs.vst.PhonemeGameActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="PhonemeSelectActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="PhonemeGameActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="LessonProgressActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="SyllableGameActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="WordGameActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="ChooseGameActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="LessonCompleteActivity" android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

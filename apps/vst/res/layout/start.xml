@@ -26,7 +26,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+        android:id="@+id/imageButtonPhoneme"
         android:background="@drawable/anim_leo_blinkonly"
         android:minHeight="300dp"
         android:minWidth="300dp"

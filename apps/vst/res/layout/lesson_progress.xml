@@ -5,48 +5,45 @@
     android:background="@drawable/bg_progress" >
 
     <ImageButton
+        android:id="@+id/imageButtonWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:src="@drawable/btn_circle_red0018"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="280dp"
-        android:layout_marginBottom="20dp"
-        android:background="@android:color/transparent">
-        </ImageButton>
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:src="@drawable/btn_circle_red0018"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="550dp"
-        android:layout_marginBottom="100dp"
-        android:background="@android:color/transparent">
-    </ImageButton>
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:src="@drawable/btn_circle_red0018"
+        android:layout_above="@+id/imageButtonSyllable"
+        android:layout_marginBottom="39dp"
+        android:layout_marginRight="125dp"
+        android:layout_toLeftOf="@+id/imageButtonChoose"
         android:background="@android:color/transparent"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="300dp">
-    </ImageButton>
+        android:src="@drawable/btn_circle_red0018" />
+
     <ImageButton
+        android:id="@+id/imageButtonPhoneme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:src="@drawable/btn_circle_red0018"
+        android:layout_alignLeft="@+id/imageButtonWord"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="66dp"
         android:background="@android:color/transparent"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="470dp">
-    </ImageButton>
+        android:src="@drawable/btn_circle_red0018" />
 
+    <ImageButton
+        android:id="@+id/imageButtonSyllable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageButtonPhoneme"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="61dp"
+        android:layout_toRightOf="@+id/imageButtonChoose"
+        android:background="@android:color/transparent"
+        android:src="@drawable/btn_circle_red0018" />
 
+    <ImageButton
+        android:id="@+id/imageButtonChoose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageButtonWord"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="21dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/btn_circle_red0018" />
 
 </RelativeLayout>
