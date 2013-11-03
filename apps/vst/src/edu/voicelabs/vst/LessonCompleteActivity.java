@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 public class LessonCompleteActivity extends Activity implements OnTouchListener {
 	

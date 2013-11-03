@@ -45,7 +45,7 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.imageButtonL) {
 				// Go to the lesson
-				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
+				Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
 	            startActivity(intent); 
 			}
 			else if (v == this.imageButtonS) {

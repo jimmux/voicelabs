@@ -36,6 +36,7 @@
         <activity android:name="WordGameActivity" android:screenOrientation="landscape"></activity>
         <activity android:name="ChooseGameActivity" android:screenOrientation="landscape"></activity>
         <activity android:name="LessonCompleteActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="TutorialActivity" android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

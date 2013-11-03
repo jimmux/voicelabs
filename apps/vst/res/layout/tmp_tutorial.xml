@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/buttonSkip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Skip" />
+
+    <Button
+        android:id="@+id/buttonRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSkip"
+        android:layout_marginBottom="135dp"
+        android:layout_marginLeft="311dp"
+        android:layout_toRightOf="@+id/buttonSkip"
+        android:text="Record" />
+
+    <Button
+        android:id="@+id/buttonPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonRecord"
+        android:layout_alignBottom="@+id/buttonRecord"
+        android:layout_marginLeft="94dp"
+        android:layout_toRightOf="@+id/buttonRecord"
+        android:text="Play" />
+
+</RelativeLayout>
