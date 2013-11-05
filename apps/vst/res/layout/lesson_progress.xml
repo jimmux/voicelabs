@@ -8,10 +8,19 @@
         android:id="@+id/imageButtonWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageButtonSyllable"
-        android:layout_marginBottom="39dp"
-        android:layout_marginRight="125dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="126dp"
         android:layout_toLeftOf="@+id/imageButtonChoose"
+        android:background="@android:color/transparent"
+        android:src="@drawable/btn_circle_red0018" />
+
+    <ImageButton
+        android:id="@+id/imageButtonChoose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageButtonWord"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
         android:background="@android:color/transparent"
         android:src="@drawable/btn_circle_red0018" />
 
@@ -21,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageButtonWord"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="66dp"
+        android:layout_marginBottom="23dp"
         android:background="@android:color/transparent"
         android:src="@drawable/btn_circle_red0018" />
 
@@ -30,19 +39,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/imageButtonPhoneme"
-        android:layout_marginBottom="24dp"
-        android:layout_marginLeft="61dp"
+        android:layout_marginBottom="48dp"
+        android:layout_marginLeft="66dp"
         android:layout_toRightOf="@+id/imageButtonChoose"
-        android:background="@android:color/transparent"
-        android:src="@drawable/btn_circle_red0018" />
-
-    <ImageButton
-        android:id="@+id/imageButtonChoose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/imageButtonWord"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="21dp"
         android:background="@android:color/transparent"
         android:src="@drawable/btn_circle_red0018" />
 

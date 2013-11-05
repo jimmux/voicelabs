@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_splash_w_text" >
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/anim_splash0059" >
 
     <ImageButton
         android:id="@+id/imageButtonStart"
@@ -21,17 +21,36 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="Debug Screen"/>
+      	/>
 
     <ImageView
+        android:id="@+id/leo_fade_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButtonPhoneme"
-        android:background="@drawable/anim_leo_blinkonly"
-        android:minHeight="300dp"
-        android:minWidth="300dp"
-        android:layout_alignBottom="@+id/buttonGoToDebug"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/anim_leo_justblink0001" />
+        android:cropToPadding="true"
+        android:scaleType="center"
+        android:src="@drawable/img_obj_leo" />
+
+    <TextView
+        android:id="@+id/txt_phoneme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/leo_fade_in"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:text="Phoneme"
+        android:textSize="100sp" />
+
+    <TextView
+        android:id="@+id/txt_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/leo_fade_in"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:text="Friends"
+        android:textSize="60sp" />
 
 </RelativeLayout>

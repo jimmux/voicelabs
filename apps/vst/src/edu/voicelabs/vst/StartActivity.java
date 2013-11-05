@@ -2,12 +2,18 @@ package edu.voicelabs.vst;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+
 
 public class StartActivity extends Activity implements OnTouchListener {
 	
@@ -18,6 +24,13 @@ public class StartActivity extends Activity implements OnTouchListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start);
+		
+		//import fonts
+		TextView txt_phoneme = (TextView) findViewById(R.id.txt_phoneme);
+		TextView txt_friends = (TextView) findViewById(R.id.txt_friends);
+		Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf");  
+		txt_phoneme.setTypeface(font);  
+		txt_friends.setTypeface(font); 
 		
 		this.imageButtonStart = (ImageButton) findViewById(R.id.imageButtonStart);
 		this.buttonGoToDebug = (Button) findViewById(R.id.buttonGoToDebug);
@@ -40,6 +53,11 @@ public class StartActivity extends Activity implements OnTouchListener {
 		super.onWindowFocusChanged(hasFocus);
 		
 		if (hasFocus) {
+			//start leo fade in animation
+			Fader.runAlphaAnimation(this, R.id.leo_fade_in, R.anim.anim_fade_in);
+			Fader.runAlphaAnimation(this, R.id.txt_phoneme, R.anim.anim_txt_fade);
+			Fader.runAlphaAnimation(this, R.id.txt_friends, R.anim.anim_txt_fade1);
+			
 			//imageButtonStart.setVisibility(View.INVISIBLE);
 			//SystemClock.sleep(10000);
 			imageButtonStart.setVisibility(View.VISIBLE);

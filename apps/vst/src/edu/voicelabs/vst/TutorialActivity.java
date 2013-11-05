@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 /**
  * Adapted from example at http://developer.android.com/guide/topics/media/audio-capture.html
@@ -24,8 +25,8 @@ import android.widget.Button;
  */
 public class TutorialActivity extends Activity implements OnTouchListener {
 	
-	private Button buttonRecord;
-	private Button buttonPlay;
+	private ImageButton buttonRecord;
+	private ImageButton buttonPlay;
 	private Button buttonSkip;
 	
 	// Audio record/playback
@@ -111,8 +112,8 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		
 		setContentView(R.layout.tmp_tutorial);
 		
-		this.buttonRecord = (Button) findViewById(R.id.buttonRecord);
-		this.buttonPlay = (Button) findViewById(R.id.buttonPlay);
+		this.buttonRecord = (ImageButton) findViewById(R.id.buttonRecord);
+		this.buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
 		this.buttonSkip = (Button) findViewById(R.id.buttonSkip);
 		
 		this.buttonRecord.setOnTouchListener(this);
