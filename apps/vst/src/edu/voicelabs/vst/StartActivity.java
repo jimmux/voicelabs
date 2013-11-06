@@ -3,6 +3,7 @@ package edu.voicelabs.vst;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +20,7 @@ public class StartActivity extends Activity implements OnTouchListener {
 	
 	private ImageButton imageButtonStart;
 	private Button buttonGoToDebug;
+	private AnimationDrawable leoBlinkAnim;
 
 	/** Called when the activity is first created. */
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,11 +55,16 @@ public class StartActivity extends Activity implements OnTouchListener {
 		super.onWindowFocusChanged(hasFocus);
 		
 		if (hasFocus) {
-			//start leo fade in animation
-			Fader.runAlphaAnimation(this, R.id.leo_fade_in, R.anim.anim_fade_in);
-			Fader.runAlphaAnimation(this, R.id.txt_phoneme, R.anim.anim_txt_fade);
-			Fader.runAlphaAnimation(this, R.id.txt_friends, R.anim.anim_txt_fade1);
+			//start fade in animations
+			AnimationHelper.runAlphaAnimation(this, R.id.leo_fade_in, R.anim.anim_fade_in);
+			AnimationHelper.runAlphaAnimation(this, R.id.txt_phoneme, R.anim.anim_txt_fade);
+			AnimationHelper.runAlphaAnimation(this, R.id.txt_friends, R.anim.anim_txt_fade1);
+			//clear image resource first to prevent dupes
+			ImageView leofadein = (ImageView) findViewById(R.id.leo_fade_in); 
 			
+			leofadein.setBackgroundResource(0);
+			
+			this.leoBlinkAnim = AnimationHelper.runKeyframeAnimation(this, R.id.leo_fade_in, R.anim.anim_leo_blinkonly);
 			//imageButtonStart.setVisibility(View.INVISIBLE);
 			//SystemClock.sleep(10000);
 			imageButtonStart.setVisibility(View.VISIBLE);

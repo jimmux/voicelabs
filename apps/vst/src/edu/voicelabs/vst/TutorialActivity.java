@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 /**
  * Adapted from example at http://developer.android.com/guide/topics/media/audio-capture.html
@@ -27,13 +31,26 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 	
 	private ImageButton buttonRecord;
 	private ImageButton buttonPlay;
-	private Button buttonSkip;
+	private ImageButton buttonSkip;
+
 	
 	// Audio record/playback
 	private static int recordDuration = 3000;	// Maximum recording time
     private static String audioFileName = null;
     private MediaRecorder recorder = null;
     private MediaPlayer player = null;
+    
+    private AnimationDrawable recordAnim;
+    private AnimationDrawable playAnim;
+    private AnimationDrawable leoBlinkAnim;
+    
+    
+  //import fonts
+  		TextView txt_lemon = (TextView) findViewById(R.id.txt_game_3_lemon);
+  		Typeface fontMabel = Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf");  
+  		//txt_lemon.setTypeface(fontMabel);  
+ 
+    
 
     private void startPlaying() {
     	// Stop player and recorder to avoid conflicts
@@ -51,6 +68,10 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     }
 
     private void stopPlaying() {
+    	
+    	//Stop button animations - DK
+    	playAnim.stop();
+    	
     	if (this.player != null) {
     		this.player.release();
     		this.player = null;
@@ -78,7 +99,14 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     }
 
     private void stopRecording() {
+
+    	
     	if (this.recorder != null) {
+    		
+    		//Stop button animations - DK
+        	recordAnim.stop();
+        	
+    		
     		this.recorder.stop();
     		this.recorder.release();
     		this.recorder = null;
@@ -112,9 +140,12 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		
 		setContentView(R.layout.tmp_tutorial);
 		
+		//make leo blink - DK
+		leoBlinkAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonLeo, R.anim.anim_leo_blinkonly);
+		
 		this.buttonRecord = (ImageButton) findViewById(R.id.buttonRecord);
 		this.buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
-		this.buttonSkip = (Button) findViewById(R.id.buttonSkip);
+		this.buttonSkip = (ImageButton) findViewById(R.id.buttonSkip);
 		
 		this.buttonRecord.setOnTouchListener(this);
 		this.buttonPlay.setOnTouchListener(this);
@@ -126,12 +157,22 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.buttonRecord) {
+				
+				//clear image resource first to prevent dupes
+				this.buttonRecord.setImageResource(0);
+				//play record button animation
+				recordAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonRecord, R.anim.anim_record_btn);
 				// Record a sample
-				startRecording();
+				//startRecording();
 			}
 			else if (v == this.buttonPlay) {
+				
+				//clear image resource first to prevent dupes
+				 this.buttonPlay.setImageResource(0);
+				//play play button animation
+				 playAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonPlay, R.anim.anim_play_btn);
 				// Play back whatever we have recorded
-				startPlaying();
+				//startPlaying();
 			}
 			else if (v == this.buttonSkip) {
 				// Skip to the games
