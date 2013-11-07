@@ -32,7 +32,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 	private ImageButton buttonRecord;
 	private ImageButton buttonPlay;
 	private ImageButton buttonSkip;
-
+	private ImageButton buttonMenu;
 	
 	// Audio record/playback
 	private static int recordDuration = 3000;	// Maximum recording time
@@ -45,12 +45,9 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     private AnimationDrawable leoBlinkAnim;
     
     
-  //import fonts
-  		TextView txt_lemon = (TextView) findViewById(R.id.txt_game_3_lemon);
-  		Typeface fontMabel = Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf");  
-  		//txt_lemon.setTypeface(fontMabel);  
+
  
-    
+
 
     private void startPlaying() {
     	// Stop player and recorder to avoid conflicts
@@ -140,16 +137,23 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		
 		setContentView(R.layout.tmp_tutorial);
 		
+		//import fonts
+  		TextView txt_lemon = (TextView) findViewById(R.id.txt_game_3_lemon);
+  		Typeface fontMabel = Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf");  
+  		txt_lemon.setTypeface(fontMabel);  
+		
 		//make leo blink - DK
 		leoBlinkAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonLeo, R.anim.anim_leo_blinkonly);
 		
 		this.buttonRecord = (ImageButton) findViewById(R.id.buttonRecord);
 		this.buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
 		this.buttonSkip = (ImageButton) findViewById(R.id.buttonSkip);
+		this.buttonMenu = (ImageButton) findViewById(R.id.buttonMenu);
 		
 		this.buttonRecord.setOnTouchListener(this);
 		this.buttonPlay.setOnTouchListener(this);
 		this.buttonSkip.setOnTouchListener(this);
+		this.buttonMenu.setOnTouchListener(this);
 	}
 	
 	@Override
@@ -163,7 +167,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 				//play record button animation
 				recordAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonRecord, R.anim.anim_record_btn);
 				// Record a sample
-				//startRecording();
+				startRecording();
 			}
 			else if (v == this.buttonPlay) {
 				
@@ -172,12 +176,20 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 				//play play button animation
 				 playAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonPlay, R.anim.anim_play_btn);
 				// Play back whatever we have recorded
-				//startPlaying();
+				startPlaying();
 			}
 			else if (v == this.buttonSkip) {
 				// Skip to the games
 				stopPlaying();
 				stopRecording();
+				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
+	            startActivity(intent); 
+			}
+			
+			else if (v == this.buttonMenu) {
+				// Skip to the Menu
+				//stopPlaying();
+				//stopRecording();
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			}

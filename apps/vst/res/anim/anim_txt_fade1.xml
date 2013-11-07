@@ -9,16 +9,14 @@
 <alpha 
 	android:fromAlpha="0.0"
 	android:toAlpha="1.0"
-	android:startOffset="1000"
-	android:duration="500" />
+	android:startOffset="1300"
+	android:duration="200" />
 
 <translate
-   android:fromYDelta="200"
+   android:fromYDelta="400"
    android:toYDelta="0"
    android:duration="500"
    android:startOffset="1000"
-   android:repeatCount="0"
-   android:repeatMode="restart"
    android:fillEnabled="false"
    android:fillBefore="false"
    android:fillAfter="false">

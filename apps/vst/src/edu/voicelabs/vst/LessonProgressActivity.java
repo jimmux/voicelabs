@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class LessonProgressActivity extends Activity implements OnTouchListener {
 	
@@ -14,6 +15,7 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 	private ImageButton imageButtonSyllable;
 	private ImageButton imageButtonWord;
 	private ImageButton imageButtonChoose;
+	
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,10 +33,27 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 		this.imageButtonChoose.setOnTouchListener(this);
 	}
 	
+	// Show load screen, advance to start screen when ready.
+		@Override
+		public void onWindowFocusChanged(boolean hasFocus) {
+			super.onWindowFocusChanged(hasFocus);
+			
+			if (hasFocus) {
+				//start animations
+				AnimationHelper.runAlphaAnimation(this, R.id.clouds, R.anim.anim_clouds);
+				AnimationHelper.runAlphaAnimation(this, R.id.sunProgress, R.anim.anim_sun);
+				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonPhoneme, R.anim.anim_btn_red_circle1);
+				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonSyllable, R.anim.anim_btn_red_circle2);
+				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonWord, R.anim.anim_btn_red_circle3);
+				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonChoose, R.anim.anim_btn_red_circle4);
+			}
+		}	
+	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {		
 			if (v == this.imageButtonPhoneme) {
+				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonPhoneme, R.anim.anim_btn_red_circle_backwards);
 				Intent intent = new Intent(getApplicationContext(), PhonemeGameActivity.class);
 	            startActivity(intent); 
 			}

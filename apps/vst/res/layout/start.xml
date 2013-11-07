@@ -29,20 +29,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="-20dp"
-        android:cropToPadding="true"
+        android:translationY="20dp"
         android:scaleType="center"
         android:background="@drawable/anim_leo_justblink0005" />
-
-    <TextView
-        android:id="@+id/txt_phoneme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/leo_fade_in"
-        android:layout_centerHorizontal="true"
-        android:textColor="#fff"
-        android:text="Phoneme"
-        android:textSize="100sp" />
 
     <TextView
         android:id="@+id/txt_friends"
@@ -53,5 +42,25 @@
         android:textColor="#fff"
         android:text="Friends"
         android:textSize="60sp" />
+
+    <TextView
+        android:id="@+id/txt_phoneme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:text="Phoneme"
+        android:textColor="#fff"
+        android:textSize="100sp" />
+
+    <ImageView
+        android:id="@+id/obj_sun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="39dp"
+        android:layout_toLeftOf="@+id/imageButtonStart"
+        android:background="@drawable/img_obj_sun" />
 
 </RelativeLayout>
