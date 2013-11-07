@@ -4,33 +4,15 @@
     android:layout_height="wrap_content"
     android:background="@drawable/anim_splash0059" >
 
-    <ImageButton
-        android:id="@+id/imageButtonStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_start"
-        android:visibility="visible"
-        android:contentDescription="@string/start_button"
-        android:layout_above="@+id/buttonGoToDebug"
-        android:layout_centerHorizontal="true"/>
-
-    <Button
-        android:id="@+id/buttonGoToDebug"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-      	/>
-
     <ImageView
         android:id="@+id/leo_fade_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:translationY="20dp"
+        android:background="@drawable/anim_leo_justblink0005"
         android:scaleType="center"
-        android:background="@drawable/anim_leo_justblink0005" />
+        android:translationY="20dp" />
 
     <TextView
         android:id="@+id/txt_friends"
@@ -58,7 +40,25 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/txt_friends"
         android:layout_marginBottom="19dp"
-        android:layout_toRightOf="@+id/buttonGoToDebug"
         android:background="@drawable/img_obj_sun" />
+
+    <Button
+        android:id="@+id/buttonGoToSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"
+        android:text="Settings"
+        android:textColor="#FFF" />
+
+    <ImageButton
+        android:id="@+id/imageButtonStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonGoToSettings"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_start"
+        android:contentDescription="@string/start_button"
+        android:visibility="visible" />
 
 </RelativeLayout>

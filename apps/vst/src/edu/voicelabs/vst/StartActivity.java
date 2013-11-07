@@ -7,19 +7,18 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
 
 public class StartActivity extends Activity implements OnTouchListener {
 	
 	private ImageButton imageButtonStart;
-	private Button buttonGoToDebug;
+	private Button buttonGoToSettings;
 	private AnimationDrawable leoBlinkAnim;
 
 	/** Called when the activity is first created. */
@@ -35,10 +34,10 @@ public class StartActivity extends Activity implements OnTouchListener {
 		txt_friends.setTypeface(font); 
 		
 		this.imageButtonStart = (ImageButton) findViewById(R.id.imageButtonStart);
-		this.buttonGoToDebug = (Button) findViewById(R.id.buttonGoToDebug);
+		this.buttonGoToSettings = (Button) findViewById(R.id.buttonGoToSettings);
 		
 		this.imageButtonStart.setOnTouchListener(this);
-		this.buttonGoToDebug.setOnTouchListener(this);
+		this.buttonGoToSettings.setOnTouchListener(this);
 		
 		// Start loading assets
 		Utilities utils = new Utilities(getApplicationContext());
@@ -83,9 +82,9 @@ public class StartActivity extends Activity implements OnTouchListener {
 				Intent intent = new Intent(getApplicationContext(), PhonemeSelectActivity.class);
 	            startActivity(intent); 
 			}
-			else if (v == this.buttonGoToDebug) {
-				// Go to the debug screen
-				Intent intent = new Intent(getApplicationContext(), DebugScreenActivity.class);
+			else if (v == this.buttonGoToSettings) {
+				// Go to the settings screen
+				Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
 	            startActivity(intent); 
 			}
 		}
