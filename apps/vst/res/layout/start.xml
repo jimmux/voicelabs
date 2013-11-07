@@ -8,12 +8,11 @@
         android:id="@+id/imageButtonStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/btn_start"
+        android:background="@drawable/btn_start"
         android:visibility="visible"
         android:contentDescription="@string/start_button"
         android:layout_above="@+id/buttonGoToDebug"
-        android:layout_centerHorizontal="true"
-        android:background="@android:color/transparent"/>
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/buttonGoToDebug"
@@ -37,19 +36,18 @@
         android:id="@+id/txt_friends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/leo_fade_in"
         android:layout_centerHorizontal="true"
-        android:textColor="#fff"
+        android:layout_centerVertical="true"
         android:text="Friends"
-        android:textSize="60sp" />
+        android:textColor="#fff"
+        android:textSize="80sp" />
 
     <TextView
         android:id="@+id/txt_phoneme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/obj_sun"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
         android:text="Phoneme"
         android:textColor="#fff"
         android:textSize="100sp" />
@@ -58,9 +56,9 @@
         android:id="@+id/obj_sun"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="39dp"
-        android:layout_toLeftOf="@+id/imageButtonStart"
+        android:layout_above="@+id/txt_friends"
+        android:layout_marginBottom="19dp"
+        android:layout_toRightOf="@+id/buttonGoToDebug"
         android:background="@drawable/img_obj_sun" />
 
 </RelativeLayout>

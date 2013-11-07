@@ -2,9 +2,9 @@
 
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:shareInterpolator="false"
-    android:duration="40000"
+    android:duration="30000"
     android:fillAfter="true"
-    android:interpolator="@android:anim/accelerate_decelerate_interpolator" >
+    android:interpolator="@android:anim/linear_interpolator" >
 
 <alpha 
 	android:fromAlpha="1.0"
