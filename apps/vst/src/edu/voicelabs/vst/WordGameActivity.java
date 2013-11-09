@@ -12,6 +12,8 @@ public class WordGameActivity extends AbstractGameActivity {
 		maxCorrectMatches = 1;
 		maxAttempts = 3;
 		mode = Mode.WORD;
+		
+		setContentView(R.layout.word_game);
 	}
 	
 

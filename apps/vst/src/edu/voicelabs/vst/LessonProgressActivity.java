@@ -42,6 +42,9 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 				//start animations
 				AnimationHelper.runAlphaAnimation(this, R.id.clouds, R.anim.anim_clouds);
 				AnimationHelper.runAlphaAnimation(this, R.id.sunProgress, R.anim.anim_sun);
+				//if (test if user has completed lesson){
+				//AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonPhoneme, R.anim.anim_btn_red_star);
+				//}else{ 
 				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonPhoneme, R.anim.anim_btn_red_circle1);
 				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonSyllable, R.anim.anim_btn_red_circle2);
 				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonWord, R.anim.anim_btn_red_circle3);
@@ -58,14 +61,17 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 	            startActivity(intent); 
 			}
 			else if (v == this.imageButtonSyllable) {
+				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonSyllable, R.anim.anim_btn_red_circle_backwards);
 				Intent intent = new Intent(getApplicationContext(), SyllableGameActivity.class);
 	            startActivity(intent); 
 			}
 			else if (v == this.imageButtonWord) {
+				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonWord, R.anim.anim_btn_red_circle_backwards);
 				Intent intent = new Intent(getApplicationContext(), WordGameActivity.class);
 	            startActivity(intent); 
 			}
 			else if (v == this.imageButtonChoose) {
+				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonChoose, R.anim.anim_btn_red_circle_backwards);
 				Intent intent = new Intent(getApplicationContext(), ChooseGameActivity.class);
 	            startActivity(intent); 
 			}

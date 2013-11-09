@@ -59,11 +59,12 @@ public class StartActivity extends Activity implements OnTouchListener {
 			AnimationHelper.runAlphaAnimation(this, R.id.txt_phoneme, R.anim.anim_txt_fade);
 			AnimationHelper.runAlphaAnimation(this, R.id.txt_friends, R.anim.anim_txt_fade1);
 			AnimationHelper.runAlphaAnimation(this, R.id.obj_sun, R.anim.anim_sun);
+			AnimationHelper.runAlphaAnimation(this, R.id.imageButtonStart, R.anim.anim_start_btn);
 			//clear image resource first to prevent dupes
 			ImageView leofadein = (ImageView) findViewById(R.id.leo_fade_in); 
 			
 			leofadein.setBackgroundResource(0);
-			AnimationHelper.runAlphaAnimation(this, R.id.buttonStart, R.anim.anim_start_btn);
+			
 			
 			this.leoBlinkAnim = AnimationHelper.runKeyframeAnimation(this, R.id.leo_fade_in, R.anim.anim_leo_blinkonly);
 			//imageButtonStart.setVisibility(View.INVISIBLE);

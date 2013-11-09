@@ -2,7 +2,6 @@
 
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:shareInterpolator="false"
-    android:duration="2500"
     android:fillAfter="true"
     android:interpolator="@android:anim/accelerate_decelerate_interpolator" >
 
@@ -16,7 +15,7 @@
    android:fromYDelta="200%"
    android:toYDelta="0%"
    android:duration="500"
-   android:startOffset="2000"
+   android:startOffset="1700"
    android:fillEnabled="false"
    android:fillBefore="false"
    android:fillAfter="false">
