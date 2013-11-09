@@ -3,5 +3,5 @@
 <alpha xmlns:android="http://schemas.android.com/apk/res/android"
 android:fromAlpha="0.0"
 android:toAlpha="1.0"
-android:startOffset="4000"
-android:duration="500" />
+android:startOffset="2000"
+android:duration="1500" />

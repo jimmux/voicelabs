@@ -5,12 +5,12 @@
     android:background="@drawable/bg_blue_wash" >
 
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/menuLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="30dp"
-        android:background="#aaaaaaaa"
+        android:background="#99999999"
         android:orientation="horizontal" >
 
         <ImageButton
@@ -34,19 +34,17 @@
             android:src="@drawable/btn_skip" />
 
     </LinearLayout>
-
+    
     <ImageButton
-        android:id="@+id/buttonLeo"
+        android:id="@+id/buttonStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:translationY="50dp"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        android:background="@drawable/anim_leo_justblink0001"
+        android:translationY="20dp"
+        android:background="@drawable/anim_leo_justblink0001_1"
         android:visibility="visible" />
-
+    
     <ImageButton
         android:id="@+id/btn_lamb"
         android:layout_width="wrap_content"
@@ -58,99 +56,93 @@
         android:scaleY="0.5" />
 
     <ImageButton
-        android:id="@+id/btn_leg"
+        android:id="@+id/buttonRecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/linearLayout1"
-        android:background="@drawable/img_obj_lemon"
-        android:scaleX="0.5"
-        android:scaleY="0.5" />
-
-
+        android:layout_alignTop="@+id/btn_leg"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/anim_btn_speak0001"
+        android:minHeight="170dp"
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        android:visibility="invisible" />
 
     <ImageButton
         android:id="@+id/btn_lemon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout1"
+        android:layout_below="@+id/menuLayout"
+        android:layout_marginTop="23dp"
         android:background="@drawable/img_obj_lemon"
         android:scaleX="0.5"
         android:scaleY="0.5" />
-
-
-
+   <ImageButton
+       android:id="@+id/btn_lettuce"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:layout_alignParentLeft="true"
+       android:background="@drawable/img_obj_lettuce"
+       android:scaleX="0.5"
+       android:scaleY="0.5" />
     <ImageButton
-        android:id="@+id/btn_play1"
+        android:id="@+id/btn_leg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/btn_lemon"
-        android:layout_marginTop="21dp"
-        android:layout_toLeftOf="@+id/buttonLeo"
-        android:background="@drawable/anim_btn_play0004"
-        android:minHeight="170dp"
-        android:scaleX="0.4"
-        android:scaleY="0.4"
-        android:visibility="visible" />
-
-    <ImageButton
-        android:id="@+id/btn_play3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btn_play1"
-        android:layout_below="@+id/btn_lemon"
-        android:background="@drawable/anim_btn_play0004"
-        android:minHeight="170dp"
-        android:scaleX="0.4"
-        android:scaleY="0.4"
-        android:visibility="invisible" />
-
-    <ImageButton
-        android:id="@+id/btn_play2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btn_play1"
-        android:layout_toRightOf="@+id/buttonLeo"
-        android:background="@drawable/anim_btn_play0004"
-        android:minHeight="170dp"
-        android:scaleX="0.4"
-        android:scaleY="0.4"
-        android:visibility="invisible" />
-
-    <ImageButton
-        android:id="@+id/buttonRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/buttonLeo"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_marginRight="51dp"
-        android:background="@drawable/anim_btn_speak0001"
-        android:minHeight="170dp"
-        android:scaleX="0.6"
-        android:scaleY="0.6"
-        android:visibility="visible" />
-
-    <ImageButton
-        android:id="@+id/btn_lettuce"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:background="@drawable/img_obj_lemon"
         android:scaleX="0.5"
         android:scaleY="0.5" />
 
-    <ImageButton
-        android:id="@+id/btn_play4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btn_play3"
-        android:layout_toRightOf="@+id/buttonLeo"
-        android:background="@drawable/anim_btn_play0004"
-        android:minHeight="170dp"
-        android:scaleX="0.4"
-        android:scaleY="0.4"
-        android:visibility="invisible" />
+   <ImageButton
+       android:id="@+id/btn_play_1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_above="@+id/btn_lamb"
+       android:layout_alignLeft="@+id/btn_play_2"
+       android:background="@drawable/anim_btn_play0004"
+       android:minHeight="170dp"
+       android:scaleX="0.4"
+       android:scaleY="0.4"
+       android:visibility="invisible" />
+
+   <ImageButton
+       android:id="@+id/btn_play_3"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/btn_play_4"
+       android:layout_alignTop="@+id/btn_play_1"
+       android:background="@drawable/anim_btn_play0004"
+       android:minHeight="170dp"
+       android:scaleX="0.4"
+       android:scaleY="0.4"
+       android:visibility="invisible" />
+
+   <ImageButton
+       android:id="@+id/btn_play_2"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:layout_toLeftOf="@+id/buttonStart"
+       android:background="@drawable/anim_btn_play0004"
+       android:minHeight="170dp"
+       android:scaleX="0.4"
+       android:scaleY="0.4"
+       android:visibility="invisible" />
+
+   <ImageButton
+       android:id="@+id/btn_play_4"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:layout_marginLeft="21dp"
+       android:layout_toRightOf="@+id/buttonStart"
+       android:background="@drawable/anim_btn_play0004"
+       android:minHeight="170dp"
+       android:scaleX="0.4"
+       android:scaleY="0.4"
+       android:visibility="invisible" />
 
 </RelativeLayout>

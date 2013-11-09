@@ -12,6 +12,8 @@ public class SyllableGameActivity extends AbstractGameActivity {
 		maxCorrectMatches = 3;
 		maxAttempts = 6;
 		mode = Mode.SYLLABLE;
+		
+		setContentView(R.layout.syllable_game);
 	}
 	
 
