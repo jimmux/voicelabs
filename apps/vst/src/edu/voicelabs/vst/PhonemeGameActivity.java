@@ -85,7 +85,12 @@ public class PhonemeGameActivity extends AbstractGameActivity {
 			
 			else if (v == this.buttonStart) {
 				// Start the game
-
+				
+				//Show text
+				
+				//Playback sound
+				
+				//
 				
 			
 			}
