@@ -15,6 +15,15 @@ public class WordGameActivity extends AbstractGameActivity {
 	private ImageButton buttonMenu;
 	private ImageButton buttonStart;
 	
+	private ImageButton buttonPlay;
+	private ImageButton wordObject;
+	private TextView txtLabel;
+	
+	//Objects
+	private ImageButton objLemon;
+	private ImageButton objLettuce;
+
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -39,6 +48,15 @@ public class WordGameActivity extends AbstractGameActivity {
 		//click on the object to start the game
 		this.buttonStart = (ImageButton) findViewById(R.id.btn_game3_obj);	
 		this.buttonStart.setOnTouchListener(this);
+		
+		//playback button
+		this.buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
+		
+		//text Label
+		this.txtLabel = (TextView) findViewById(R.id.txt_game_3);
+		
+		//word object
+		this.wordObject = (ImageButton) findViewById(R.id.btn_game3_obj); 
 	
 	}
 	
@@ -80,8 +98,41 @@ public class WordGameActivity extends AbstractGameActivity {
 			}
 			
 			else if (v == this.buttonStart) {
-				// Start the game
-
+// Start the game
+				
+//Play Object sound
+				
+//Playing animation
+//Animate Playback icon while sound is playing
+//first unhide playback icon
+				
+				
+				final boolean playbackVisible = buttonPlay.isShown();
+				
+				if (playbackVisible == false){
+					// Play sound
+					buttonPlay.setVisibility(View.VISIBLE);
+					AnimationHelper.runKeyframeAnimation(this, R.id.buttonPlay, R.anim.anim_play_btn);
+					System.out.println("turned on");
+					
+				}else {
+					// Stop sound
+					buttonPlay.setVisibility(View.INVISIBLE);
+					System.out.println("turned off");
+				}
+//Start voice recognition (WORD)
+				
+//speaking animation
+				
+//if voice recognition success then 				
+//move to next object
+				
+//swap item and text for next item
+				this.wordObject.setBackgroundResource(R.drawable.img_obj_lettuce);
+				this.txtLabel.setText("Lettuce");
+//else if voice recognition unsuccessful then go back to start of object 
+				
+				
 				
 			
 			}
