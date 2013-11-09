@@ -7,12 +7,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.view.ViewGroup;
 import edu.voicelabs.vst.RecognizerTask.Mode;
 
 abstract class AbstractGameActivity extends Activity implements OnTouchListener, RecognitionListener {
@@ -21,37 +17,26 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	static {System.loadLibrary("pocketsphinx_jni");}
 	RecognizerTask rec;
 	Thread rec_thread;
-//	Date start_date;
 	float speech_dur;
 	boolean listening;
 	
 	private int successCount = 0;		// Keep track of how many successes had so far.
 	private boolean gotResult = false; 	// Flag for prevention of multiple completion states.
-
-	// Layout elements
-	protected RelativeLayout gameLayout;		//
-	protected TextView textViewMessage;
-	protected Button buttonStart;
 	
-	// To be set by children
+	// To be set by children - todo: replace with abstract getters
 	protected String subPattern = "";		// Determines what we are looking for, e.g. "L", "L-AH", "LOLLY"
 	protected int maxCorrectMatches = 1;	// Number of matches to consider it a successful attempt
 	protected int maxAttempts = 6;			// When this number of attempts is detected, consider the exercise failed
 	protected Mode mode = Mode.WORD;		// Matching mode to use, PHONEME, SYLLABLE, or WORD
 	
+	abstract protected ViewGroup getGameLayout();	// Children to return the ViewGroup (usually the top level layout) containing all updateable UI elements
 	abstract protected void fullSuccess(AbstractGameActivity activityToUpdate);
 	abstract protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount);
 	abstract protected void fullAttempts(AbstractGameActivity activityToUpdate);
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.practice_game);
-		
-		this.gameLayout = (RelativeLayout) findViewById(R.id.game_layout);
-		this.textViewMessage = (TextView) findViewById(R.id.textViewMessage);	
-		this.buttonStart = (Button) findViewById(R.id.buttonStart);	
-		this.textViewMessage.setOnTouchListener(this);	
-		this.buttonStart.setOnTouchListener(this);	
+		//setContentView(R.layout.practice_game);
 		
 		// Set up speech recognition
 		this.rec = new RecognizerTask(getApplicationContext(), mode);
@@ -73,39 +58,24 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 		this.rec.shutdown();		
 	}
 	
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		if (event.getAction() == MotionEvent.ACTION_UP) {
-			if (v == this.buttonStart) {
-				runGame();
-			}
-		}	
-		return false;
-	}
-	
-	private void runGame() {
-		this.textViewMessage.setText("Say 'L' three times");
-		
+	protected void runGame() {		
 		this.successCount = 0;
 		this.gotResult = false;
-		
-//		this.start_date = new Date();
 		this.listening = true;
 		this.rec.start();
 	}
 	
 	
-	/** Called when partial results are generated. */
+	/** Called when partial results are generated. */	//Todo: sometimes gets all partial results, then reverts to a version with less than final results and gets stuck
 	public void onPartialResults(Bundle b) {
 		final AbstractGameActivity that = this;
 		final String hyp = b.getString("hyp");
-		//that.textViewMessage.post(new Runnable() {
-		that.gameLayout.post(new Runnable() {
+		that.getGameLayout().post(new Runnable() {
 			public void run() {		
-				Pattern successPattern = Pattern.compile("\\bL(-|\\b)");
+				Pattern successPattern = Pattern.compile("\\bL(-|\\b)");	//Todo: generalise for other matches
 				Pattern attemptPattern = Pattern.compile("\\b[A-Z]");
 				int count;
-				String speech = (hyp == null) ? "" : hyp;
+				String speech = (hyp == null) ? "" : hyp;				
 				
 				Matcher successMatcher = successPattern.matcher(speech);
 				count = 0;
@@ -115,18 +85,21 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 				}
 				// count can revert, so go with the max count found so far (or update)
 				if (count > that.successCount) {
-					successCount = count;
-				}
-				if (successCount < maxCorrectMatches) {
-					Log.d(getClass().getName(), "*** Partial success with count: " + successCount);
-					partSuccess(that, successCount);
-				}
-				else if (!gotResult) {
-					gotResult = true;
-					that.rec.stop();
-					Log.d(getClass().getName(), "*** Found enough results");
-					fullSuccess(that);
-					return;
+					successCount = count;		
+
+					if (successCount < maxCorrectMatches) {
+						that.rec.stop();	// Stop while acting on result, to avoid interference if speech is used
+						Log.d(getClass().getName(), "*** Partial success with count: " + successCount);
+						partSuccess(that, successCount);
+						that.rec.start();
+					}
+					else if (!gotResult) {
+						gotResult = true;
+						that.rec.stop();
+						Log.d(getClass().getName(), "*** Found enough results");
+						fullSuccess(that);
+						return;
+					}
 				}
 				
 				// Check for the maximum number of attempts
@@ -162,52 +135,12 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	 * May be called by a child class, if it is the last in the lesson.
 	 * Shows a custom dialog completion screen, then returns to the phoneme select
 	 * screen after a short period of time, or when touched.
-	 * 
-	 * Adapted from instructions at http://www.helloandroid.com/tutorials/how-display-custom-dialog-your-android-application
 	 */
 	protected void runLessonCompletion() {		
-		
-
 		Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
-        startActivity(intent); 
-		
-//        LayoutInflater inflater = (LayoutInflater) AbstractGameActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View layout = inflater.inflate(
-//        	R.layout.lesson_complete, 
-//        	(ViewGroup) findViewById(R.id.lesson_complete)
-//        );
-//        PopupWindow pw = new PopupWindow(layout, 300, 470, true);
-//        pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-//        
-//        layout.setOnClickListener(completeScreenClickListener);	
-		
-		
-		//set up dialog
-//        Dialog dialog = new Dialog(AbstractGameActivity.this);
-//        dialog.setContentView(R.layout.lesson_complete);
-        //dialog.setTitle("This is my custom dialog box");
-        //dialog.setCancelable(true);
-        //there are a lot of settings, for dialog, check them all out!
-
-//		LayoutInflater inflater = (LayoutInflater) AbstractGameActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//		View layout = inflater.inflate(
-//			R.layout.lesson_complete, 
-//		 	(ViewGroup) findViewById(R.id.lesson_complete)
-//		);
-//		layout.setOnClickListener(completeScreenClickListener);	
-		
-		//now that the dialog is set up, it's time to show it    
-//		dialog.show();
-		
-		
+        startActivity(intent); 		
 	}
-//	private OnClickListener completeScreenClickListener = new OnClickListener() {
-//	    public void onClick(View v) {	    	
-//			Intent intent = new Intent(getApplicationContext(), PhonemeSelectActivity.class);
-//            startActivity(intent); 
-//	    }
-//	};
-
+	
 }
 
 

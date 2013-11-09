@@ -25,10 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="DebugScreenActivity"
-            android:screenOrientation="landscape" >
-
-        </activity>
         <activity android:name="PhonemeSelectActivity" android:screenOrientation="landscape"></activity>
         <activity android:name="PhonemeGameActivity" android:screenOrientation="landscape"></activity>
         <activity android:name="LessonProgressActivity" android:screenOrientation="landscape"></activity>
@@ -37,7 +33,7 @@
         <activity android:name="ChooseGameActivity" android:screenOrientation="landscape"></activity>
         <activity android:name="LessonCompleteActivity" android:screenOrientation="landscape"></activity>
         <activity android:name="TutorialActivity" android:screenOrientation="landscape"></activity>
-        <activity android:name="SettingsActivity"></activity>
+        <activity android:name="SettingsActivity" android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

@@ -1,16 +1,22 @@
 package edu.voicelabs.vst;
 
-import edu.voicelabs.vst.RecognizerTask.Mode;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import edu.voicelabs.vst.RecognizerTask.Mode;
 
-public class SyllableGameActivity extends AbstractGameActivity {
+public class SyllableGameActivity extends AbstractGameActivity implements OnTouchListener {
 	
+	// Layout elements
+	protected RelativeLayout gameLayout;	
+
 	//menu
 	private ImageButton buttonSkip;
 	private ImageButton buttonMenu;
@@ -48,20 +54,34 @@ public class SyllableGameActivity extends AbstractGameActivity {
 
 	}
 	
+	protected ViewGroup getGameLayout() {
+		return (ViewGroup) findViewById(R.id.game_layout);
+	}
+	
+//	@Override
+//	public boolean onTouch(View v, MotionEvent event) {
+//		if (event.getAction() == MotionEvent.ACTION_UP) {
+//			if (v == this.buttonStart) {
+//				this.textViewMessage.setText("Say 'L' three times");
+//				runGame();
+//			}
+//		}	
+//		return false;
+//	}
 
 	protected void fullSuccess(AbstractGameActivity activityToUpdate) {
-		SyllableGameActivity that = (SyllableGameActivity)activityToUpdate;
-		that.textViewMessage.setText("Got all the matches!");
+		SyllableGameActivity that = (SyllableGameActivity) activityToUpdate;
+//		that.textViewMessage.setText("Got all the matches!");
 	}
 	
 	protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount) {
-		SyllableGameActivity that = (SyllableGameActivity)activityToUpdate;
-		that.textViewMessage.setText("Matched " + successCount + " times!");
+		SyllableGameActivity that = (SyllableGameActivity) activityToUpdate;
+//		that.textViewMessage.setText("Matched " + successCount + " times!");
 	}
 	
 	protected void fullAttempts(AbstractGameActivity activityToUpdate) {
-		SyllableGameActivity that = (SyllableGameActivity)activityToUpdate;
-		that.textViewMessage.setText("Press Start to try again.");
+		SyllableGameActivity that = (SyllableGameActivity) activityToUpdate;
+//		that.textViewMessage.setText("Press Start to try again.");
 	}
 	
 	@Override
@@ -86,6 +106,7 @@ public class SyllableGameActivity extends AbstractGameActivity {
 			
 			else if (v == this.buttonStart) {
 				// Start the game
+				runGame();
 				
 				//Show text
 				

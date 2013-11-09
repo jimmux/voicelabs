@@ -1,13 +1,19 @@
 package edu.voicelabs.vst;
 
-import edu.voicelabs.vst.RecognizerTask.Mode;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import edu.voicelabs.vst.RecognizerTask.Mode;
 
-public class ChooseGameActivity extends AbstractGameActivity {
+public class ChooseGameActivity extends AbstractGameActivity implements OnTouchListener {
+	// Layout elements
+	protected RelativeLayout gameLayout;	
+
 	//menu
 	private ImageButton buttonSkip;
 	private ImageButton buttonMenu;
@@ -28,6 +34,7 @@ public class ChooseGameActivity extends AbstractGameActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		// Basic inherited fields to set
 		subPattern = "L";
 		maxCorrectMatches = 1;
 		maxAttempts = 3;
@@ -62,21 +69,35 @@ public class ChooseGameActivity extends AbstractGameActivity {
 
 	}
 	
+	protected ViewGroup getGameLayout() {
+		return (ViewGroup) findViewById(R.id.game_layout);
+	}
+	
+//	@Override
+//	public boolean onTouch(View v, MotionEvent event) {
+//		if (event.getAction() == MotionEvent.ACTION_UP) {
+//			if (v == this.buttonStart) {
+//				this.textViewMessage.setText("Say 'L' three times");
+//				runGame();
+//			}
+//		}	
+//		return false;
+//	}	
 
 	protected void fullSuccess(AbstractGameActivity activityToUpdate) {
 		ChooseGameActivity that = (ChooseGameActivity)activityToUpdate;
-		that.textViewMessage.setText("Got all the matches!");
+		//that.textViewMessage.setText("Got all the matches!");
 		runLessonCompletion();		// Last game, so return to select screen
 	}
 	
 	protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount) {
 		ChooseGameActivity that = (ChooseGameActivity)activityToUpdate;
-		that.textViewMessage.setText("Matched " + successCount + " times!");
+		//that.textViewMessage.setText("Matched " + successCount + " times!");
 	}
 	
 	protected void fullAttempts(AbstractGameActivity activityToUpdate) {
 		ChooseGameActivity that = (ChooseGameActivity)activityToUpdate;
-		that.textViewMessage.setText("Press Start to try again.");
+		//that.textViewMessage.setText("Press Start to try again.");
 	}
 	
 	@Override
