@@ -15,6 +15,7 @@ public class PhonemeGameActivity extends AbstractGameActivity {
 	//menu
 	private ImageButton buttonSkip;
 	private ImageButton buttonMenu;
+	private ImageButton buttonStart;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,6 +27,11 @@ public class PhonemeGameActivity extends AbstractGameActivity {
 		
 		setContentView(R.layout.phoneme_game);
 		
+		//import fonts
+		TextView txt_phoneme = (TextView) findViewById(R.id.txt_game1_l);
+		Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf");  
+		txt_phoneme.setTypeface(font);  
+		
 		//menu
 		this.buttonSkip = (ImageButton) findViewById(R.id.buttonSkip);
 		this.buttonMenu = (ImageButton) findViewById(R.id.buttonMenu);
@@ -33,10 +39,10 @@ public class PhonemeGameActivity extends AbstractGameActivity {
 		this.buttonSkip.setOnTouchListener(this);
 		this.buttonMenu.setOnTouchListener(this);
 		
-		//import fonts
-		TextView txt_phoneme = (TextView) findViewById(R.id.txt_game1_l);
-		Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf");  
-		txt_phoneme.setTypeface(font);  
+		//click on leo to start the game
+		this.buttonStart = (ImageButton) findViewById(R.id.buttonStart);	
+		this.buttonStart.setOnTouchListener(this);
+		
 		
 	}
 	
@@ -74,6 +80,13 @@ public class PhonemeGameActivity extends AbstractGameActivity {
 
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
+			
+			}
+			
+			else if (v == this.buttonStart) {
+				// Start the game
+
+				
 			
 			}
 		

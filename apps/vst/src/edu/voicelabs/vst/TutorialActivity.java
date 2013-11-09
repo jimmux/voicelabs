@@ -123,12 +123,11 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		//make leo blink - DK
 		//leoBlinkAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonLeo, R.anim.anim_leo_blinkonly);
 		
-<<<<<<< HEAD
+
 		
 		this.buttonRecord = (ImageButton) findViewById(R.id.buttonRecord);
-=======
 		//this.buttonRecord = (ImageButton) findViewById(R.id.buttonRecord);
->>>>>>> dk_new_views
+
 		this.buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
 		this.buttonSkip = (ImageButton) findViewById(R.id.buttonSkip);
 		this.buttonMenu = (ImageButton) findViewById(R.id.buttonMenu);
