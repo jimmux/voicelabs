@@ -73,16 +73,6 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		return (ViewGroup) findViewById(R.id.game_layout_feed);
 	}
 	
-//	@Override
-//	public boolean onTouch(View v, MotionEvent event) {
-//		if (event.getAction() == MotionEvent.ACTION_UP) {
-//			if (v == this.buttonStart) {
-//				this.textViewMessage.setText("Say 'L' three times");
-//				runGame();
-//			}
-//		}	
-//		return false;
-//	}	
 
 	protected void fullSuccess(AbstractGameActivity activityToUpdate) {
 		ChooseGameActivity that = (ChooseGameActivity)activityToUpdate;
