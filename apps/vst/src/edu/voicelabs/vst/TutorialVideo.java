@@ -36,8 +36,5 @@ public class TutorialVideo extends Activity {
         videoView.setVideoURI(uri);
         videoView.start();
         
-		
-//		MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.tutorial_intro);
-//		mediaPlayer.start();
 	}
 }
