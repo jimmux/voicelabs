@@ -116,9 +116,9 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		setContentView(R.layout.tutorial);
 		
 		//import fonts
-  		TextView txt_lemon = (TextView) findViewById(R.id.txt_game_3_lemon);
+/*  		TextView txt_lemon = (TextView) findViewById(R.id.txt_game_3_lemon);
   		Typeface fontMabel = Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf");  
-  		txt_lemon.setTypeface(fontMabel);  
+  		txt_lemon.setTypeface(fontMabel);  */
 		
 		//make leo blink - DK
 		//leoBlinkAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonLeo, R.anim.anim_leo_blinkonly);

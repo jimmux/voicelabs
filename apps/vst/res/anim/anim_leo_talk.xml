@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:drawable="@drawable/anim_leo_talk0001" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0002" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0003" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0004" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0005" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0006" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0007" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0008" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0009" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0010" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0011" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0012" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0013" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0014" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0015" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0016" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0017" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0018" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0019" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0020" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0021" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0022" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0023" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0024" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0025" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0026" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0027" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0028" android:duration="20"/>
+    <item android:drawable="@drawable/anim_leo_talk0029" android:duration="20"/>
+
+
+</animation-list>
