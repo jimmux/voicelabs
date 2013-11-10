@@ -42,21 +42,13 @@
         android:layout_marginBottom="19dp"
         android:background="@drawable/img_obj_sun" />
 
-    <Button
-        android:id="@+id/buttonGoToSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/transparent"
-        android:text="Settings"
-        android:textColor="#FFF" />
-
     <ImageButton
         android:id="@+id/imageButtonStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonGoToSettings"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:translationY="-40dp"
         android:background="@drawable/btn_start"
         android:contentDescription="@string/start_button"
         android:visibility="visible" />

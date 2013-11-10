@@ -34,10 +34,10 @@ public class StartActivity extends Activity implements OnTouchListener {
 		txt_friends.setTypeface(font); 
 		
 		this.imageButtonStart = (ImageButton) findViewById(R.id.imageButtonStart);
-		this.buttonGoToSettings = (Button) findViewById(R.id.buttonGoToSettings);
+//		this.buttonGoToSettings = (Button) findViewById(R.id.buttonGoToSettings);
 		
 		this.imageButtonStart.setOnTouchListener(this);
-		this.buttonGoToSettings.setOnTouchListener(this);
+//		this.buttonGoToSettings.setOnTouchListener(this);
 		
 		// Start loading assets
 		Utilities utils = new Utilities(getApplicationContext());
@@ -83,11 +83,11 @@ public class StartActivity extends Activity implements OnTouchListener {
 				Intent intent = new Intent(getApplicationContext(), PhonemeSelectActivity.class);
 	            startActivity(intent); 
 			}
-			else if (v == this.buttonGoToSettings) {
-				// Go to the settings screen
-				Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-	            startActivity(intent); 
-			}
+//			else if (v == this.buttonGoToSettings) {
+//				// Go to the settings screen
+//				Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+//	            startActivity(intent); 
+//			}
 		}
 		
 		return false;

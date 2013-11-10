@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_blue_wash" >
@@ -43,48 +42,29 @@
         android:layout_centerHorizontal="true"
         android:translationY="20dp"
         android:visibility="visible"
-        android:background="@drawable/anim_leo_justblink0001" />
+        android:background="@drawable/anim_leo_justblink0001_1" />
 
-    <ImageButton
-        android:id="@+id/btn_game3_lemon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/img_obj_lemon"
-        android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/txt_game_3_lemon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp"
-        android:layout_centerHorizontal="true"
-        android:text="Lemon"
-        android:visibility="invisible" 
-        android:textColor="#fff"
-        android:textSize="60sp" />
 
     <ImageButton
         android:id="@+id/buttonRecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txt_game_3_lemon"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="80dp"
-        android:layout_toRightOf="@+id/buttonLeo"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="100dp"
+        android:layout_alignParentRight="true"
         android:background="@drawable/anim_btn_speak0001"
         android:minHeight="170dp"
+        android:scaleX="-1"
         android:visibility="visible" />
 
     <ImageButton
         android:id="@+id/buttonPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/buttonRecord"
-        android:layout_marginRight="80dp"
-        android:layout_toLeftOf="@+id/buttonLeo"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="100dp"
         android:background="@drawable/anim_btn_play0001"
         android:minHeight="170dp"
         android:visibility="visible" />
