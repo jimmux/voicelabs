@@ -34,10 +34,11 @@ public class StartActivity extends Activity implements OnTouchListener {
 		txt_friends.setTypeface(font); 
 		
 		this.imageButtonStart = (ImageButton) findViewById(R.id.imageButtonStart);
-//		this.buttonGoToSettings = (Button) findViewById(R.id.buttonGoToSettings);
+		//this.buttonGoToSettings = (Button) findViewById(R.id.buttonGoToSettings);
+		//this.buttonGoToSettings.setTypeface(font);
 		
 		this.imageButtonStart.setOnTouchListener(this);
-//		this.buttonGoToSettings.setOnTouchListener(this);
+		//this.buttonGoToSettings.setOnTouchListener(this);
 		
 		// Start loading assets
 		Utilities utils = new Utilities(getApplicationContext());

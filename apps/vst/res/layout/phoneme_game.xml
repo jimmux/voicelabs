@@ -72,4 +72,14 @@
         android:minWidth="200dp"
         android:visibility="invisible" />
 
+    <ImageView
+        android:id="@+id/imageViewSpeak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/menuLayout"
+        android:layout_marginRight="21dp"
+        android:layout_marginTop="26dp"
+        android:src="@drawable/anim_btn_speak0001" />
+
 </RelativeLayout>

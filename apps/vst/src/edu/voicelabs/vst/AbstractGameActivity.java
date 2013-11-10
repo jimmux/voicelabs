@@ -72,7 +72,8 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 		final String hyp = b.getString("hyp");
 		that.getGameLayout().post(new Runnable() {
 			public void run() {		
-				Pattern successPattern = Pattern.compile("\\bL(-|\\b)");	//Todo: generalise for other matches
+				//Pattern successPattern = Pattern.compile("\\bL(-|\\b)");	//Todo: generalise for other matches
+				Pattern successPattern = Pattern.compile("\\b" + that.subPattern + "(-|\\b)");	//Todo: generalise for other matches
 				Pattern attemptPattern = Pattern.compile("\\b[A-Z]");
 				int count;
 				String speech = (hyp == null) ? "" : hyp;				
@@ -80,21 +81,21 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 				Matcher successMatcher = successPattern.matcher(speech);
 				count = 0;
 				// Count how many successful matches we have
-				while (successMatcher.find() && (count < maxCorrectMatches)) {
+				while (successMatcher.find() && (count < that.maxCorrectMatches)) {
 					count++;
 				}
 				// count can revert, so go with the max count found so far (or update)
 				if (count > that.successCount) {
-					successCount = count;		
+					that.successCount = count;		
 
-					if (successCount < maxCorrectMatches) {
+					if (that.successCount < that.maxCorrectMatches) {
 						that.rec.stop();	// Stop while acting on result, to avoid interference if speech is used
-						Log.d(getClass().getName(), "*** Partial success with count: " + successCount);
-						partSuccess(that, successCount);
+						Log.d(getClass().getName(), "*** Partial success with count: " + that.successCount);
+						partSuccess(that, that.successCount);
 						that.rec.start();
 					}
-					else if (!gotResult) {
-						gotResult = true;
+					else if (!that.gotResult) {
+						that.gotResult = true;
 						that.rec.stop();
 						Log.d(getClass().getName(), "*** Found enough results");
 						fullSuccess(that);
@@ -107,8 +108,8 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 				count = 0;
 				while (attemptMatcher.find()) {
 					count++;
-					if ((count > maxAttempts) && (!gotResult)) {
-						gotResult = true;
+					if ((count > that.maxAttempts) && (!that.gotResult)) {
+						that.gotResult = true;
 						that.rec.stop();
 						Log.d(getClass().getName(), "*** Ran out of attempts");
 						fullAttempts(that);
@@ -139,6 +140,16 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	protected void runLessonCompletion() {		
 		Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
         startActivity(intent); 		
+	}
+	
+	/**
+	 * May be useful when doing extended recognition, to avoid overflows in the recognizer
+	 */
+	protected void wipeRecognizer() {
+		this.rec = new RecognizerTask(getApplicationContext(), mode);
+		this.rec_thread = new Thread(this.rec);
+		this.rec.setRecognitionListener(this);
+		this.rec_thread.start();	
 	}
 	
 }

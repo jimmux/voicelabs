@@ -70,7 +70,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	}
 	
 	protected ViewGroup getGameLayout() {
-		return (ViewGroup) findViewById(R.id.game_layout);
+		return (ViewGroup) findViewById(R.id.game_layout_feed);
 	}
 	
 //	@Override
