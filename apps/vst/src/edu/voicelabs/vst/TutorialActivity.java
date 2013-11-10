@@ -1,13 +1,15 @@
 package edu.voicelabs.vst;
 
+import java.io.File;
 import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.media.MediaRecorder.OnInfoListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -15,7 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.VideoView;
 
 /**
  * Adapted from example at http://developer.android.com/guide/topics/media/audio-capture.html
@@ -40,7 +42,11 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     
     private AnimationDrawable recordAnim;
     private AnimationDrawable playAnim;
-    private AnimationDrawable leoBlinkAnim;
+    //private AnimationDrawable leoBlinkAnim;
+
+	private VideoView videoView;	
+	
+	private boolean videoPlayed = false;	// Help to only control the video once
 
     // The activity will always be in one of these three states
     private static enum InteractionState {RECORD, PLAY, IDLE};
@@ -48,18 +54,22 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     
     // Set the state to transition to
     private void setState(InteractionState newState) {
-    	// Cancel any current playing or recording (effectively set to IDLE conditions)    	
+        Log.e(getClass().getName(), "*** Switching state from " + this.state + " to " + newState);
+    	
+    	// Cancel any current playing or recording (effectively set to IDLE conditions)
     	switch (this.state) {
     	case RECORD:
-        	recordAnim.stop();
+        	this.recordAnim.stop();
     		this.recorder.stop();
     		this.recorder.release();
     		this.recorder = null;
+    		break;
     	case PLAY:
-        	playAnim.stop();
+        	this.playAnim.stop();
 			this.player.stop();
 			this.player.release();
 			this.player = null;  
+			break;
     	case IDLE:
     		// Nothing to do
     	}
@@ -73,23 +83,46 @@ public class TutorialActivity extends Activity implements OnTouchListener {
         	this.recorder.setOutputFile(audioFileName);
         	this.recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         	this.recorder.setMaxDuration(recordDuration);
+        	// Stop things when the maximum duration is reached
+        	this.recorder.setOnInfoListener(new MediaRecorder.OnInfoListener() {
+			    @Override
+			    public void onInfo(MediaRecorder mr, int what, int extra) {                     
+			        if (what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED) {
+			            setState(InteractionState.IDLE);
+			        }          
+			    }
+			});
             try {
             	this.recorder.prepare();
             } catch (IOException e) {
-                Log.e(getClass().getName(), "prepare() failed");
+                Log.e(getClass().getName(), "recording prepare() failed");
             }
             this.recorder.start();
+            this.recordAnim.start();
+            break;
     	case PLAY:
-          this.player = new MediaPlayer();
-          try {
-          	this.player.setDataSource(audioFileName);
-          	this.player.prepare();
-          	this.player.start();
-          } catch (IOException e) {
-              Log.e(getClass().getName(), "prepare() failed");
-          }
+    		if (!(new File(audioFileName)).exists()) {
+    			break;
+    		}    		
+		    this.player = new MediaPlayer();
+        	// Stop things when the sample finishes playing
+		    this.player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+	            @Override
+	            public void onCompletion(MediaPlayer mp) {
+	            	setState(InteractionState.IDLE);
+	            }
+			});
+		    try {
+		    	this.player.setDataSource(audioFileName);
+		    	this.player.prepare();
+		    } catch (IOException e) {
+		    	Log.e(getClass().getName(), "playing prepare() failed");
+		    }
+	    	this.player.start();
+	    	this.playAnim.start();
+		    break;
     	case IDLE:
-    		// Nothing to do	
+    		// Nothing to do
     	}
     	this.state = newState;  		
     }
@@ -122,6 +155,9 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		
 		//make leo blink - DK
 		//leoBlinkAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonLeo, R.anim.anim_leo_blinkonly);
+
+		this.videoView = (VideoView) findViewById(R.id.tutorialVideo);	
+		this.videoView.setVisibility(View.VISIBLE);
 				
 		this.buttonRecord = (ImageButton) findViewById(R.id.buttonRecord);
 		this.buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
@@ -132,27 +168,66 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		this.buttonPlay.setOnTouchListener(this);
 		this.buttonSkip.setOnTouchListener(this);
 		this.buttonMenu.setOnTouchListener(this);
+		this.videoView.setOnTouchListener(this);
+		
+
+		this.recordAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonRecord, R.anim.anim_record_btn);
+		this.recordAnim.stop();
+		this.playAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonPlay, R.anim.anim_play_btn);
+		this.playAnim.stop();
 		
 		setState(InteractionState.IDLE);
+	}
+	
+	// Show video, advance to interactive part when complete
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		
+		if (videoPlayed) {
+			return;
+		}
+		
+		if (hasFocus) {						
+	        StringBuilder uriPathBuilder = new StringBuilder();
+	        uriPathBuilder.append("android.resource://");
+	        uriPathBuilder.append(this.getPackageName ());
+	        uriPathBuilder.append(File.separator);
+	        uriPathBuilder.append("raw");
+	        uriPathBuilder.append(File.separator);
+	        uriPathBuilder.append("tutorial_intro");
+	        Uri uri = Uri.parse (uriPathBuilder.toString());
+	        videoView.setVideoURI(uri);
+	        
+	        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+	            @Override
+	            public void onCompletion(MediaPlayer mp) {
+		            videoPlayed = true;
+	            	videoView.setVisibility(View.GONE);
+	            }
+			});
+	        
+	        videoView.start();	
+		}
 	}
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		
+		// ACTION_UP doesn't trigger on VideoView for some reason
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			if (v == this.videoView) {
+				videoView.stopPlayback();
+            	videoView.setVisibility(View.GONE);		//Todo: prompt to confirm skip
+			}
+		}
+		
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.buttonRecord) {
-				//clear image resource first to prevent dupes
-				this.buttonRecord.setImageResource(0);
-				//play record button animation
-				recordAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonRecord, R.anim.anim_record_btn);
 				// Record a sample
 				setState(InteractionState.RECORD);
 			}
 			else if (v == this.buttonPlay) {
-				//clear image resource first to prevent dupes
-				 this.buttonPlay.setImageResource(0);
-				//play play button animation
-				playAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonPlay, R.anim.anim_play_btn);
 				// Play back whatever we have recorded
 				setState(InteractionState.PLAY);
 			}
@@ -162,7 +237,6 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			}
-			
 			else if (v == this.buttonMenu) {
 				// Skip to the Menu
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);

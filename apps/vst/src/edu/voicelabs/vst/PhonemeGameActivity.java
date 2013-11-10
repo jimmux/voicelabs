@@ -125,6 +125,7 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
             	speakAnim.start();
             }
 		});
+		mediaPlayer.start();
 				
 	}
 	
@@ -206,15 +207,9 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 				//play Phoneme recording
 				lllSound.start();
 				
-			
-
-				
-
-				
-				
-//				// Start the game
-//				runGame();
-//				this.speakAnim.start();
+				// Start the game
+				runGame();
+				this.speakAnim.start();
 				
 			
 			}

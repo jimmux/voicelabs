@@ -66,7 +66,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	}
 	
 	
-	/** Called when partial results are generated. */	//Todo: sometimes gets all partial results, then reverts to a version with less than final results and gets stuck
+	/** Called when partial results are generated. */
 	public void onPartialResults(Bundle b) {
 		final AbstractGameActivity that = this;
 		final String hyp = b.getString("hyp");
