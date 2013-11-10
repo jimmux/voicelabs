@@ -124,12 +124,12 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 					// Play sound
 					playBack1.setVisibility(View.VISIBLE);
 					AnimationHelper.runKeyframeAnimation(this, R.id.btn_play_1, R.anim.anim_play_btn);
-					System.out.println("turned on");
+					//System.out.println("turned on");
 					
 				}else {
 					// Stop sound
 					playBack1.setVisibility(View.INVISIBLE);
-					System.out.println("turned off");
+					//System.out.println("turned off");
 				}
 				
 				
@@ -146,12 +146,12 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 					// Play sound
 					playBack2.setVisibility(View.VISIBLE);
 					AnimationHelper.runKeyframeAnimation(this, R.id.btn_play_2, R.anim.anim_play_btn);
-					System.out.println("turned on");
+					//System.out.println("turned on");
 					
 				}else {
 					// Stop sound
 					playBack2.setVisibility(View.INVISIBLE);
-					System.out.println("turned off");
+					//System.out.println("turned off");
 				}
 				
 
@@ -167,12 +167,12 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 					// Play sound
 					playBack3.setVisibility(View.VISIBLE);
 					AnimationHelper.runKeyframeAnimation(this, R.id.btn_play_3, R.anim.anim_play_btn);
-					System.out.println("turned on");
+					//System.out.println("turned on");
 					
 				}else {
 					// Stop sound
 					playBack3.setVisibility(View.INVISIBLE);
-					System.out.println("turned off");
+					//System.out.println("turned off");
 				}
 				
 
@@ -189,12 +189,12 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 					// Play sound
 					playBack4.setVisibility(View.VISIBLE);
 					AnimationHelper.runKeyframeAnimation(this, R.id.btn_play_4, R.anim.anim_play_btn);
-					System.out.println("turned on");
+					//System.out.println("turned on");
 					
 				}else {
 					// Stop sound
 					playBack4.setVisibility(View.INVISIBLE);
-					System.out.println("turned off");
+					//System.out.println("turned off");
 				}
 			
 
