@@ -30,7 +30,9 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	private TextView txtSyllable;
 	
 	// Loops through the set of syllables to speak
-	private final String[] syllables = {"LA", "LE", "LU", "LI", "LO"};
+	private final String[] syllables = {"LA", "LI", "LU", "LE", "LO"};
+	//TODO Add in sounds for each phoneme so the user knows what to say
+	//private final String[] syllableSounds = {"R.Raw.leo_la","R.Raw.leo_li","R.Raw.leo_lu","R.Raw.leo_le","R.Raw.leo_lo"};
 	private int syllableIndex = 0;
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,7 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		
 		// Animated prompt
 		//this.imageViewSpeak = (ImageView) findViewById(R.id.imageViewSpeak);
-		this.speakAnim = AnimationHelper.runKeyframeAnimation(this, R.id.imageViewSpeak, R.anim.anim_btn_speak);
+		this.speakAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonSpeak, R.anim.anim_btn_speak);
 		this.speakAnim.stop();
 		
 

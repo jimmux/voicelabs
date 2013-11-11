@@ -65,12 +65,15 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 	            startActivity(intent); 
 			}
 			else if (v == this.imageButtonS) {
-				// Go to the video
-				Intent intent = new Intent(getApplicationContext(), TutorialVideo.class);
-	            startActivity(intent); 
+				// Go nowhere (yet)
+				//TODO play a lock closing sound (and maybe shake to indicate it's locked?) - I'll try and source something - DK
+				AnimationHelper.runAlphaAnimation(this, R.id.imageButtonPhonemeS, R.anim.anim_shake);
+				Toast.makeText(getApplicationContext(), "Not yet!", Toast.LENGTH_SHORT).show();
 			}
 			else if (v == this.imageButtonCH) {
 				// Go nowhere (yet)
+				//play a lock closing sound - I'll try and source something - DK
+				AnimationHelper.runAlphaAnimation(this, R.id.imageButtonPhonemeCH, R.anim.anim_shake);
 				Toast.makeText(getApplicationContext(), "Not yet!", Toast.LENGTH_SHORT).show();
 			}
 			else if (v == this.buttonGoToSettings) {

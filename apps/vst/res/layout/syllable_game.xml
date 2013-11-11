@@ -49,52 +49,37 @@
         android:visibility="visible" />
 
     <ImageButton
-        android:id="@+id/buttonRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/buttonStart"
-        android:layout_marginLeft="201dp"
-        android:layout_marginTop="54dp"
-        android:layout_toRightOf="@+id/buttonStart"
-        android:background="@drawable/anim_btn_speak0001"
-        android:minHeight="200dp"
-        android:minWidth="200dp"
-        android:visibility="invisible" />
-    
-    <ImageButton
         android:id="@+id/buttonPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonSpeak"
         android:layout_alignTop="@+id/buttonStart"
-        android:layout_marginLeft="201dp"
-        android:layout_marginTop="54dp"
-        android:layout_toRightOf="@+id/buttonStart"
+        android:layout_marginTop="90dp"
         android:background="@drawable/anim_btn_play0001"
-        android:minHeight="200dp"
-        android:minWidth="200dp"
         android:textAlignment="center"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 
-    <ImageView
-        android:id="@+id/imageViewSpeak"
+    <ImageButton
+        android:id="@+id/buttonSpeak"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buttonPlay"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/menuLayout"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="25dp"
-        android:src="@drawable/anim_btn_speak0001" />
+        android:layout_marginRight="24dp"
+        android:background="@drawable/anim_btn_speak0001"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/txt_game1_syllable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageViewSpeak"
+        android:layout_alignTop="@+id/buttonPlay"
+        android:layout_marginLeft="33dp"
         android:layout_marginTop="33dp"
         android:layout_toRightOf="@+id/buttonStart"
         android:text="Tap Leo to begin..."
         android:textColor="#fff"
-        android:textSize="60sp"
+        android:textSize="40sp"
         android:visibility="visible" />
 
 </RelativeLayout>
