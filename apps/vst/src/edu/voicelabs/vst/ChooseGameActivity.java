@@ -1,12 +1,14 @@
 package edu.voicelabs.vst;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import edu.voicelabs.vst.RecognizerTask.Mode;
 
@@ -14,21 +16,46 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	// Layout elements
 	protected RelativeLayout gameLayout;	
 
-	//menu
+	// Menu
 	private ImageButton buttonSkip;
 	private ImageButton buttonMenu;
 	
-	//items
+	// Items
 	private ImageButton buttonItem1;
 	private ImageButton buttonItem2;
 	private ImageButton buttonItem3;
-	private ImageButton buttonItem4;
+	private ImageButton buttonItem4;    
+
+	/**
+	 * Simple struct for associated word data
+	 *
+	 */
+	private class WordData {
+		String displayWord;		// Text to use for display
+		String matchWord;		// Text to use for speech matching
+		int drawable;			// The reference of the image in res/drawable to use
+		int speechAudio;		// The reference of the sound file in res/raw to use, e.g. R.raw.tmp_lolly
+		
+		public WordData(String displayWord, String matchWord, int drawable, int speechAudio) {
+			this.displayWord = displayWord;
+			this.matchWord = matchWord;
+			this.drawable = drawable;
+			this.speechAudio = speechAudio;
+		}
+	}
+	private WordData[] words = {
+		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon),
+		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon),
+		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon),
+		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon)
+		//new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.tmp_lettuce)
+		//new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizard, R.raw.tmp_lizard),
+		//new WordData("Lolly", "LOLLY", R.drawable.img_obj_lolly, R.raw.tmp_lolly)
+	};
+	private int wordIndex;	// Set to the currently chosen word;
+	private ImageButton chosenWordButton;
 	
-	//playback icons
-	private ImageButton playBack1;
-	private ImageButton playBack2;
-	private ImageButton playBack3;
-	private ImageButton playBack4;
+	private int wordCompletionCount = 0;	// Increment as each word is successfully completed, so we know when to finish
 	
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,16 +65,18 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		subPattern = "L";
 		maxCorrectMatches = 1;
 		maxAttempts = 3;
-		mode = Mode.WORD;
 		
 		setContentView(R.layout.feed_game);
 		
-		//menu
+		// Menu
 		this.buttonSkip = (ImageButton) findViewById(R.id.buttonSkip);
 		this.buttonMenu = (ImageButton) findViewById(R.id.buttonMenu);
 		
 		this.buttonSkip.setOnTouchListener(this);
 		this.buttonMenu.setOnTouchListener(this);
+		
+		// UI
+		this.prompt = (ImageView) findViewById(R.id.imageViewPrompt);
 		
 		//Food items
 		this.buttonItem1 = (ImageButton) findViewById(R.id.btn_lemon);
@@ -60,13 +89,16 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		this.buttonItem3.setOnTouchListener(this);
 		this.buttonItem4.setOnTouchListener(this);
 		
-		//playback items
-		this.playBack1 = (ImageButton) findViewById(R.id.btn_play_1);
-		this.playBack2 = (ImageButton) findViewById(R.id.btn_play_2);
-		this.playBack3 = (ImageButton) findViewById(R.id.btn_play_3);
-		this.playBack4 = (ImageButton) findViewById(R.id.btn_play_4);
+		this.buttonItem1.setBackgroundResource(this.words[0].drawable);
+		this.buttonItem1.setBackgroundResource(this.words[1].drawable);
+		this.buttonItem1.setBackgroundResource(this.words[2].drawable);
+		this.buttonItem1.setBackgroundResource(this.words[3].drawable);
 		
-
+		setState(InteractionState.IDLE);
+	}
+	
+	protected Mode getMode() {
+		return Mode.WORD;
 	}
 	
 	protected ViewGroup getGameLayout() {
@@ -75,26 +107,61 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	
 
 	protected void fullSuccess(AbstractGameActivity activityToUpdate) {
-		ChooseGameActivity that = (ChooseGameActivity)activityToUpdate;
+		//ChooseGameActivity that = (ChooseGameActivity)activityToUpdate;
 		//that.textViewMessage.setText("Got all the matches!");
-		runLessonCompletion();		// Last game, so return to select screen
+		
+		// Clear the word that was just done, or complete the game
+		this.wordCompletionCount++;
+		this.chosenWordButton.setVisibility(View.INVISIBLE);
+		if (this.wordCompletionCount >= this.words.length) {
+			this.playingRef = R.raw.leo_really_cool_16bit;
+			//this.message.setText("Well Done!");
+			setState(InteractionState.PLAY);
+			runLessonCompletion();		// Last game, so go to the victory screen
+		}
+		else {			
+			//this.message.setText("Now say " + this.words[this.wordIndex].displayWord + "!");
+			this.playingRef = R.raw.leo_great_job_16bit;
+			setState(InteractionState.PLAY);
+		}				
+		wipeRecognizer(); //TODO Put in rerun bit?
 	}
 	
 	protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount) {
-		ChooseGameActivity that = (ChooseGameActivity)activityToUpdate;
+		//ChooseGameActivity that = (ChooseGameActivity)activityToUpdate;
 		//that.textViewMessage.setText("Matched " + successCount + " times!");
+
+		// Encourage the same word - note this won't be executed if accepting a single positive attempt
+		this.playingRef = R.raw.leo_great_job_16bit;
+		//this.message.setText("Good, do it again!");
+		setState(InteractionState.PLAY_THEN_RECORD);
 	}
 	
 	protected void fullAttempts(AbstractGameActivity activityToUpdate) {
-		ChooseGameActivity that = (ChooseGameActivity)activityToUpdate;
+		//ChooseGameActivity that = (ChooseGameActivity)activityToUpdate;
 		//that.textViewMessage.setText("Press Start to try again.");
+
+		this.playingRef = this.words[this.wordIndex].speechAudio;
+//		this.message.setText("Try it again!");
+		setState(InteractionState.PLAY_THEN_RERUN);
+		wipeRecognizer();
+	}
+	
+	
+	private void startGameForWord(int i, ImageButton ib) {
+		setState(InteractionState.IDLE);
+		wipeRecognizer();
+		this.wordIndex = i;
+		this.chosenWordButton = ib;
+		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), this.words[this.wordIndex].speechAudio);
+		mediaPlayer.start();
+		this.subPattern = this.words[this.wordIndex].matchWord;
+		runGame();	//TODO replace with setting state to RECORD or PLAY_THEN_RECORD, which starts the recogniser if it's not running?
 	}
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-
 			if (v == this.buttonSkip) {
 				// Skip to the games
 				//stopPlaying();
@@ -102,7 +169,6 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			}
-			
 			else if (v == this.buttonMenu) {
 				// Skip to the Menu
 				//stopPlaying();
@@ -110,94 +176,17 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			}
-			
 			else if (v == this.buttonItem1) {
-				
-				
-				//Animate Playback icon while sound is playing
-				//first unhide playback icon
-				//this should really test for whether sound is playing but you get the idea
-				
-				final boolean playbackVisible = playBack1.isShown();
-				
-				if (playbackVisible == false){
-					// Play sound
-					playBack1.setVisibility(View.VISIBLE);
-					AnimationHelper.runKeyframeAnimation(this, R.id.btn_play_1, R.anim.anim_play_btn);
-					//System.out.println("turned on");
-					
-				}else {
-					// Stop sound
-					playBack1.setVisibility(View.INVISIBLE);
-					//System.out.println("turned off");
-				}
-				
-				
-
+				startGameForWord(0, (ImageButton) v);
 			}
-			
 			else if (v == this.buttonItem2) {
-				//Animate Playback icon while sound is playing
-				//first unhide playback icon
-				
-				final boolean playbackVisible = playBack2.isShown();
-				
-				if (playbackVisible == false){
-					// Play sound
-					playBack2.setVisibility(View.VISIBLE);
-					AnimationHelper.runKeyframeAnimation(this, R.id.btn_play_2, R.anim.anim_play_btn);
-					//System.out.println("turned on");
-					
-				}else {
-					// Stop sound
-					playBack2.setVisibility(View.INVISIBLE);
-					//System.out.println("turned off");
-				}
-				
-
+				startGameForWord(1, (ImageButton) v);
 			}
-			
 			else if (v == this.buttonItem3) {
-				//Animate Playback icon while sound is playing
-				//first unhide playback icon
-				
-				final boolean playbackVisible = playBack3.isShown();
-				
-				if (playbackVisible == false){
-					// Play sound
-					playBack3.setVisibility(View.VISIBLE);
-					AnimationHelper.runKeyframeAnimation(this, R.id.btn_play_3, R.anim.anim_play_btn);
-					//System.out.println("turned on");
-					
-				}else {
-					// Stop sound
-					playBack3.setVisibility(View.INVISIBLE);
-					//System.out.println("turned off");
-				}
-				
-
+				startGameForWord(2, (ImageButton) v);
 			}
-			
-			else if (v == this.buttonItem4) {
-				
-				//Animate Playback icon while sound is playing
-				//first unhide playback icon
-				
-				final boolean playbackVisible = playBack4.isShown();
-				
-				if (playbackVisible == false){
-					// Play sound
-					playBack4.setVisibility(View.VISIBLE);
-					AnimationHelper.runKeyframeAnimation(this, R.id.btn_play_4, R.anim.anim_play_btn);
-					//System.out.println("turned on");
-					
-				}else {
-					// Stop sound
-					playBack4.setVisibility(View.INVISIBLE);
-					//System.out.println("turned off");
-				}
-			
-
+			else if (v == this.buttonItem4) {	
+				startGameForWord(3, (ImageButton) v);
 			}
 		}
 		

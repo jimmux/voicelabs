@@ -36,31 +36,8 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txt_game1_l"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonSpeak"
-        android:layout_alignTop="@+id/buttonSpeak"
-        android:layout_marginTop="63dp"
-        android:text="LLLL..."
-        android:textColor="#fff"
-        android:textSize="60sp"
-        android:visibility="invisible" />
-
     <ImageButton
-        android:id="@+id/buttonPlay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/buttonSpeak"
-        android:layout_marginRight="51dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/anim_btn_play0001"
-        android:visibility="invisible" />
-
-    <ImageButton
-        android:id="@+id/buttonStart"
+        android:id="@+id/buttonStartWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -68,18 +45,23 @@
         android:background="@drawable/anim_leo_hand_to_ear0001"
         android:visibility="visible" />
 
-    <ImageButton
-        android:id="@+id/buttonSpeak"
+    <ImageView
+        android:id="@+id/imageViewPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/buttonStart"
-        android:layout_marginTop="45dp"
-        android:layout_toRightOf="@+id/buttonStart"
-        android:background="@drawable/anim_btn_speak0001"
-        android:minHeight="200dp"
-        android:minWidth="200dp"
-        android:visibility="invisible" />
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/txt_game1_l"
+        android:background="@drawable/anim_btn_play0001" />
 
-
+    <TextView
+        android:id="@+id/txt_game1_l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="LLLL..."
+        android:textColor="#fff"
+        android:textSize="60sp"
+        android:visibility="visible" />
 
 </RelativeLayout>

@@ -38,45 +38,29 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/buttonStart"
+        android:id="@+id/buttonStartWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/anim_leo_justblink0001_1"
         android:background="@drawable/anim_leo_justblink0001_1"
         android:translationY="20dp"
         android:visibility="visible" />
 
-    <ImageButton
-        android:id="@+id/buttonPlay"
+    <ImageView
+        android:id="@+id/imageViewPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonSpeak"
-        android:layout_alignTop="@+id/buttonStart"
-        android:layout_marginTop="90dp"
-        android:background="@drawable/anim_btn_play0001"
-        android:textAlignment="center"
-        android:visibility="visible" />
-
-    <ImageButton
-        android:id="@+id/buttonSpeak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonPlay"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="24dp"
-        android:background="@drawable/anim_btn_speak0001"
-        android:visibility="invisible" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/anim_btn_play0001" />
 
     <TextView
         android:id="@+id/txt_game1_syllable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/buttonPlay"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="33dp"
-        android:layout_toRightOf="@+id/buttonStart"
+        android:layout_alignLeft="@+id/imageViewPrompt"
+        android:layout_centerVertical="true"
         android:text="Tap Leo to begin..."
         android:textColor="#fff"
         android:textSize="40sp"
