@@ -34,16 +34,6 @@
 
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/buttonLeo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:translationY="20dp"
-        android:visibility="visible"
-        android:background="@drawable/anim_leo_justblink0001_1" />
-
 
 
     <ImageButton
@@ -56,7 +46,7 @@
         android:background="@drawable/anim_btn_speak0001"
         android:minHeight="170dp"
         android:scaleX="-1"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
     <ImageButton
         android:id="@+id/buttonPlay"
@@ -67,9 +57,31 @@
         android:layout_marginLeft="100dp"
         android:background="@drawable/anim_btn_play0001"
         android:minHeight="170dp"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
-    <VideoView
+    <ImageButton
+        android:id="@+id/buttonLeo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/leo_animation0001"
+        android:translationY="20dp"
+        android:visibility="visible" />
+    
+     <ImageButton
+        android:id="@+id/redCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/anim_btn_red_circle0010"
+        android:minHeight="170dp"
+        android:minWidth="170dp"
+        android:translationY="-50dp"
+        android:visibility="invisible" />
+    
+        <VideoView
         android:id="@+id/tutorialVideo"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -79,5 +91,7 @@
        	android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:visibility="gone" />
+
+       
 
 </RelativeLayout>

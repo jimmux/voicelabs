@@ -36,9 +36,15 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 		
 		//import fonts
 		TextView txt_settings = (TextView) findViewById(R.id.txt_settings);
+		TextView txt_level_l = (TextView) findViewById(R.id.txt_level_l);
+		TextView txt_level_s = (TextView) findViewById(R.id.txt_level_s);
+		TextView txt_level_ch = (TextView) findViewById(R.id.txt_level_ch);
 		Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf");  
+		
 		txt_settings.setTypeface(font);  
-
+		txt_level_l.setTypeface(font);
+		txt_level_s.setTypeface(font);
+		txt_level_ch.setTypeface(font);
 		
 		this.imageButtonL = (ImageButton) findViewById(R.id.imageButtonPhonemeL);
 		this.imageButtonS = (ImageButton) findViewById(R.id.imageButtonPhonemeS);
@@ -67,14 +73,14 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 			else if (v == this.imageButtonS) {
 				// Go nowhere (yet)
 				//TODO play a lock closing sound (and maybe shake to indicate it's locked?) - I'll try and source something - DK
-				AnimationHelper.runAlphaAnimation(this, R.id.imageButtonPhonemeS, R.anim.anim_shake);
-				Toast.makeText(getApplicationContext(), "Not yet!", Toast.LENGTH_SHORT).show();
+				AnimationHelper.runAlphaAnimation(this, R.id.btn_lockedS, R.anim.anim_shake);
+				Toast.makeText(getApplicationContext(), "Coming Soon!", Toast.LENGTH_SHORT).show();
 			}
 			else if (v == this.imageButtonCH) {
 				// Go nowhere (yet)
 				//play a lock closing sound - I'll try and source something - DK
-				AnimationHelper.runAlphaAnimation(this, R.id.imageButtonPhonemeCH, R.anim.anim_shake);
-				Toast.makeText(getApplicationContext(), "Not yet!", Toast.LENGTH_SHORT).show();
+				AnimationHelper.runAlphaAnimation(this, R.id.btn_lockedCh, R.anim.anim_shake);
+				Toast.makeText(getApplicationContext(), "Coming Soon!", Toast.LENGTH_SHORT).show();
 			}
 			else if (v == this.buttonGoToSettings) {
 				// Go to the video

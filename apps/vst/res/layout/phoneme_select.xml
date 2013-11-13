@@ -4,36 +4,100 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_blue_wash" >
 
-    <ImageButton
-        android:id="@+id/imageButtonPhonemeL"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/btn_level_l"
-        android:layout_marginRight="100dp"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/imageButtonPhonemeS"
-        android:background="@android:color/transparent" />
-
-    <ImageButton
-        android:id="@+id/imageButtonPhonemeS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/btn_level_s"
-        android:layout_marginRight="100dp"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:background="@android:color/transparent"/>
-
-    <ImageButton
-        android:id="@+id/imageButtonPhonemeCH"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/btn_level_ch"
-        android:layout_marginRight="100dp"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/imageButtonPhonemeS"
-        android:background="@android:color/transparent"
-        />
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="150dp" >
+
+            <ImageButton
+                android:id="@+id/imageButtonPhonemeL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="19dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/btn_level_l" />
+
+            <ImageButton
+                android:id="@+id/imageButtonPhonemeS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:paddingRight="50dp"
+                android:src="@drawable/btn_level_s" />
+
+            <ImageButton
+                android:id="@+id/imageButtonPhonemeCH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:paddingRight="50dp"
+                android:src="@drawable/btn_level_ch" />
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/txt_level_l"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="L"
+                android:textSize="30sp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="170dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/txt_level_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S"
+                android:textSize="30sp"
+                android:layout_marginRight="165dp"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/txt_level_ch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ch"
+                android:textSize="30sp"
+                android:layout_marginRight="90dp"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:translationY="-290dp" >
+
+            <ImageButton
+                android:id="@+id/btn_lockedS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="240dp"
+                android:layout_marginRight="130dp"
+                
+                android:background="@drawable/btn_locked_level" />
+
+            <ImageButton
+                android:id="@+id/btn_lockedCh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_locked_level" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/btn_settings"
@@ -41,8 +105,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="60dp" >
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="106dp" >
 
         <TextView
             android:id="@+id/txt_settings"

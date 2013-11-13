@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/anim_leo_justblink0001"
+        android:background="@drawable/leo_animation0001"
         android:translationY="20dp"
         android:visibility="invisible" />
 

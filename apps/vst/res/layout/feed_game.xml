@@ -43,7 +43,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:translationY="20dp"
-        android:background="@drawable/anim_leo_justblink0001_1"
+        android:background="@drawable/leo_animation0060"
         android:visibility="visible" />
     
     <ImageButton
