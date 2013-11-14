@@ -33,7 +33,6 @@
             android:padding="20dp"
             android:paddingTop="50dp"
             android:src="@drawable/btn_skip" />
-
     </LinearLayout>
 
     <ImageButton
@@ -45,23 +44,26 @@
         android:background="@drawable/leo_animation0001"
         android:visibility="visible" />
 
-    <ImageView
-        android:id="@+id/imageViewPrompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/txt_game1_l"
-        android:background="@drawable/anim_btn_play0001" />
-
     <TextView
         android:id="@+id/txt_game1_l"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/imageViewPrompt"
+        android:layout_below="@+id/imageViewPrompt"
+        android:layout_marginTop="57dp"
         android:text="LLLL..."
+        android:textAlignment="center"
         android:textColor="#fff"
-        android:textSize="60sp"
+        android:textSize="40sp"
         android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/imageViewPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/buttonStartWord"
+        android:layout_marginTop="42dp"
+        android:layout_toRightOf="@+id/buttonStartWord"
+        android:background="@drawable/anim_btn_play0001" />
 
 </RelativeLayout>

@@ -80,7 +80,7 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 	}
 	
 	protected void fullAttempts(AbstractGameActivity activityToUpdate) {
-		this.playingRef = R.raw.leo_lll;		//TODO Need a "try again" type of response - repeat the phoneme? sad sound?
+		this.playingRef = R.raw.leo_negative2;		//TODO Need a "try again" type of response - repeat the phoneme? sad sound?
 		this.message.setText("Keep trying...");
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}

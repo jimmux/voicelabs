@@ -45,9 +45,9 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	}
 	private WordData[] words = {
 		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon),
-		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon),
-		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon),
-		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon)
+		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lemon, R.raw.tmp_lettuce),
+		new WordData("Lizzard", "LIZZARD", R.drawable.img_obj_lemon, R.raw.tmp_lizard),
+		new WordData("Lamb", "LAMB", R.drawable.img_obj_lamb, R.raw.tmp_lemon)
 		//new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.tmp_lettuce)
 		//new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizard, R.raw.tmp_lizard),
 		//new WordData("Lolly", "LOLLY", R.drawable.img_obj_lolly, R.raw.tmp_lolly)
@@ -81,7 +81,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		//Food items
 		this.buttonItem1 = (ImageButton) findViewById(R.id.btn_lemon);
 		this.buttonItem2 = (ImageButton) findViewById(R.id.btn_lettuce);
-		this.buttonItem3 = (ImageButton) findViewById(R.id.btn_leg);
+		this.buttonItem3 = (ImageButton) findViewById(R.id.btn_lizzard);
 		this.buttonItem4 = (ImageButton) findViewById(R.id.btn_lamb);
 		
 		this.buttonItem1.setOnTouchListener(this);

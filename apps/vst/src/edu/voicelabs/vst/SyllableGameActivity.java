@@ -28,7 +28,7 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	// Loops through the set of syllables to speak
 	private final String[] syllables = {"LA", "LI", "LU", "LE", "LO"};
 
-	private final String[] syllableSounds = {"R.Raw.leo_la","R.Raw.leo_li","R.Raw.leo_lu","R.Raw.leo_le","R.Raw.leo_lo"};
+	private final int[] syllableSounds = {R.raw.leo_la, R.raw.leo_li, R.raw.leo_lu, R.raw.leo_le, R.raw.leo_lo};
 
 	private int syllableIndex = 0;
 	
@@ -50,7 +50,7 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		this.buttonMenu.setOnTouchListener(this);
 		
 		//UI
-		this.message = (TextView) findViewById(R.id.txt_game1_syllable);
+		this.message = (TextView) findViewById(R.id.txt_label_syllable);
 		this.message.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf"));
 		
 		this.prompt = (ImageView) findViewById(R.id.imageViewPrompt);
@@ -78,6 +78,9 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 			this.playingRef = R.raw.leo_really_cool_16bit;
 			this.message.setText("Finished!");
 			setState(InteractionState.PLAY);
+			//TODO Wait 3 secs - then go to LessonProgress 
+			//TODO Update player progress to reflect that they have completed this stage
+			
 		}
 		else {			
 			this.playingRef = syllableSounds[syllableIndex];

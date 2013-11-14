@@ -22,15 +22,6 @@
         android:layout_marginBottom="23dp"
         android:background="@drawable/anim_btn_red_circle0010" />
 
-    <ImageView
-        android:id="@+id/clouds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="22dp"
-        android:background="@drawable/img_obj_clouds" />
-
     <ImageButton
         android:id="@+id/imageButtonSyllable"
         android:layout_width="wrap_content"
@@ -49,14 +40,29 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="17dp"
         android:background="@drawable/anim_btn_red_circle0010" />
-
+    <ImageView
+        android:id="@+id/clouds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/img_obj_clouds" />
+    
     <ImageView
         android:id="@+id/sunProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/clouds"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="18dp"
+        android:layout_alignTop="@+id/clouds"
+        android:layout_marginRight="27dp"
+        android:layout_toLeftOf="@+id/imageButtonWord"
         android:background="@drawable/img_obj_sun" />
+
+    <ImageButton
+        android:id="@+id/imageButtonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sunProgress"
+        android:layout_below="@+id/imageButtonSyllable"
+        android:background="@drawable/btn_skip_back" />
 
 </RelativeLayout>

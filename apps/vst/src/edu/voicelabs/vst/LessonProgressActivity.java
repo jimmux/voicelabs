@@ -15,6 +15,7 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 	private ImageButton imageButtonSyllable;
 	private ImageButton imageButtonWord;
 	private ImageButton imageButtonChoose;
+	private ImageButton imageButtonBack;
 	
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,11 +27,13 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 		this.imageButtonSyllable = (ImageButton) findViewById(R.id.imageButtonSyllable);
 		this.imageButtonWord = (ImageButton) findViewById(R.id.imageButtonWord);
 		this.imageButtonChoose = (ImageButton) findViewById(R.id.imageButtonChoose);
+		this.imageButtonBack = (ImageButton) findViewById(R.id.imageButtonBack);
 		
 		this.imageButtonPhoneme.setOnTouchListener(this);
 		this.imageButtonSyllable.setOnTouchListener(this);
 		this.imageButtonWord.setOnTouchListener(this);
 		this.imageButtonChoose.setOnTouchListener(this);
+		this.imageButtonBack.setOnTouchListener(this);
 	}
 	
 	// Show load screen, advance to start screen when ready.
@@ -73,6 +76,10 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 			else if (v == this.imageButtonChoose) {
 				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonChoose, R.anim.anim_btn_red_circle_backwards);
 				Intent intent = new Intent(getApplicationContext(), ChooseGameActivity.class);
+	            startActivity(intent); 
+			}
+			else if (v == this.imageButtonBack) {
+				Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
 	            startActivity(intent); 
 			}
 		}

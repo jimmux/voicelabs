@@ -44,7 +44,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:translationY="20dp"
+        android:translationY="80dp"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
         android:background="@drawable/leo_animation0060"
         android:visibility="visible" />
     
@@ -54,20 +56,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/img_obj_lemon"
-        android:scaleX="0.5"
-        android:scaleY="0.5" />
-
-    <ImageButton
-        android:id="@+id/btn_lemon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/menuLayout"
-        android:layout_marginTop="23dp"
-        android:background="@drawable/img_obj_lemon"
-        android:scaleX="0.5"
-        android:scaleY="0.5" />
+        android:background="@drawable/img_obj_lamb"
+        android:scaleX="0.6"
+        android:scaleY="0.6" />
    <ImageButton
        android:id="@+id/btn_lettuce"
        android:layout_width="wrap_content"
@@ -77,12 +68,13 @@
        android:background="@drawable/img_obj_lettuce"
        android:scaleX="0.5"
        android:scaleY="0.5" />
+
     <ImageButton
-        android:id="@+id/btn_leg"
+        android:id="@+id/btn_lemon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/btn_lemon"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/menuLayout"
         android:background="@drawable/img_obj_lemon"
         android:scaleX="0.5"
         android:scaleY="0.5" />
@@ -91,8 +83,19 @@
         android:id="@+id/imageViewPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/buttonStartWord"
+        android:layout_marginRight="64dp"
+        android:layout_toLeftOf="@+id/btn_lizzard"
         android:background="@drawable/anim_btn_play0001" />
+
+    <ImageButton
+        android:id="@+id/btn_lizzard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_lettuce"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/img_obj_lizzard"
+        android:scaleX="0.8"
+        android:scaleY="0.8" />
 
 </RelativeLayout>
