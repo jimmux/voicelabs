@@ -45,12 +45,10 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	}
 	private WordData[] words = {
 		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon),
-		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lemon, R.raw.tmp_lettuce),
-		new WordData("Lizzard", "LIZZARD", R.drawable.img_obj_lemon, R.raw.tmp_lizard),
-		new WordData("Lamb", "LAMB", R.drawable.img_obj_lamb, R.raw.tmp_lemon)
-		//new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.tmp_lettuce)
-		//new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizard, R.raw.tmp_lizard),
-		//new WordData("Lolly", "LOLLY", R.drawable.img_obj_lolly, R.raw.tmp_lolly)
+		new WordData("Lamb", "LAMB", R.drawable.img_obj_lamb, R.raw.tmp_lamb),
+		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.tmp_lettuce),
+		new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizzard, R.raw.tmp_lizard)
+
 	};
 	private int wordIndex;	// Set to the currently chosen word;
 	private ImageButton chosenWordButton;
@@ -80,6 +78,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		
 		//Food items
 		this.buttonItem1 = (ImageButton) findViewById(R.id.btn_lemon);
+
 		this.buttonItem2 = (ImageButton) findViewById(R.id.btn_lettuce);
 		this.buttonItem3 = (ImageButton) findViewById(R.id.btn_lizzard);
 		this.buttonItem4 = (ImageButton) findViewById(R.id.btn_lamb);
@@ -90,9 +89,9 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		this.buttonItem4.setOnTouchListener(this);
 		
 		this.buttonItem1.setBackgroundResource(this.words[0].drawable);
-		this.buttonItem1.setBackgroundResource(this.words[1].drawable);
-		this.buttonItem1.setBackgroundResource(this.words[2].drawable);
-		this.buttonItem1.setBackgroundResource(this.words[3].drawable);
+		this.buttonItem2.setBackgroundResource(this.words[1].drawable);
+		this.buttonItem3.setBackgroundResource(this.words[2].drawable);
+		this.buttonItem4.setBackgroundResource(this.words[3].drawable);
 		
 		setState(InteractionState.IDLE);
 	}
@@ -153,8 +152,10 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		wipeRecognizer();
 		this.wordIndex = i;
 		this.chosenWordButton = ib;
-		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), this.words[this.wordIndex].speechAudio);
-		mediaPlayer.start();
+//		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), this.words[this.wordIndex].speechAudio);
+//		mediaPlayer.start();
+		this.playingRef = this.words[this.wordIndex].speechAudio;
+		setState(InteractionState.PLAY);
 		this.subPattern = this.words[this.wordIndex].matchWord;
 		runGame();	//TODO replace with setting state to RECORD or PLAY_THEN_RECORD, which starts the recogniser if it's not running?
 	}

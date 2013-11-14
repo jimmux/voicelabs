@@ -204,8 +204,10 @@ public class RecognizerTask implements Runnable {
 			c.setString("-dict", base_dir + "/lm/en_US_phonemes_initials.dic");
 			break;
 		default:	// catches WORD
-			c.setString("-lm", base_dir + "/lm/hub4.5000.dmp");
-			c.setString("-dict", base_dir + "/lm/hub4.5000.dic");	// TODO Customise the dictionary
+//			c.setString("-dict", base_dir + "/lm/hub4.5000.dic");
+//			c.setString("-lm", base_dir + "/lm/hub4.5000.dmp");
+			c.setString("-dict", base_dir + "/lm/4608.dic");
+			c.setString("-lm", base_dir + "/lm/4608.dmp");
 		}
 		
 		c.setString("-rawlogdir", base_dir);
