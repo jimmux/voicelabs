@@ -45,9 +45,9 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 	}
 	private WordData[] words = {
 		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon),
-		//new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.tmp_lettuce)
-		//new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizard, R.raw.tmp_lizard),
-		//new WordData("Lolly", "LOLLY", R.drawable.img_obj_lolly, R.raw.tmp_lolly)
+		new WordData("Lamb", "LAMB", R.drawable.img_obj_lamb, R.raw.tmp_lamb),
+		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.tmp_lettuce),
+		new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizzard, R.raw.tmp_lizard)
 	};
 	private int wordIndex = 0;
 

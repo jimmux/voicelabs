@@ -50,11 +50,12 @@
     
     <ImageButton
         android:id="@+id/btn_lamb"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/img_obj_lemon"
+        android:layout_alignTop="@+id/btn_lettuce"
+        android:background="@drawable/img_obj_lamb"
         android:scaleX="0.5"
         android:scaleY="0.5" />
 
@@ -77,13 +78,14 @@
        android:background="@drawable/img_obj_lettuce"
        android:scaleX="0.5"
        android:scaleY="0.5" />
+
     <ImageButton
-        android:id="@+id/btn_leg"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_lizard"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/btn_lemon"
-        android:background="@drawable/img_obj_lemon"
+        android:background="@drawable/img_obj_lizzard"
         android:scaleX="0.5"
         android:scaleY="0.5" />
 
