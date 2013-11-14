@@ -4,16 +4,6 @@
     android:layout_height="wrap_content"
     android:background="@drawable/anim_splash0059" >
 
-    <ImageView
-        android:id="@+id/leo_fade_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/anim_leo_justblink0005"
-        android:scaleType="center"
-        android:translationY="20dp" />
-
     <TextView
         android:id="@+id/txt_friends"
         android:layout_width="wrap_content"
@@ -41,6 +31,17 @@
         android:layout_above="@+id/txt_friends"
         android:layout_marginBottom="19dp"
         android:background="@drawable/img_obj_sun" />
+
+
+    <ImageButton
+        android:id="@+id/leo_fade_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txt_phoneme"
+        android:translationX="60dp"
+        android:background="@drawable/leo_animation0001"
+         />
 
     <ImageButton
         android:id="@+id/imageButtonStart"

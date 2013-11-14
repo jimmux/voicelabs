@@ -2,9 +2,9 @@
 
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item android:drawable="@drawable/anim_btn_speak0001" android:duration="50"/>
-	<item android:drawable="@drawable/anim_btn_speak0002" android:duration="30"/>
-    <item android:drawable="@drawable/anim_btn_speak0003" android:duration="30"/>
-    <item android:drawable="@drawable/anim_btn_speak0004" android:duration="50"/>
+    <item android:drawable="@drawable/anim_btn_speak0001" android:duration="600"/>
+	<item android:drawable="@drawable/anim_btn_speak0002" android:duration="300"/>
+    <item android:drawable="@drawable/anim_btn_speak0003" android:duration="300"/>
+    <item android:drawable="@drawable/anim_btn_speak0004" android:duration="600"/>
 
 </animation-list>

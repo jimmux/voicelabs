@@ -27,8 +27,9 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	
 	// Loops through the set of syllables to speak
 	private final String[] syllables = {"LA", "LI", "LU", "LE", "LO"};
-	// Sounds so the user knows what to say
-	private final int[] syllableSounds = {R.raw.leo_la, R.raw.leo_li, R.raw.leo_lu, R.raw.leo_le, R.raw.leo_lo};
+
+	private final String[] syllableSounds = {"R.Raw.leo_la","R.Raw.leo_li","R.Raw.leo_lu","R.Raw.leo_le","R.Raw.leo_lo"};
+
 	private int syllableIndex = 0;
 	
 	

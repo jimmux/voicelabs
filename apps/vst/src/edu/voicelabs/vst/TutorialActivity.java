@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.VideoView;
 
 /**
@@ -32,6 +33,9 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 	private ImageButton buttonPlay;
 	private ImageButton buttonSkip;
 	private ImageButton buttonMenu;
+	private ImageButton buttonLeo;
+	
+	private ImageButton redCircle;
 	
 	// Audio record/playback
 	private static int recordDuration = 3000;	// Maximum recording time
@@ -41,7 +45,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     
     private AnimationDrawable recordAnim;
     private AnimationDrawable playAnim;
-    //private AnimationDrawable leoBlinkAnim;
+    private AnimationDrawable leoAnim;
 
 	private VideoView videoView;	
 	
@@ -135,6 +139,70 @@ public class TutorialActivity extends Activity implements OnTouchListener {
         audioFileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/record.3gp";
 //        audioFileName = getApplicationContext().getFilesDir().getAbsolutePath() + "/record.3gp";
     }
+    
+    public void playExample() {
+    	buttonLeo.setBackgroundResource(R.drawable.leo_animation0015);
+    	MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.leo_lll);
+		mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+            	//go back to just blinking
+            	buttonLeo.setBackgroundResource(R.anim.anim_leo_blinkonly);
+    			AnimationDrawable talkAnimation = (AnimationDrawable) buttonLeo.getBackground();
+    			talkAnimation.start();
+        
+            }
+		});
+    	//first run
+    	final boolean uiVisible = buttonRecord.isShown();
+    	
+    	if(uiVisible == false){
+    		redCircle.setVisibility(View.GONE);
+        	buttonRecord.setVisibility(View.VISIBLE);
+    		buttonPlay.setVisibility(View.VISIBLE);
+    		AnimationHelper.runAlphaAnimation(this, R.id.buttonRecord, R.anim.anim_fade_in);
+    		AnimationHelper.runAlphaAnimation(this, R.id.buttonPlay, R.anim.anim_fade_in);
+    	}
+    	mediaPlayer.start();
+    	
+    }
+    
+    
+    public void introDemo() {
+    	//play leo talking sound
+//		//final MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.leo_now_your_turn);
+//		
+//		mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mp) {
+//            	//go back to just blinking
+//            	mediaPlayer.release();
+////            	buttonLeo.setBackgroundResource(R.anim.anim_leo_blinkonly);
+////    			AnimationDrawable talkAnimation = (AnimationDrawable) buttonLeo.getBackground();
+////    			talkAnimation.start();
+//            	redCircle.setVisibility(View.INVISIBLE);
+//        
+//            }
+//		});
+//		
+//		mediaPlayer.start();
+    	//leo talking animation
+		//play animation manually 
+//		buttonLeo.setBackgroundResource(R.anim.anim_leo_talk);
+//		AnimationDrawable leoAnim = (AnimationDrawable) buttonLeo.getBackground();
+//		leoAnim.start();
+	
+    	
+    	//Red dot animation
+		//play animation manually 
+    	buttonLeo.setVisibility(View.VISIBLE);
+		redCircle.setVisibility(View.VISIBLE);
+		AnimationHelper.runKeyframeAnimation(this, R.id.redCircle, R.anim.anim_btn_red_circle5);
+		
+		
+    }
+    
+
 
     @Override
     public void onPause() {
@@ -164,11 +232,16 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		this.buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
 		this.buttonSkip = (ImageButton) findViewById(R.id.buttonSkip);
 		this.buttonMenu = (ImageButton) findViewById(R.id.buttonMenu);
+		this.buttonLeo = (ImageButton) findViewById(R.id.buttonLeo);
+		
+		this.redCircle = (ImageButton) findViewById(R.id.redCircle);
 		
 		this.buttonRecord.setOnTouchListener(this);
 		this.buttonPlay.setOnTouchListener(this);
 		this.buttonSkip.setOnTouchListener(this);
 		this.buttonMenu.setOnTouchListener(this);
+		this.buttonLeo.setOnTouchListener(this);
+		this.redCircle.setOnTouchListener(this);
 		this.videoView.setOnTouchListener(this);
 		
 
@@ -187,6 +260,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		
 		if (videoPlayed) {
 			return;
+			
 		}
 		
 		if (hasFocus) {						
@@ -205,10 +279,16 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 	            public void onCompletion(MediaPlayer mp) {
 		            videoPlayed = true;
 	            	videoView.setVisibility(View.GONE);
+	            	
+	            	introDemo();
+	            	
+	            	
 	            }
 			});
 	        
-	        videoView.start();	
+	        videoView.start();
+	        
+
 		}
 	}
 	
@@ -224,7 +304,13 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		}
 		
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			if (v == this.buttonRecord) {
+			if ((v == this.buttonLeo) ||  (v == this.redCircle)){
+				// start by tapping on leo
+
+				playExample();
+
+			}
+			else if (v == this.buttonRecord) {
 				// Record a sample
 				setState(InteractionState.RECORD);
 			}
@@ -243,6 +329,8 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			}
+			
+			
 		}
 		
 		return false;

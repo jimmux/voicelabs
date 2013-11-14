@@ -38,32 +38,47 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/buttonStartWord"
+        android:id="@+id/buttonStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/anim_leo_justblink0001_1"
-        android:translationY="20dp"
+        android:src="@drawable/leo_animation0001"
+        android:background="@drawable/leo_animation0001"
         android:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/imageViewPrompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/anim_btn_play0001" />
 
     <TextView
         android:id="@+id/txt_game1_syllable"
-        android:layout_width="wrap_content"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageViewPrompt"
-        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/buttonSpeak"
+        android:layout_alignTop="@+id/buttonSpeak"
+        android:layout_marginRight="107dp"
+        android:layout_marginTop="34dp"
+        android:gravity="center"
         android:text="Tap Leo to begin..."
         android:textColor="#fff"
         android:textSize="40sp"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/buttonPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonSpeak"
+        android:layout_alignTop="@+id/buttonStart"
+        android:background="@drawable/anim_btn_play0001"
+        android:textAlignment="center"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/buttonSpeak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/buttonPlay"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/anim_btn_speak0001"
         android:visibility="visible" />
 
 </RelativeLayout>

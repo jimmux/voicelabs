@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/anim_leo_hand_to_ear0001"
+        android:background="@drawable/leo_animation0001"
         android:visibility="visible" />
 
     <ImageView
