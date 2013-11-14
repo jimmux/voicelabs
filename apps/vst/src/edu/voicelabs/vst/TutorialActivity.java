@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.media.MediaRecorder.OnInfoListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -57,19 +56,21 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     private InteractionState state = InteractionState.IDLE;
     
     // Set the state to transition to
-    private void setState(InteractionState newState) {
+    private synchronized void setState(InteractionState newState) {
         Log.e(getClass().getName(), "*** Switching state from " + this.state + " to " + newState);
     	
     	// Cancel any current playing or recording (effectively set to IDLE conditions)
     	switch (this.state) {
     	case RECORD:
         	this.recordAnim.stop();
+        	this.recordAnim.selectDrawable(0);
     		this.recorder.stop();
     		this.recorder.release();
     		this.recorder = null;
     		break;
     	case PLAY:
         	this.playAnim.stop();
+        	this.playAnim.selectDrawable(0);
 			this.player.stop();
 			this.player.release();
 			this.player = null;  

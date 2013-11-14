@@ -2,7 +2,6 @@ package edu.voicelabs.vst;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -10,12 +9,14 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import edu.voicelabs.vst.RecognizerTask.Mode;
 
 public class WordGameActivity extends AbstractGameActivity implements OnTouchListener {
+	
+	//TODO Add speaking of current word when the object is touched.
 	
 	// Layout elements
 	protected RelativeLayout gameLayout;	
@@ -23,19 +24,10 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 	private ImageButton buttonSkip;
 	private ImageButton buttonMenu;
 	private ImageButton buttonStart;
-	
-	private ImageButton buttonPlay;
 	private ImageButton wordObject;
-	private TextView txtLabel;
-	
-    private AnimationDrawable speakAnim;
-	
-	//Objects
-//	private ImageButton objLemon;
-//	private ImageButton objLettuce;
 	
 	/**
-	 * Simple struct for associated word data
+	 * Simple struct for associated word data to loop through
 	 *
 	 */
 	private class WordData {
@@ -53,7 +45,7 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 	}
 	private WordData[] words = {
 		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon),
-		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.tmp_lettuce)
+		//new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.tmp_lettuce)
 		//new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizard, R.raw.tmp_lizard),
 		//new WordData("Lolly", "LOLLY", R.drawable.img_obj_lolly, R.raw.tmp_lolly)
 	};
@@ -67,110 +59,78 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		subPattern = "";
 		maxCorrectMatches = 1;
 		maxAttempts = 3;
-		mode = Mode.WORD;
 		
 		setContentView(R.layout.word_game);
 		
-		TextView txt_phoneme = (TextView) findViewById(R.id.txt_game_3);
-		Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf");  
-		txt_phoneme.setTypeface(font);  
-	
-		//menu
+		// Menu
 		this.buttonSkip = (ImageButton) findViewById(R.id.buttonSkip);
 		this.buttonMenu = (ImageButton) findViewById(R.id.buttonMenu);
 		
 		this.buttonSkip.setOnTouchListener(this);
 		this.buttonMenu.setOnTouchListener(this);
 		
-		//click on the object to start the game
-		this.buttonStart = (ImageButton) findViewById(R.id.btn_game3_obj);	
-		this.buttonStart.setOnTouchListener(this);
+		// UI
+		this.message = (TextView) findViewById(R.id.txt_game_3);
+		this.message.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf"));
+		this.message.setText("Say the words");
 		
-		//playback button
-		this.buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
-		
-		//text Label
-		this.txtLabel = (TextView) findViewById(R.id.txt_game_3);
-		
-		//word object
+		this.prompt = (ImageView) findViewById(R.id.imageViewPrompt);
+
 		this.wordObject = (ImageButton) findViewById(R.id.btn_game3_obj); 
+		this.wordObject.setVisibility(View.INVISIBLE);
 		
-		// Animated prompt
-		//this.imageViewSpeak = (ImageView) findViewById(R.id.imageViewSpeak);
-		this.speakAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonRecord, R.anim.anim_btn_speak);
-		this.speakAnim.stop();
+		// Click on leo to start the game
+		this.buttonStart = (ImageButton) findViewById(R.id.buttonStartWord);	
+		this.buttonStart.setOnTouchListener(this);		
+
+		setState(InteractionState.IDLE);	
+	}
 	
+	protected Mode getMode() {
+		return Mode.WORD;
 	}
 	
 	protected ViewGroup getGameLayout() {
 		return (ViewGroup) findViewById(R.id.game_layout_word);
 	}
 	
-
-	protected void fullSuccess(AbstractGameActivity activityToUpdate) {
-		//WordGameActivity that = (WordGameActivity)activityToUpdate;
-		//that.textViewMessage.setText("Got all the matches!");
-		
+	protected void fullSuccess(AbstractGameActivity activityToUpdate) {	
 		// Move to the next word, or complete the game
 		this.wordIndex++;
-		this.speakAnim.stop();
 		if (this.wordIndex >= this.words.length) {
-			Toast.makeText(getApplicationContext(), "Game complete!", Toast.LENGTH_SHORT).show();	
-			this.txtLabel.setText("Well Done!");
+			this.playingRef = R.raw.leo_really_cool_16bit;
+			this.message.setText("Well Done!");
+			setState(InteractionState.PLAY);
+			//TODO Set visual back to Leo
 		}
-		else {
-			Toast.makeText(getApplicationContext(), "Say the next word!", Toast.LENGTH_SHORT).show();
-			MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), words[wordIndex].speechAudio);
-			mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-	            @Override
-	            public void onCompletion(MediaPlayer mp) {
-	            	speakAnim.start();
-	    			txtLabel.setText(words[wordIndex].displayWord);
-	    			wordObject.setBackgroundResource(words[wordIndex].drawable);
-	    			subPattern = words[wordIndex].matchWord;
-	    			wipeRecognizer();////
-	    			runGame();
-	            }
-			});
-			mediaPlayer.start();
-		}
+		else {			
+			this.playingRef = this.words[this.wordIndex].speechAudio;
+			this.message.setText("Now say " + this.words[this.wordIndex].displayWord + "!");
+			this.wordObject.setBackgroundResource(this.words[this.wordIndex].drawable);
+			this.subPattern = this.words[this.wordIndex].matchWord;
+			setState(InteractionState.PLAY_THEN_RERUN);
+		}				
+		wipeRecognizer(); //TODO Put in rerun bit?
 	}
 	
 	protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount) {
 		//WordGameActivity that = (WordGameActivity)activityToUpdate;
 		//that.textViewMessage.setText("Matched " + successCount + " times!");
-
 		
-		// Encourage the same word
-		Toast.makeText(getApplicationContext(), "Matched " + successCount + " times!", Toast.LENGTH_SHORT).show();
-		this.speakAnim.stop();
-		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), words[wordIndex].speechAudio);
-		mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-            	speakAnim.start();
-            }
-		});
-		mediaPlayer.start();
+		// Encourage the same word - note this won't be executed if accepting a single positive attempt
+		this.playingRef = R.raw.leo_great_job_16bit;
+		this.message.setText("Good, do it again!");
+		setState(InteractionState.PLAY_THEN_RECORD);
 	}
 	
 	protected void fullAttempts(AbstractGameActivity activityToUpdate) {
 		//WordGameActivity that = (WordGameActivity)activityToUpdate;
 		//that.textViewMessage.setText("Press Start to try again.");
 
-		this.speakAnim.stop();
-		Toast.makeText(getApplicationContext(), "Try again.", Toast.LENGTH_SHORT).show();
-		txtLabel.setText("Keep trying!");
-		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tmp_lizard);
-		mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-            	speakAnim.start();
-            	txtLabel.setText(words[wordIndex].displayWord);
-        		runGame();
-            }
-		});
-		mediaPlayer.start();
+		this.playingRef = this.words[this.wordIndex].speechAudio;
+		this.message.setText("Try it again!");
+		setState(InteractionState.PLAY_THEN_RERUN);
+		wipeRecognizer();
 	}
 	
 
@@ -178,66 +138,29 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 	public boolean onTouch(View v, MotionEvent event) {
 		
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-
 			if (v == this.buttonSkip) {
 				// Skip to the games
-
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			}
-			
 			else if (v == this.buttonMenu) {
 				// Skip to the Menu
-
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
-			
 			}
-			
 			else if (v == this.buttonStart) {
 				// Start the game
-				runGame();
+				runGame();	//TODO replace with setting state to PLAY_THEN_RECORD, which starts the recogniser if it's not running?
 				this.wordIndex = 0;
-				this.txtLabel.setText(this.words[wordIndex].displayWord);
+				this.message.setText(this.words[wordIndex].displayWord);
+				this.wordObject.setBackgroundResource(this.words[wordIndex].drawable);
 				
 				//Play Object sound
-				MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), words[wordIndex].speechAudio);
+				MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), this.words[this.wordIndex].speechAudio);
 				mediaPlayer.start();
 				
-				//Playing animation
-				//Animate Playback icon while sound is playing
-				//first unhide playback icon
-				//Change Text to next syllable - cycle through array?
-				
-				
-				final boolean playbackVisible = buttonPlay.isShown();
-				
-				if (playbackVisible == false){
-					// Play sound
-					buttonPlay.setVisibility(View.VISIBLE);
-					AnimationHelper.runKeyframeAnimation(this, R.id.buttonPlay, R.anim.anim_play_btn);
-					System.out.println("turned on");
-					
-				}else {
-					// Stop sound
-					buttonPlay.setVisibility(View.INVISIBLE);
-					System.out.println("turned off");
-				}
-				//Start voice recognition (WORD)
-				
-				//speaking animation
-				
-				//if voice recognition success then 				
-				//move to next object
-				
-				//swap item and text for next item
-				//this.wordObject.setBackgroundResource(R.drawable.img_obj_lettuce);
-				//this.txtLabel.setText("Lettuce");
-				//else if voice recognition unsuccessful then go back to start of object 
-				
-				
-				
-			
+				this.buttonStart.setVisibility(View.INVISIBLE);
+				this.wordObject.setVisibility(View.VISIBLE);
 			}
 		
 		}

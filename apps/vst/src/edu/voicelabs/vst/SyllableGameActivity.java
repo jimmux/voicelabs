@@ -3,16 +3,15 @@ package edu.voicelabs.vst;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import edu.voicelabs.vst.RecognizerTask.Mode;
 
 public class SyllableGameActivity extends AbstractGameActivity implements OnTouchListener {
@@ -20,19 +19,19 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	// Layout elements
 	protected RelativeLayout gameLayout;	
 
-	//menu
+	// Menu
 	private ImageButton buttonSkip;
 	private ImageButton buttonMenu;
+	
 	private ImageButton buttonStart;
-	
-    private AnimationDrawable speakAnim;
-	
-	private TextView txtSyllable;
 	
 	// Loops through the set of syllables to speak
 	private final String[] syllables = {"LA", "LI", "LU", "LE", "LO"};
+
 	private final String[] syllableSounds = {"R.Raw.leo_la","R.Raw.leo_li","R.Raw.leo_lu","R.Raw.leo_le","R.Raw.leo_lo"};
+
 	private int syllableIndex = 0;
+	
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,33 +39,32 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		subPattern = "L";
 		maxCorrectMatches = 2;
 		maxAttempts = 4;
-		mode = Mode.SYLLABLE;
 		
 		setContentView(R.layout.syllable_game);
-		//text Label
-		this.txtSyllable = (TextView) findViewById(R.id.txt_game1_syllable);
 		
-		//import fonts
-		Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf");  
-		txtSyllable.setTypeface(font);  
-		
-		//menu
+		// Menu
 		this.buttonSkip = (ImageButton) findViewById(R.id.buttonSkip);
 		this.buttonMenu = (ImageButton) findViewById(R.id.buttonMenu);
 		
 		this.buttonSkip.setOnTouchListener(this);
 		this.buttonMenu.setOnTouchListener(this);
 		
-		//click on leo to start the game
-		this.buttonStart = (ImageButton) findViewById(R.id.buttonStart);	
-		this.buttonStart.setOnTouchListener(this);	
+		//UI
+		this.message = (TextView) findViewById(R.id.txt_game1_syllable);
+		this.message.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf"));
 		
-		// Animated prompt
-		//this.imageViewSpeak = (ImageView) findViewById(R.id.imageViewSpeak);
-		this.speakAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonSpeak, R.anim.anim_btn_speak);
-		this.speakAnim.stop();
+		this.prompt = (ImageView) findViewById(R.id.imageViewPrompt);
 		
+		// Click on leo to start the game
+		this.buttonStart = (ImageButton) findViewById(R.id.buttonStartWord);	
+		this.buttonStart.setOnTouchListener(this);		
 
+		setState(InteractionState.IDLE);
+	}
+	
+
+	protected Mode getMode() {
+		return Mode.SYLLABLE;
 	}
 	
 	protected ViewGroup getGameLayout() {
@@ -74,102 +72,59 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	}
 
 	protected void fullSuccess(AbstractGameActivity activityToUpdate) {
-//		SyllableGameActivity that = (SyllableGameActivity) activityToUpdate;
-		
 		// Move to the next syllable, or complete the game
 		this.syllableIndex++;
-		this.speakAnim.stop();
 		if (this.syllableIndex >= this.syllables.length) {
-			Toast.makeText(getApplicationContext(), "Game complete!", Toast.LENGTH_SHORT).show();	
-			this.txtSyllable.setText("Well Done!");
+			this.playingRef = R.raw.leo_really_cool_16bit;
+			this.message.setText("Finished!");
+			setState(InteractionState.PLAY);
 		}
-		else {
-			Toast.makeText(getApplicationContext(), "Say the next sound!", Toast.LENGTH_SHORT).show();
-			MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tmp_lolly);
-			mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-	            @Override
-	            public void onCompletion(MediaPlayer mp) {
-	            	speakAnim.start();
-	    			txtSyllable.setText(syllables[syllableIndex]);
-	    			wipeRecognizer();////
-	    			runGame();
-	            }
-			});
-			mediaPlayer.start();
-		}		
+		else {			
+			this.playingRef = syllableSounds[syllableIndex];
+			this.message.setText("Now say " + syllables[syllableIndex] + "!");
+			setState(InteractionState.PLAY_THEN_RERUN);
+		}				
+		wipeRecognizer();
 	}
 	
 	protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount) {
-		//SyllableGameActivity that = (SyllableGameActivity) activityToUpdate;
-//		that.textViewMessage.setText("Matched " + successCount + " times!");
-		
 		// Encourage the same syllable		
-		Toast.makeText(getApplicationContext(), "Matched " + successCount + " times!", Toast.LENGTH_SHORT).show();
-		this.speakAnim.stop();
-		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tmp_lettuce);
-		mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-            	speakAnim.start();
-            }
-		});
-		mediaPlayer.start();
+		this.playingRef = R.raw.leo_great_job_16bit;
+		this.message.setText("Good, do it again!");
+		setState(InteractionState.PLAY_THEN_RECORD);
 	}
 	
 	protected void fullAttempts(AbstractGameActivity activityToUpdate) {
-		//SyllableGameActivity that = (SyllableGameActivity) activityToUpdate;
-//		that.textViewMessage.setText("Press Start to try again.");
-		this.speakAnim.stop();
-		Toast.makeText(getApplicationContext(), "Try again.", Toast.LENGTH_SHORT).show();
-		txtSyllable.setText("Keep trying!");
-		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tmp_lizard);
-		mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-            	speakAnim.start();
-        		txtSyllable.setText(syllables[syllableIndex]);
-        		runGame();
-            }
-		});
-		mediaPlayer.start();
+		this.playingRef = syllableSounds[syllableIndex];
+		this.message.setText("Try it again!");
+		setState(InteractionState.PLAY_THEN_RERUN);
+		wipeRecognizer();
 	}
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-
 			if (v == this.buttonSkip) {
 				// Skip to the games
-
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			}
-			
 			else if (v == this.buttonMenu) {
 				// Skip to the Menu
-
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
-			
 			}
-			
 			else if (v == this.buttonStart) {
-				// Start the game
-				runGame();
-				
-				//Show text
-				
-				//Playback sound
-				MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tmp_l);
-				mediaPlayer.start();
-				
-				//If correct move to next sound
-				
-				//Change Text to next syllable - cycle through array?
+				//Change text to first syllable
 				this.syllableIndex = 0;
-				this.txtSyllable.setText(this.syllables[0]);
-			
+				this.message.setText(this.syllables[syllableIndex]);
+				this.playingRef = syllableSounds[syllableIndex];
+				setState(InteractionState.PLAY_THEN_RECORD);
+				
+				// Play animation manually 
+				buttonStart.setBackgroundResource(R.anim.anim_leo_hand_to_ear);
+				AnimationDrawable leoAnimation = (AnimationDrawable) buttonStart.getBackground();
+				leoAnimation.start();
 			}
 		
 		}

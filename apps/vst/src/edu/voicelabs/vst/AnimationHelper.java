@@ -37,9 +37,9 @@ public class AnimationHelper {
 		// find View by its id attribute
 		ImageView theView = (ImageView) act.findViewById(viewId);
 	   
-		if(theView == null){
-		 // here, we don't care
-	    }
+//		if(theView == null){
+//		 // here, we don't care
+//	    }
 		// load animation XML resource under res/anim
 		theView.setBackgroundResource(animationFile);
 	    
