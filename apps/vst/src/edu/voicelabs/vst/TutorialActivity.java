@@ -279,7 +279,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 	            public void onCompletion(MediaPlayer mp) {
 		            videoPlayed = true;
 	            	videoView.setVisibility(View.GONE);
-	            	
+	            	System.gc();
 	            	introDemo();
 	            	
 	            	
@@ -300,6 +300,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 			if (v == this.videoView) {
 				videoView.stopPlayback();
             	videoView.setVisibility(View.GONE);		//Todo: prompt to confirm skip
+            	introDemo();
 			}
 		}
 		

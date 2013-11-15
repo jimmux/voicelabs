@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -80,6 +82,15 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 			setState(InteractionState.PLAY);
 			//TODO Wait 3 secs - then go to LessonProgress 
 			//TODO Update player progress to reflect that they have completed this stage
+			
+			 Handler handler = new Handler(); 
+			    handler.postDelayed(new Runnable() { 
+			         public void run() { 
+			        	 runLessonCompletion();  
+			         } 
+			    }, 2000); 
+
+			
 			
 		}
 		else {			

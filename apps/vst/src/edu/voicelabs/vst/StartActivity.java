@@ -1,9 +1,12 @@
 package edu.voicelabs.vst;
 
+import edu.voicelabs.vst.AbstractGameActivity.InteractionState;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,7 +23,8 @@ public class StartActivity extends Activity implements OnTouchListener {
 	private ImageButton imageButtonStart;
 	private Button buttonGoToSettings;
 	private AnimationDrawable leoBlinkAnim;
-
+	private MediaPlayer music; 
+	
 	/** Called when the activity is first created. */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,6 +59,19 @@ public class StartActivity extends Activity implements OnTouchListener {
 		super.onWindowFocusChanged(hasFocus);
 		
 		if (hasFocus) {
+			
+			//play intro music
+			music = MediaPlayer.create(getApplicationContext(), R.raw.splash_music);
+			// When it's finished playing back - then run game
+			music.setOnCompletionListener(new OnCompletionListener() {
+	            @Override
+	            public void onCompletion(MediaPlayer mp) {						
+	            	music.start();	
+	            }
+			});			
+			// Play Phoneme recording
+			music.start();	
+			
 			//start fade in animations
 			AnimationHelper.runAlphaAnimation(this, R.id.leo_fade_in, R.anim.anim_fade_in);
 			AnimationHelper.runAlphaAnimation(this, R.id.txt_phoneme, R.anim.anim_txt_fade);
@@ -83,6 +100,9 @@ public class StartActivity extends Activity implements OnTouchListener {
 				// Go to the phoneme select screen
 				Intent intent = new Intent(getApplicationContext(), PhonemeSelectActivity.class);
 	            startActivity(intent); 
+	            music.stop();
+	            music.release();
+	            music = null;
 			}
 //			else if (v == this.buttonGoToSettings) {
 //				// Go to the settings screen

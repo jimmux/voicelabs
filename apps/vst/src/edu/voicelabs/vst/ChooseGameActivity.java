@@ -1,11 +1,15 @@
 package edu.voicelabs.vst;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,7 +18,8 @@ import edu.voicelabs.vst.RecognizerTask.Mode;
 
 public class ChooseGameActivity extends AbstractGameActivity implements OnTouchListener {
 	// Layout elements
-	protected RelativeLayout gameLayout;	
+	protected RelativeLayout gameLayout;
+	private ImageButton leo;
 
 	// Menu
 	private ImageButton buttonSkip;
@@ -44,10 +49,10 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		}
 	}
 	private WordData[] words = {
-		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon),
-		new WordData("Lamb", "LAMB", R.drawable.img_obj_lamb, R.raw.tmp_lamb),
-		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.tmp_lettuce),
-		new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizzard, R.raw.tmp_lizard)
+		new WordData("Lemon", "LEMON", R.drawable.img_obj_feed_lemon, R.raw.tmp_lemon),
+		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_feed_lettuce, R.raw.tmp_lettuce),
+		new WordData("Lizard", "LIZARD", R.drawable.img_obj_feed_lizzard, R.raw.tmp_lizard),
+		new WordData("Lamb", "LAMB", R.drawable.img_obj_feed_lamb, R.raw.tmp_lamb)
 
 	};
 	private int wordIndex;	// Set to the currently chosen word;
@@ -75,10 +80,10 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		
 		// UI
 		this.prompt = (ImageView) findViewById(R.id.imageViewPrompt);
+		this.leo = (ImageButton) findViewById(R.id.buttonStartWord);
 		
 		//Food items
 		this.buttonItem1 = (ImageButton) findViewById(R.id.btn_lemon);
-
 		this.buttonItem2 = (ImageButton) findViewById(R.id.btn_lettuce);
 		this.buttonItem3 = (ImageButton) findViewById(R.id.btn_lizzard);
 		this.buttonItem4 = (ImageButton) findViewById(R.id.btn_lamb);
@@ -111,12 +116,57 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		
 		// Clear the word that was just done, or complete the game
 		this.wordCompletionCount++;
+		
+		int itm = this.chosenWordButton.getId();
+		
+		Animation animation;
+		
+		if ((itm == buttonItem3.getId())||(itm == buttonItem4.getId())){
+			animation  = AnimationUtils.loadAnimation(this, R.anim.anim_obj_slide_r_to_l);
+		}else {
+			animation  = AnimationUtils.loadAnimation(this, R.anim.anim_obj_slide_l_to_r);
+		}
+		  // reset initialization state
+	    animation.reset();	  
+	    // find View by its id attribute in the XML
+	    View v = chosenWordButton;
+	    // cancel any pending animation and start this one
+	    if (v != null){
+	      v.clearAnimation();
+	      v.startAnimation(animation);
+	      
+	    }	    	  
+	   
+		
 		this.chosenWordButton.setVisibility(View.INVISIBLE);
-		if (this.wordCompletionCount >= this.words.length) {
+		
+		 Handler leoAnim = new Handler(); 
+		 	leoAnim.postDelayed(new Runnable() { 
+		         public void run() { 
+		        	//leo eats!
+		        	// Play animation manually 
+						leo.setBackgroundResource(R.anim.anim_leo_eat);
+						AnimationDrawable leoAnimation = (AnimationDrawable) leo.getBackground();
+						leoAnimation.start();
+		         } 
+		    }, 100); 
+		
+		
+		
+		 if (this.wordCompletionCount >= this.words.length) {
 			this.playingRef = R.raw.leo_really_cool_16bit;
 			//this.message.setText("Well Done!");
 			setState(InteractionState.PLAY);
-			runLessonCompletion();		// Last game, so go to the victory screen
+			
+			// Last game, so go to the victory screen after 2 sec delay
+			 Handler handler = new Handler(); 
+			    handler.postDelayed(new Runnable() { 
+			         public void run() { 
+			        	 runLessonCompletion();  // Last game, so go to the victory screen
+			         } 
+			    }, 3000); 
+			
+			//runLessonCompletion();		// Last game, so go to the victory screen
 		}
 		else {			
 			//this.message.setText("Now say " + this.words[this.wordIndex].displayWord + "!");
@@ -165,15 +215,11 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.buttonSkip) {
 				// Skip to the games
-				//stopPlaying();
-				//stopRecording();
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			}
 			else if (v == this.buttonMenu) {
 				// Skip to the Menu
-				//stopPlaying();
-				//stopRecording();
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			}

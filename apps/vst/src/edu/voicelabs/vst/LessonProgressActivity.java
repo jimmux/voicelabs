@@ -34,6 +34,8 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 		this.imageButtonWord.setOnTouchListener(this);
 		this.imageButtonChoose.setOnTouchListener(this);
 		this.imageButtonBack.setOnTouchListener(this);
+		
+		//TODO If game has been completed - swap the red circle for a star
 	}
 	
 	// Show load screen, advance to start screen when ready.
