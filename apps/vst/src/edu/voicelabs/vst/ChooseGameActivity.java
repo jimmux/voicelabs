@@ -1,7 +1,6 @@
 package edu.voicelabs.vst;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -78,7 +77,6 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		
 		//Food items
 		this.buttonItem1 = (ImageButton) findViewById(R.id.btn_lemon);
-
 		this.buttonItem2 = (ImageButton) findViewById(R.id.btn_lettuce);
 		this.buttonItem3 = (ImageButton) findViewById(R.id.btn_lizzard);
 		this.buttonItem4 = (ImageButton) findViewById(R.id.btn_lamb);
@@ -116,7 +114,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 			this.playingRef = R.raw.leo_really_cool_16bit;
 			//this.message.setText("Well Done!");
 			setState(InteractionState.PLAY);
-			runLessonCompletion();		// Last game, so go to the victory screen
+			runLessonCompletion();		// Last game, so go to the victory screen - TODO use a wait/notify to proceed only after played.
 		}
 		else {			
 			//this.message.setText("Now say " + this.words[this.wordIndex].displayWord + "!");
