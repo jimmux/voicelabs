@@ -1,8 +1,11 @@
 package edu.voicelabs.vst;
 
 import android.content.Intent;
+<<<<<<< HEAD
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
+=======
+>>>>>>> c53d8b71af953f6c44aebac999c22114a8ee3a30
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -157,6 +160,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 			this.playingRef = R.raw.leo_really_cool_16bit;
 			//this.message.setText("Well Done!");
 			setState(InteractionState.PLAY);
+
 			
 			// Last game, so go to the victory screen after 2 sec delay
 			 Handler handler = new Handler(); 
@@ -166,7 +170,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 			         } 
 			    }, 3000); 
 			
-			//runLessonCompletion();		// Last game, so go to the victory screen
+
 		}
 		else {			
 			//this.message.setText("Now say " + this.words[this.wordIndex].displayWord + "!");
