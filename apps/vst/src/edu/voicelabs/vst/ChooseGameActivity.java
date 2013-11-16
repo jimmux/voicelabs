@@ -162,13 +162,15 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 			this.playingRef = R.raw.feedback_pos_really_cool;
 			//this.message.setText("Well Done!");
 			setState(InteractionState.PLAY);
-
+			
 			
 			// Last game, so go to the victory screen after 3 sec delay
 			 Handler handler = new Handler(); 
 			    handler.postDelayed(new Runnable() { 
 			         public void run() { 
 			        	 runGameCompletion("Choose");  // Last game, so go to the victory screen
+			        	 Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
+				         startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen
 			         } 
 			    }, 3000); 
 			

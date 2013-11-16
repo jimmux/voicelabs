@@ -86,6 +86,8 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 			    handler.postDelayed(new Runnable() { 
 			         public void run() { 
 			 			runGameCompletion("Syllable");
+			 			Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
+				        startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen
 			         } 
 			    }, 2000); 
 
@@ -102,7 +104,7 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	
 	protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount) {
 		// Encourage the same syllable		
-		this.playingRef = R.raw.feedback_pos_great_job;
+		this.playingRef = R.raw.feedback_partial_try_one_more;
 		this.message.setText("Good, do it again!");
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}

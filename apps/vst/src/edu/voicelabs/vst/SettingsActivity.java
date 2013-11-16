@@ -31,7 +31,7 @@ public class SettingsActivity extends Activity implements OnTouchListener {
 	public boolean onTouch(View v, MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {		
 			if (v == this.buttonExit) {
-				Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+				Intent intent = new Intent(getApplicationContext(), PhonemeSelectActivity.class);
 	            startActivity(intent); 
 			}
 			else if (v == this.buttonResetProfile) {

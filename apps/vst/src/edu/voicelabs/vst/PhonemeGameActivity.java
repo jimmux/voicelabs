@@ -81,7 +81,8 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 		    handler.postDelayed(new Runnable() { 
 		         public void run() { 
 		        	 runGameCompletion("Phoneme");
-                     //runLessonCompletion();  // Last game, so go to the victory screen
+		        	 Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
+			         startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen
 		         } 
 		    }, 3000); 
 
