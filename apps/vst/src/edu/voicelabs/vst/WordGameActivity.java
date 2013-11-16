@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -44,10 +45,14 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		}
 	}
 	private WordData[] words = {
-		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon),
-		new WordData("Lamb", "LAMB", R.drawable.img_obj_lamb, R.raw.tmp_lamb),
-		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.tmp_lettuce),
-		new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizzard, R.raw.tmp_lizard)
+		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.word_lemon),
+		new WordData("Lamb", "LAMB", R.drawable.img_obj_lamb, R.raw.word_lamb),
+		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.word_lettuce),
+		new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizzard, R.raw.word_lizzard),
+		new WordData("Lightning", "LIGHTNING", R.drawable.img_obj_lightning, R.raw.word_lightning),
+		new WordData("Lolly", "LOLLY", R.drawable.img_obj_lolly, R.raw.word_lolly),
+		//new WordData("lips", "LIPS", R.drawable.img_obj_lips, R.raw.word_lips),
+		new WordData("Leaves", "LEAVES", R.drawable.img_obj_leaves, R.raw.word_leaves)
 	};
 	private int wordIndex = 0;
 
@@ -98,10 +103,17 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		// Move to the next word, or complete the game
 		this.wordIndex++;
 		if (this.wordIndex >= this.words.length) {
-			this.playingRef = R.raw.leo_really_cool_16bit;
+			this.playingRef = R.raw.feedback_pos_really_cool;
 			this.message.setText("Well Done!");
 			setState(InteractionState.PLAY);
 			//TODO Set visual back to Leo
+			
+			 Handler handler = new Handler(); 
+			    handler.postDelayed(new Runnable() { 
+			         public void run() { 
+			        	 runLessonCompletion();  // Last game, so go to the victory screen
+			         } 
+			    }, 3000); 
 		}
 		else {			
 			this.playingRef = this.words[this.wordIndex].speechAudio;
@@ -118,7 +130,7 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		//that.textViewMessage.setText("Matched " + successCount + " times!");
 		
 		// Encourage the same word - note this won't be executed if accepting a single positive attempt
-		this.playingRef = R.raw.leo_great_job_16bit;
+		this.playingRef = R.raw.feedback_pos_great_job;
 		this.message.setText("Good, do it again!");
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}
@@ -140,7 +152,7 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.buttonSkip) {
 				// Skip to the games
-				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
+				Intent intent = new Intent(getApplicationContext(), ChooseGameActivity.class);
 	            startActivity(intent); 
 			}
 			else if (v == this.buttonMenu) {

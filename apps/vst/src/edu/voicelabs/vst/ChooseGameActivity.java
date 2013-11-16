@@ -1,11 +1,11 @@
 package edu.voicelabs.vst;
 
+import java.io.File;
+
 import android.content.Intent;
-<<<<<<< HEAD
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
-=======
->>>>>>> c53d8b71af953f6c44aebac999c22114a8ee3a30
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -32,7 +32,11 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	private ImageButton buttonItem1;
 	private ImageButton buttonItem2;
 	private ImageButton buttonItem3;
-	private ImageButton buttonItem4;    
+	private ImageButton buttonItem4; 
+	
+	private AnimationDrawable leoAnimation;
+	
+	Boolean feedIntroPlayed = false; 
 
 	/**
 	 * Simple struct for associated word data
@@ -52,10 +56,10 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		}
 	}
 	private WordData[] words = {
-		new WordData("Lemon", "LEMON", R.drawable.img_obj_feed_lemon, R.raw.tmp_lemon),
-		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_feed_lettuce, R.raw.tmp_lettuce),
-		new WordData("Lizard", "LIZARD", R.drawable.img_obj_feed_lizzard, R.raw.tmp_lizard),
-		new WordData("Lamb", "LAMB", R.drawable.img_obj_feed_lamb, R.raw.tmp_lamb)
+		new WordData("Lemon", "LEMON", R.drawable.img_obj_feed_lemon, R.raw.word_lemon),
+		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_feed_lettuce, R.raw.word_lettuce),
+		new WordData("Lizard", "LIZARD", R.drawable.img_obj_feed_lizzard, R.raw.word_lizzard),
+		new WordData("Lamb", "LAMB", R.drawable.img_obj_feed_lamb, R.raw.word_lamb)
 
 	};
 	private int wordIndex;	// Set to the currently chosen word;
@@ -101,6 +105,9 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		this.buttonItem3.setBackgroundResource(this.words[2].drawable);
 		this.buttonItem4.setBackgroundResource(this.words[3].drawable);
 		
+		leo.setBackgroundResource(R.anim.anim_leo_eat);
+		leoAnimation = (AnimationDrawable) leo.getBackground();
+		
 		setState(InteractionState.IDLE);
 	}
 	
@@ -143,26 +150,21 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		
 		this.chosenWordButton.setVisibility(View.INVISIBLE);
 		
-		 Handler leoAnim = new Handler(); 
-		 	leoAnim.postDelayed(new Runnable() { 
-		         public void run() { 
-		        	//leo eats!
-		        	// Play animation manually 
-						leo.setBackgroundResource(R.anim.anim_leo_eat);
-						AnimationDrawable leoAnimation = (AnimationDrawable) leo.getBackground();
-						leoAnimation.start();
-		         } 
-		    }, 100); 
 		
+		    //leo eats!
+        	// Play animation manually 
+
+				leoAnimation.start();
+
 		
 		
 		 if (this.wordCompletionCount >= this.words.length) {
-			this.playingRef = R.raw.leo_really_cool_16bit;
+			this.playingRef = R.raw.feedback_pos_really_cool;
 			//this.message.setText("Well Done!");
 			setState(InteractionState.PLAY);
 
 			
-			// Last game, so go to the victory screen after 2 sec delay
+			// Last game, so go to the victory screen after 3 sec delay
 			 Handler handler = new Handler(); 
 			    handler.postDelayed(new Runnable() { 
 			         public void run() { 
@@ -174,7 +176,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		}
 		else {			
 			//this.message.setText("Now say " + this.words[this.wordIndex].displayWord + "!");
-			this.playingRef = R.raw.leo_great_job_16bit;
+			this.playingRef = R.raw.feedback_pos_great_job;
 			setState(InteractionState.PLAY);
 		}				
 		wipeRecognizer(); //TODO Put in rerun bit?
@@ -185,7 +187,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		//that.textViewMessage.setText("Matched " + successCount + " times!");
 
 		// Encourage the same word - note this won't be executed if accepting a single positive attempt
-		this.playingRef = R.raw.leo_great_job_16bit;
+		this.playingRef = R.raw.feedback_pos_well_done;
 		//this.message.setText("Good, do it again!");
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}
@@ -213,6 +215,34 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		this.subPattern = this.words[this.wordIndex].matchWord;
 		runGame();	//TODO replace with setting state to RECORD or PLAY_THEN_RECORD, which starts the recogniser if it's not running?
 	}
+	
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		//TODO set leo to talk
+
+		
+		if (feedIntroPlayed == false){
+			MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.leo_after_all_that_work);
+			mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+	            @Override
+	            public void onCompletion(MediaPlayer mp) {
+	            	//TODO set leo back to idle
+	        		buttonItem1.setVisibility(View.VISIBLE);
+	        		buttonItem2.setVisibility(View.VISIBLE);
+	        		buttonItem3.setVisibility(View.VISIBLE);
+	        		buttonItem4.setVisibility(View.VISIBLE);
+
+	        
+	            }
+			});
+
+			mediaPlayer.start();
+			feedIntroPlayed = true;
+		}
+		
+
+	}
+	
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {

@@ -47,49 +47,56 @@
         android:background="@drawable/leo_animation0132"
         android:visibility="visible" />
 
-
-      <ImageView
-          android:id="@+id/imageViewPrompt"
+      <ImageButton
+          android:id="@+id/btn_lamb"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_above="@+id/buttonStartWord"
-          android:layout_centerHorizontal="true"
-          android:background="@drawable/anim_btn_play0001" />
+          android:layout_alignLeft="@+id/btn_lizzard"
+          android:layout_alignParentBottom="true"
+          android:layout_marginBottom="34dp"
+          android:layout_marginLeft="25dp"
+          android:visibility="invisible"
+          android:background="@drawable/img_obj_feed_lamb" />
 
       <ImageButton
           android:id="@+id/btn_lettuce"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignLeft="@+id/btn_lemon"
-          android:layout_alignTop="@+id/btn_lamb"
+          android:layout_alignParentBottom="true"
+          android:scaleX="0.7"
+          android:visibility="invisible"
           android:background="@drawable/img_obj_feed_lettuce" />
 
-      <ImageButton
-          android:id="@+id/btn_lamb"
+      <ImageView
+          android:id="@+id/imageViewPrompt"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_alignParentBottom="true"
-          android:layout_alignRight="@+id/btn_lizzard"
-          android:background="@drawable/img_obj_feed_lamb" />
+          android:layout_above="@+id/btn_lemon"
+          android:layout_centerHorizontal="true"
+          android:background="@drawable/anim_btn_play0001"
+          android:scaleX="0.7"
+          android:scaleY="0.7" />
 
       <ImageButton
           android:id="@+id/btn_lizzard"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignParentRight="true"
-          android:layout_centerVertical="true"
-          android:layout_marginRight="21dp"
+          android:layout_alignTop="@+id/buttonStartWord"
+          android:layout_marginRight="30dp"
+          android:layout_marginTop="21dp"
+          android:visibility="invisible"
           android:background="@drawable/img_obj_feed_lizzard" />
 
       <ImageButton
           android:id="@+id/btn_lemon"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_above="@+id/btn_lettuce"
           android:layout_alignParentLeft="true"
-          android:layout_marginBottom="23dp"
-          android:layout_marginLeft="61dp"
+          android:layout_alignTop="@+id/btn_lizzard"
+          android:layout_marginLeft="76dp"
+          android:visibility="invisible"
           android:background="@drawable/img_obj_feed_lemon" />
-
 
 </RelativeLayout>
