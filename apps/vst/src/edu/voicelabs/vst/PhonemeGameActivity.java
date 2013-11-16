@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import edu.voicelabs.vst.AbstractGameActivity.InteractionState;
 import edu.voicelabs.vst.RecognizerTask.Mode;
 
 
@@ -81,7 +82,7 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 	}
 	
 	protected void fullAttempts(AbstractGameActivity activityToUpdate) {
-		this.playingRef = R.raw.leo_negative2;		//TODO Need a "try again" type of response - repeat the phoneme? sad sound?
+		this.playingRef = R.raw.leo_negative2;
 		this.message.setText("Keep trying...");
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}
@@ -102,23 +103,14 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 	            startActivity(intent); 
 			}
 			else if (v == this.buttonStart) {
-				MediaPlayer lllSound = MediaPlayer.create(getApplicationContext(), R.raw.leo_lll);
-				// When it's finished playing back - then run game
-				lllSound.setOnCompletionListener(new OnCompletionListener() {
-		            @Override
-		            public void onCompletion(MediaPlayer mp) {						
-						// Play animation manually 
-						buttonStart.setBackgroundResource(R.anim.anim_leo_hand_to_ear);
-						AnimationDrawable leoAnimation = (AnimationDrawable) buttonStart.getBackground();
-						leoAnimation.start();
-						
-						// Start the voice recognition
-		            	runGame();
-		            	setState(InteractionState.RECORD);
-		            }
-				});			
-				// Play Phoneme recording
-				lllSound.start();	
+				this.playingRef = R.raw.leo_lll;
+				setState(InteractionState.PLAY_THEN_RECORD);
+				
+				// Play animation manually 
+				buttonStart.setBackgroundResource(R.anim.anim_leo_hand_to_ear);
+				AnimationDrawable leoAnimation = (AnimationDrawable) buttonStart.getBackground();
+				leoAnimation.start();
+				
 			}
 		
 		}

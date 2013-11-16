@@ -21,6 +21,8 @@ import edu.cmu.pocketsphinx.pocketsphinx;
  * the form of a long-running task which accepts requests to start and stop
  * listening, and emits recognition results to a listener.
  * 
+ * Modified by James Manley <jimmux@gmail.com>
+ * 
  * @author David Huggins-Daines <dhuggins@cs.cmu.edu>
  */
 public class RecognizerTask implements Runnable {
@@ -196,7 +198,8 @@ public class RecognizerTask implements Runnable {
 		switch (mode) {
 		case PHONEME:
 //			c.setString("-mode", "allphone");	// Not supported in this version, but may be useful in the future
-			c.setString("-lm", base_dir + "/lm/interp_nodx.arpa.dmp");	// Better suited to phonemes
+//			c.setString("-lm", base_dir + "/lm/interp_nodx.arpa.dmp");	// Better suited to phonemes
+			c.setString("-lm", base_dir + "/lm/en_US_phonemes_initials.dmp");
 			c.setString("-dict", base_dir + "/lm/en_US_phonemes_initials.dic");
 			break;
 		case SYLLABLE:
@@ -204,8 +207,6 @@ public class RecognizerTask implements Runnable {
 			c.setString("-dict", base_dir + "/lm/en_US_phonemes_initials.dic");
 			break;
 		default:	// catches WORD
-//			c.setString("-dict", base_dir + "/lm/hub4.5000.dic");
-//			c.setString("-lm", base_dir + "/lm/hub4.5000.dmp");
 			c.setString("-dict", base_dir + "/lm/4608.dic");
 			c.setString("-lm", base_dir + "/lm/4608.dmp");
 		}
