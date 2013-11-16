@@ -29,7 +29,7 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	// Loops through the set of syllables to speak
 	private final String[] syllables = {"LA", "LI", "LU", "LE", "LO"};
 
-	private final int[] syllableSounds = {R.raw.leo_la, R.raw.leo_li, R.raw.leo_lu, R.raw.leo_le, R.raw.leo_lo};
+	private final int[] syllableSounds = {R.raw.syllable_la, R.raw.syllable_li, R.raw.syllable_lu, R.raw.syllable_le, R.raw.syllable_lo};
 
 	private int syllableIndex = 0;
 	
@@ -76,7 +76,7 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		// Move to the next syllable, or complete the game
 		this.syllableIndex++;
 		if (this.syllableIndex >= this.syllables.length) {
-			this.playingRef = R.raw.leo_really_cool_16bit;
+			this.playingRef = R.raw.feedback_pos_really_cool;
 			this.message.setText("Finished!");
 			setState(InteractionState.PLAY);
 			//TODO Wait 3 secs - then go to LessonProgress 
@@ -86,6 +86,8 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 			    handler.postDelayed(new Runnable() { 
 			         public void run() { 
 			 			runGameCompletion("Syllable");
+			 			Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
+				        startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen
 			         } 
 			    }, 2000); 
 
@@ -102,7 +104,7 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	
 	protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount) {
 		// Encourage the same syllable		
-		this.playingRef = R.raw.leo_great_job_16bit;
+		this.playingRef = R.raw.feedback_partial_try_one_more;
 		this.message.setText("Good, do it again!");
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}
@@ -119,7 +121,7 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.buttonSkip) {
 				// Skip to the games
-				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
+				Intent intent = new Intent(getApplicationContext(), WordGameActivity.class);
 	            startActivity(intent); 
 			}
 			else if (v == this.buttonMenu) {

@@ -58,22 +58,22 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 				AnimationHelper.runKeyframeAnimation(
 					this, 
 					R.id.imageButtonPhoneme,
-					db.getProgress("Default", "L", "Phoneme") ? R.anim.anim_star_big : R.anim.anim_btn_red_circle1
+					db.getProgress("Default", "L", "Phoneme") ? R.anim.anim_star_small : R.anim.anim_btn_red_circle1
 				);
 				AnimationHelper.runKeyframeAnimation(
 					this, 
 					R.id.imageButtonSyllable, 
-					db.getProgress("Default", "L", "Syllable") ? R.anim.anim_star_big : R.anim.anim_btn_red_circle2
+					db.getProgress("Default", "L", "Syllable") ? R.anim.anim_star_small : R.anim.anim_btn_red_circle2
 				);
 				AnimationHelper.runKeyframeAnimation(
 					this, 
 					R.id.imageButtonWord, 
-					db.getProgress("Default", "L", "Word") ? R.anim.anim_star_big : R.anim.anim_btn_red_circle3
+					db.getProgress("Default", "L", "Word") ? R.anim.anim_star_small : R.anim.anim_btn_red_circle3
 				);
 				AnimationHelper.runKeyframeAnimation(
 					this, 
 					R.id.imageButtonChoose, 
-					db.getProgress("Default", "L", "Choose") ? R.anim.anim_star_big : R.anim.anim_btn_red_circle4
+					db.getProgress("Default", "L", "Choose") ? R.anim.anim_star_small : R.anim.anim_btn_red_circle4
 				);
 			}
 		}	

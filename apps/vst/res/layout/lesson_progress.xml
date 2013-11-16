@@ -47,22 +47,23 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/img_obj_clouds" />
-    
-    <ImageView
-        android:id="@+id/sunProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/clouds"
-        android:layout_marginRight="27dp"
-        android:layout_toLeftOf="@+id/imageButtonWord"
-        android:background="@drawable/img_obj_sun" />
 
     <ImageButton
         android:id="@+id/imageButtonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageButtonPhoneme"
         android:layout_alignLeft="@+id/sunProgress"
-        android:layout_below="@+id/imageButtonSyllable"
+        android:layout_marginBottom="31dp"
         android:background="@drawable/btn_skip_back" />
+
+    <ImageView
+        android:id="@+id/sunProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageButtonChoose"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="48dp"
+        android:background="@drawable/img_obj_sun" />
 
 </RelativeLayout>

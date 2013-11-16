@@ -7,15 +7,15 @@
     <item android:drawable="@drawable/leo_animation0062" android:duration="40"/>
     <item android:drawable="@drawable/leo_animation0063" android:duration="40"/>
     <item android:drawable="@drawable/leo_animation0064" android:duration="40"/>
-    <item android:drawable="@drawable/leo_animation0065" android:duration="40"/>
-    <item android:drawable="@drawable/leo_animation0066" android:duration="40"/>
-    <item android:drawable="@drawable/leo_animation0067" android:duration="40"/>
-    <item android:drawable="@drawable/leo_animation0068" android:duration="40"/>
-    <item android:drawable="@drawable/leo_animation0069" android:duration="40"/>
-    <item android:drawable="@drawable/leo_animation0070" android:duration="40"/>
-    <item android:drawable="@drawable/leo_animation0071" android:duration="40"/>
-    <item android:drawable="@drawable/leo_animation0072" android:duration="40"/>
-    <item android:drawable="@drawable/leo_animation0073" android:duration="40"/>
+    <item android:drawable="@drawable/leo_animation0065" android:duration="120"/>
+    <item android:drawable="@drawable/leo_animation0066" android:duration="80"/>
+    <item android:drawable="@drawable/leo_animation0067" android:duration="80"/>
+    <item android:drawable="@drawable/leo_animation0068" android:duration="80"/>
+    <item android:drawable="@drawable/leo_animation0069" android:duration="80"/>
+    <item android:drawable="@drawable/leo_animation0070" android:duration="80"/>
+    <item android:drawable="@drawable/leo_animation0071" android:duration="80"/>
+    <item android:drawable="@drawable/leo_animation0072" android:duration="80"/>
+    <item android:drawable="@drawable/leo_animation0073" android:duration="80"/>
     <item android:drawable="@drawable/leo_animation0074" android:duration="40"/>
     <item android:drawable="@drawable/leo_animation0075" android:duration="40"/>
     <item android:drawable="@drawable/leo_animation0076" android:duration="40"/>

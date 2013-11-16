@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -44,10 +47,14 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		}
 	}
 	private WordData[] words = {
-		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.tmp_lemon),
-		new WordData("Lamb", "LAMB", R.drawable.img_obj_lamb, R.raw.tmp_lamb),
-		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.tmp_lettuce),
-		new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizzard, R.raw.tmp_lizard)
+		new WordData("Lemon", "LEMON", R.drawable.img_obj_lemon, R.raw.word_lemon),
+		new WordData("Lamb", "LAMB", R.drawable.img_obj_lamb, R.raw.word_lamb),
+		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.word_lettuce),
+		new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizzard, R.raw.word_lizzard),
+		new WordData("Lightning", "LIGHTNING", R.drawable.img_obj_lightning, R.raw.word_lightning),
+		new WordData("Lolly", "LOLLY", R.drawable.img_obj_lolly, R.raw.word_lolly),
+		//new WordData("lips", "LIPS", R.drawable.img_obj_lips, R.raw.word_lips), // LIPS doesn't seem to be in the dictionary - Is there any way to add another word?
+		new WordData("Leaves", "LEAVES", R.drawable.img_obj_leaves, R.raw.word_leaves)
 	};
 	private int wordIndex = 0;
 
@@ -98,16 +105,42 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		// Move to the next word, or complete the game
 		this.wordIndex++;
 		if (this.wordIndex >= this.words.length) {
-			this.playingRef = R.raw.leo_really_cool_16bit;
+			this.playingRef = R.raw.feedback_pos_really_cool;
 			this.message.setText("Well Done!");
 			setState(InteractionState.PLAY);
 			//TODO Set visual back to Leo
-			runGameCompletion("Word");
+			
+			 Handler handler = new Handler(); 
+			    handler.postDelayed(new Runnable() { 
+			         public void run() { 
+			        	 runGameCompletion("Word");
+			        	 Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
+				         startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen
+			         } 
+			    }, 3000); 
+
 		}
-		else {			
+		else {
+			Animation fadeInAnimation;
 			this.playingRef = this.words[this.wordIndex].speechAudio;
 			this.message.setText("Now say " + this.words[this.wordIndex].displayWord + "!");
 			this.wordObject.setBackgroundResource(this.words[this.wordIndex].drawable);
+			
+			//FADE IN
+			fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_fade_in_obj);
+			fadeInAnimation.reset();
+			
+			View objectView = findViewById(R.id.btn_game3_obj);
+					
+		    View v = objectView;
+		    // cancel any pending animation and start this one
+		    if (v != null){
+		      v.clearAnimation();
+		      v.startAnimation(fadeInAnimation);
+		      
+		    }
+		    
+		    
 			this.subPattern = this.words[this.wordIndex].matchWord;
 			setState(InteractionState.PLAY_THEN_RERUN);
 		}				
@@ -119,7 +152,7 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		//that.textViewMessage.setText("Matched " + successCount + " times!");
 		
 		// Encourage the same word - note this won't be executed if accepting a single positive attempt
-		this.playingRef = R.raw.leo_great_job_16bit;
+		this.playingRef = R.raw.feedback_pos_great_job;
 		this.message.setText("Good, do it again!");
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}
@@ -141,7 +174,7 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.buttonSkip) {
 				// Skip to the games
-				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
+				Intent intent = new Intent(getApplicationContext(), ChooseGameActivity.class);
 	            startActivity(intent); 
 			}
 			else if (v == this.buttonMenu) {
@@ -155,6 +188,21 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 				this.wordIndex = 0;
 				this.message.setText(this.words[wordIndex].displayWord);
 				this.wordObject.setBackgroundResource(this.words[wordIndex].drawable);
+				
+				//FADE IN
+				Animation fadeInAnimation;
+				fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_fade_in_obj);
+				fadeInAnimation.reset();
+				
+				View objectView = findViewById(R.id.btn_game3_obj);
+						
+			    View vw = objectView;
+			    // cancel any pending animation and start this one
+			    if (v != null){
+			      vw.clearAnimation();
+			      vw.startAnimation(fadeInAnimation);
+			      
+			    }
 				
 				//Play Object sound
 				MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), this.words[this.wordIndex].speechAudio);

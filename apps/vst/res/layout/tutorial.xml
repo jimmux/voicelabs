@@ -20,6 +20,7 @@
             android:background="@android:color/transparent"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
+            android:visibility="invisible"
             android:src="@drawable/btn_menu_go" />
 
         <ImageButton
@@ -37,26 +38,28 @@
 
 
     <ImageButton
-        android:id="@+id/buttonRecord"
+        android:id="@+id/buttonPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginRight="100dp"
         android:layout_alignParentRight="true"
-        android:background="@drawable/anim_btn_speak0001"
-        android:minHeight="170dp"
+        android:background="@drawable/anim_btn_play0001"
+        android:minHeight="170dp"  
         android:scaleX="-1"
         android:visibility="invisible" />
 
     <ImageButton
-        android:id="@+id/buttonPlay"
+        
+        android:id="@+id/buttonRecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="100dp"
-        android:background="@drawable/anim_btn_play0001"
+        android:background="@drawable/anim_btn_speak0001"
         android:minHeight="170dp"
+        
         android:visibility="invisible" />
 
     <ImageButton
@@ -70,7 +73,7 @@
         android:visibility="visible" />
     
      <ImageButton
-        android:id="@+id/redCircle"
+        android:id="@+id/leo_helper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -92,6 +95,26 @@
         android:layout_centerInParent="true"
         android:visibility="gone" />
 
-       
+        <ImageButton
+            android:id="@+id/record_helper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/buttonRecord"
+            android:background="@drawable/anim_btn_red_circle0010"
+            android:minHeight="100dp"
+            android:minWidth="100dp"
+            android:visibility="invisible" />
+
+        <ImageButton
+            android:id="@+id/play_helper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/buttonPlay"
+            android:layout_centerVertical="true"
+            android:background="@drawable/anim_btn_red_circle0010"
+            android:minHeight="100dp"
+            android:minWidth="100dp"
+            android:visibility="invisible" />
 
 </RelativeLayout>

@@ -105,6 +105,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 			break;
     	case IDLE:
     		// Nothing to do
+    		Log.i("idle", "fired idle - absAct 108");
     	}
     	
     	// Now set the expected conditions and update state
@@ -144,6 +145,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 		    break;
     	case IDLE:
     		// Nothing to do
+    		Log.i("idle", "fired idle - absAct 147");
     		this.prompt.setVisibility(View.INVISIBLE);
     	}
     	this.state = newState;  		
