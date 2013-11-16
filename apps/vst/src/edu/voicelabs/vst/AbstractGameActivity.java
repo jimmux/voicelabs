@@ -32,8 +32,8 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	protected String subPattern = "";		// Determines what we are looking for, e.g. "L", "L-AH", "LOLLY"
 	protected int maxCorrectMatches = 1;	// Number of matches to consider it a successful attempt
 	protected int maxAttempts = 6;			// When this number of attempts is detected, consider the exercise failed
-	//protected Mode mode = Mode.WORD;		// Matching mode to use, PHONEME, SYLLABLE, or WORD
-	abstract protected Mode getMode();
+	abstract protected Mode getMode();		// Matching mode to use, PHONEME, SYLLABLE, or WORD
+	
 	
 	abstract protected ViewGroup getGameLayout();	// Children to return the ViewGroup (usually the top level layout) containing all updateable UI elements
 	abstract protected void fullSuccess(AbstractGameActivity activityToUpdate);
@@ -238,13 +238,21 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	}
 	
 	/**
-	 * May be called by a child class, if it is the last in the lesson.
-	 * Shows a custom dialog completion screen, then returns to the phoneme select
+	 * May be called by a child class to update progress in the database.
+	 * 
+	 * If it is the last in the lesson,
+	 * shows a custom dialog completion screen, then returns to the phoneme select
 	 * screen after a short period of time, or when touched.
 	 */
-	protected void runLessonCompletion() {		
-		Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
-        startActivity(intent); 		
+	protected void runGameCompletion(String gameName) {
+		// Update progress
+		DBHelper db = new DBHelper(getApplicationContext());
+		db.setProgress("Default", "L", gameName);
+		// Advance if completed
+		if (db.getComplete("Default", "L")) {
+			Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
+	        startActivity(intent);
+		}
 	}
 	
 	/**

@@ -74,14 +74,17 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 		this.message.setText("You got it!");
 		setState(InteractionState.PLAY);
 		wipeRecognizer();
+
 		
 		// Last game, so go to the victory screen after 3 sec delay
 		 Handler handler = new Handler(); 
 		    handler.postDelayed(new Runnable() { 
 		         public void run() { 
-		        	 runLessonCompletion();  // Last game, so go to the victory screen
+		        	 runGameCompletion("Phoneme");
+                     //runLessonCompletion();  // Last game, so go to the victory screen
 		         } 
 		    }, 3000); 
+
 	}
 	
 	protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount) {  //TODO pass of activity no longer needed?		

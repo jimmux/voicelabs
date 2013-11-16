@@ -6,13 +6,13 @@ package edu.voicelabs.vst;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +25,10 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 	private ImageButton imageButtonL;
 	private ImageButton imageButtonS;
 	private ImageButton imageButtonCH;
+	
+	// Update to show completion
+	private ImageView imageViewProgressL;
+	private AnimationDrawable animProgressL;
 	
 	private ImageButton buttonGoToSettings;
 
@@ -50,6 +54,8 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 		this.imageButtonS = (ImageButton) findViewById(R.id.imageButtonPhonemeS);
 		this.imageButtonCH = (ImageButton) findViewById(R.id.imageButtonPhonemeCH);
 		
+		this.imageViewProgressL = (ImageView) findViewById(R.id.imageViewProgressL);
+		
 		this.buttonGoToSettings = (ImageButton) findViewById(R.id.img_settings);
 		
 		this.imageButtonL.setOnTouchListener(this);
@@ -57,6 +63,15 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 		this.imageButtonCH.setOnTouchListener(this);
 		
 		this.buttonGoToSettings.setOnTouchListener(this);
+		
+		DBHelper db = new DBHelper(getApplicationContext());
+		if (db.getComplete("Default", "L")) {	//TODO use smaller star when available
+			this.animProgressL = AnimationHelper.runKeyframeAnimation(this, R.id.imageViewProgressL, R.anim.anim_star_big);
+			this.imageViewProgressL.setVisibility(View.VISIBLE);
+		}
+		else {
+			this.imageViewProgressL.setVisibility(View.INVISIBLE);
+		}
 	}
 
 	/* (non-Javadoc)

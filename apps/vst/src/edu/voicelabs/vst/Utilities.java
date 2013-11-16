@@ -15,6 +15,7 @@ public class Utilities {
 	
 	private Context context;
 	public static final boolean DEBUG = true;	// Hard coded to enable/disable debugging behaviour
+	public static final int GAME_COUNT = 4;		// Number of games per phoneme
 	
 	public Utilities(Context context) {
 		this.context = context;

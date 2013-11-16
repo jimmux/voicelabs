@@ -111,9 +111,11 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 			 Handler handler = new Handler(); 
 			    handler.postDelayed(new Runnable() { 
 			         public void run() { 
-			        	 runLessonCompletion();  // Last game, so go to the victory screen
+			        	 runGameCompletion("Word");
+                         //runLessonCompletion();  // Last game, so go to the victory screen
 			         } 
 			    }, 3000); 
+
 		}
 		else {			
 			this.playingRef = this.words[this.wordIndex].speechAudio;

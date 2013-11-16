@@ -11,9 +11,9 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -168,7 +168,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 			 Handler handler = new Handler(); 
 			    handler.postDelayed(new Runnable() { 
 			         public void run() { 
-			        	 runLessonCompletion();  // Last game, so go to the victory screen
+			        	 runGameCompletion("Choose");  // Last game, so go to the victory screen
 			         } 
 			    }, 3000); 
 			

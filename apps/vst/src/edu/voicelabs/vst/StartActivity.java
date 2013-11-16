@@ -1,6 +1,5 @@
 package edu.voicelabs.vst;
 
-import edu.voicelabs.vst.AbstractGameActivity.InteractionState;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -11,7 +10,6 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +19,7 @@ import android.widget.TextView;
 public class StartActivity extends Activity implements OnTouchListener {
 	
 	private ImageButton imageButtonStart;
-	private Button buttonGoToSettings;
+//	private Button buttonGoToSettings;
 	private AnimationDrawable leoBlinkAnim;
 	private MediaPlayer music; 
 	
@@ -48,9 +46,9 @@ public class StartActivity extends Activity implements OnTouchListener {
 		Utilities utils = new Utilities(getApplicationContext());
 		utils.SetupSpeechData();
 		
-		// Initialise the database
+		// Initialise the database, creating profile data if not yet available
 		DBHelper db = new DBHelper(getApplicationContext());
-		db.InitialiseWithDefaults();
+		db.initialiseWithDefaults(false);
 	}
 	
 	// Show load screen, advance to start screen when ready.
