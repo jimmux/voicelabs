@@ -71,6 +71,7 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 		this.message.setText("You got it!");
 		setState(InteractionState.PLAY);
 		wipeRecognizer();
+		runGameCompletion("Phoneme");
 	}
 	
 	protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount) {  //TODO pass of activity no longer needed?		

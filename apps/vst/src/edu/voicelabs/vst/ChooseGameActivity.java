@@ -162,7 +162,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 			 Handler handler = new Handler(); 
 			    handler.postDelayed(new Runnable() { 
 			         public void run() { 
-			        	 runLessonCompletion();  // Last game, so go to the victory screen
+			        	 runGameCompletion("Choose");  // Last game, so go to the victory screen
 			         } 
 			    }, 3000); 
 			

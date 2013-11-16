@@ -2,12 +2,12 @@ package edu.voicelabs.vst;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 public class SettingsActivity extends Activity implements OnTouchListener {
 	
@@ -20,9 +20,11 @@ public class SettingsActivity extends Activity implements OnTouchListener {
 		
 		this.buttonExit = (Button) findViewById(R.id.buttonExit);
 		this.buttonExit.setOnTouchListener(this);
+		this.buttonExit.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf"));
 
 		this.buttonResetProfile = (Button) findViewById(R.id.buttonResetProfile);
 		this.buttonResetProfile.setOnTouchListener(this);
+		this.buttonResetProfile.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf"));
 	}
 	
 	@Override
@@ -34,6 +36,9 @@ public class SettingsActivity extends Activity implements OnTouchListener {
 			}
 			else if (v == this.buttonResetProfile) {
 				// Recreate empty profile
+				DBHelper db = new DBHelper(getApplicationContext());
+				db.initialiseWithDefaults(true);
+				this.buttonResetProfile.setText("Profile Reset!");
 			}
 		}
 		return false;

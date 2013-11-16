@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
 	
@@ -13,13 +14,23 @@ public class DBHelper extends SQLiteOpenHelper {
 	/** 
 	 * Populate the database with default data, if not done already.
 	 */
-	public void InitialiseWithDefaults() {
+	public void initialiseWithDefaults(boolean force) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		
+		if (force) {
+			onUpgrade(db, 0, 0);
+		}
+		
 		Cursor cursor = db.rawQuery("select * from Profile", null);
-	    if (cursor == null) {
+		if (cursor == null) {
+			Log.d(getClass().getName(), "Could not get data. Database available?");
+			return;
+		}
+		cursor.moveToFirst();
+		if (cursor.getCount() == 0) {
+		
 	    	ContentValues values;
-	    	
+	     	
 	    	// Profile
 	    	values = new ContentValues();
 	        values.put("Name", "Default");
@@ -28,37 +39,46 @@ public class DBHelper extends SQLiteOpenHelper {
 	        // Phoneme
 	    	values = new ContentValues();
 	        values.put("ARPAbet", "L");
+	        db.insert("Phoneme", null, values);
 	        values.put("ARPAbet", "S");
+	        db.insert("Phoneme", null, values);
 	        values.put("ARPAbet", "CH");
 	        db.insert("Phoneme", null, values);
 	        
 	        // Stage
 	    	values = new ContentValues();
 	        values.put("Name", "Phoneme");
+	        db.insert("Stage", null, values);
 	        values.put("Name", "Syllable");
+	        db.insert("Stage", null, values);
 	        values.put("Name", "Word");
+	        db.insert("Stage", null, values);
 	        values.put("Name", "Choose");
 	        db.insert("Stage", null, values);
 	        
 	        // Progress
 	    	values = new ContentValues();
-	        values.put("ID_Profile", "0");
-	        values.put("ID_Phoneme", "0");
-	        values.put("ID_Stage", "0");
-	        values.put("Complete", "0");
+	        values.put("ID_Profile", 1);
+	        values.put("ID_Phoneme", 1);
+	        values.put("ID_Stage", 1);
+	        values.put("Complete", false);
 	        db.insert("Progress", null, values);
-	        values.put("ID_Profile", "0");
-	        values.put("ID_Phoneme", "1");
-	        values.put("ID_Stage", "0");
-	        values.put("Complete", "0");
+	        values.put("ID_Profile", 1);
+	        values.put("ID_Phoneme", 1);
+	        values.put("ID_Stage", 2);
+	        values.put("Complete", false);
 	        db.insert("Progress", null, values);
-	        values.put("ID_Profile", "0");
-	        values.put("ID_Phoneme", "2");
-	        values.put("ID_Stage", "0");
-	        values.put("Complete", "0");
+	        values.put("ID_Profile", 1);
+	        values.put("ID_Phoneme", 1);
+	        values.put("ID_Stage", 3);
+	        values.put("Complete", false);
+	        db.insert("Progress", null, values);
+	        values.put("ID_Profile", 1);
+	        values.put("ID_Phoneme", 1);
+	        values.put("ID_Stage", 4);
+	        values.put("Complete", false);
 	        db.insert("Progress", null, values);
 	    }
-	    
         db.close();
 	}
 
@@ -72,7 +92,7 @@ public class DBHelper extends SQLiteOpenHelper {
 			" create table Profile ( " +
 			" 	ID_Profile integer primary key, " +
 			"   Name char(20) " +
-			" ); "
+			" ) "
 		);
 		db.execSQL(
 			" create table Progress ( " +
@@ -112,91 +132,117 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
 	}
 	
-	public String getProgress(String profileName, String phoneme) {
+	/**
+	 * Get the number of games completed for a given phoneme.
+	 * 
+	 * @param profileName
+	 * @param phoneme
+	 * @return
+	 */
+	public int getProgressCount(String profileName, String phoneme) {
 		SQLiteDatabase db = this.getReadableDatabase();
+		int result = 0;
 		
 		Cursor cursor = db.rawQuery(
-			" select Stage.Name from Progress " +
+			" select count(ID_Progress) " +
+			" from Progress " +
+			" join Profile on Progress.ID_Profile = Profile.ID_Profile " +
+			" join Phoneme on Progress.ID_Phoneme = Phoneme.ID_Phoneme " +
+			" where Profile.Name = ? " +
+			" and Phoneme.ARPAbet = ? " +
+			" and Progress.Complete = 1 ",
+			new String[] {profileName, phoneme}
+		);
+		cursor.moveToFirst();
+		if (cursor != null && cursor.getCount() > 0) {
+			result = cursor.getInt(0);
+		}
+		else {
+			Log.e(getClass().getName(), "Could not get progress.");
+		}
+		cursor.close();
+		return result;
+	}
+	
+	/**
+	 * Get the completion status for a given phoneme and game, e.g. "L", "Syllable".
+	 * 
+	 * @param profileName
+	 * @param phoneme
+	 * @param stage
+	 * @return
+	 */
+	public boolean getProgress(String profileName, String phoneme, String stageName) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		boolean result = false;
+		
+		Cursor cursor = db.rawQuery(
+			" select Progress.Complete " +
+			" from Progress " +
 			" join Profile on Progress.ID_Profile = Profile.ID_Profile " +
 			" join Phoneme on Progress.ID_Phoneme = Phoneme.ID_Phoneme " +
 			" join Stage on Progress.ID_Stage = Stage.ID_Stage " +
 			" where Profile.Name = ? " +
-			" and Phoneme.ARPAbet = ? ", 
-			new String[] {profileName, phoneme}
+			" and Phoneme.ARPAbet = ? " +
+			" and Stage.Name = ? ",
+			new String[] {profileName, phoneme, stageName}
 		);
-		cursor.moveToFirst();  // Should always get a result
-		
-		return cursor.getString(0);
+		cursor.moveToFirst();
+		if (cursor != null && cursor.getCount() > 0) {
+			result = (cursor.getInt(0) != 0);
+		}
+		else {
+			Log.e(getClass().getName(), "Could not get progress.");
+		}
+		cursor.close();
+		return result;		
 	}
 	
+	/**
+	 * Tell us if all the games are completed for a phoneme.
+	 * 
+	 * @param profileName
+	 * @param phoneme
+	 * @return
+	 */
 	public boolean getComplete(String profileName, String phoneme) {
-		SQLiteDatabase db = this.getReadableDatabase();
-		
-		Cursor cursor = db.rawQuery(
-			" select Progress.Complete from Progress " +
-			" join Profile on Progress.ID_Profile = Profile.ID_Profile " +
-			" join Phoneme on Progress.ID_Phoneme = Phoneme.ID_Phoneme " +
-			" where Profile.Name = ? " +
-			" and Phoneme.ARPAbet = ? ", 
-			new String[] {profileName, phoneme}
-		);
-		cursor.moveToFirst();  // Should always get a result
-		
-		return (cursor.getInt(0) != 0);
+		return getProgressCount(profileName, phoneme) >= Utilities.GAME_COUNT;
 	}
 	
 	
+	/**
+	 * Set the progress for a given phoneme and game to complete.
+	 * 
+	 * @param profileName
+	 * @param phoneme
+	 * @param stageName
+	 */
 	public void setProgress(String profileName, String phoneme, String stageName) {
 		int id_progress;
-		int id_stage;
 	    SQLiteDatabase db = this.getWritableDatabase();
 	    Cursor cursor;
 		
+	    // Get the id of the row to update
 		cursor = db.rawQuery(
-			" select Progress.ID_Progress from Progress " +
+			" select Progress.ID_Progress " +
+			" from Progress " +
 			" join Profile on Progress.ID_Profile = Profile.ID_Profile " +
 			" join Phoneme on Progress.ID_Phoneme = Phoneme.ID_Phoneme " +
+			" join Stage on Progress.ID_Stage = Stage.ID_Stage " +
 			" where Profile.Name = ? " +
-			" and Phoneme.ARPAbet = ? ", 
-			new String[] {profileName, phoneme}
+			" and Phoneme.ARPAbet = ? " +
+			" and Stage.Name = ? ", 
+			new String[] {profileName, phoneme, stageName}
 		);
 		cursor.moveToFirst();  // Should always get a result
-		id_progress = cursor.getInt(0);
+		if (cursor != null && cursor.getCount() > 0) {
+			id_progress = cursor.getInt(0);
+		}
+		else {
+			Log.e(getClass().getName(), "Could not update progress.");
+			return;
+		}
 
-		cursor = db.rawQuery(
-			" select ID_Stage from Stage where Name = ? ", 
-			new String[] {stageName}
-		);
-		cursor.moveToFirst();  // Should always get a result
-		id_stage = cursor.getInt(0);
-		
-		ContentValues values = new ContentValues();
-	    values.put("ID_Stage", id_stage);
-	    db.update(
-	    	"Progress", 
-	    	values, 
-	    	"ID_Progress = ?",
-	    	new String[] {Integer.toString(id_progress)}
-	    );
-	}
-	
-
-	public void setComplete(String profileName, String phoneme) {
-		int id_progress;
-	    SQLiteDatabase db = this.getWritableDatabase();
-	    Cursor cursor;
-		
-		cursor = db.rawQuery(
-			" select Progress.ID_Progress from Progress " +
-			" join Profile on Progress.ID_Profile = Profile.ID_Profile " +
-			" join Phoneme on Progress.ID_Phoneme = Phoneme.ID_Phoneme " +
-			" where Profile.Name = ? " +
-			" and Phoneme.ARPAbet = ? ", 
-			new String[] {profileName, phoneme}
-		);
-		cursor.moveToFirst();  // Should always get a result
-		id_progress = cursor.getInt(0);
-		
 		ContentValues values = new ContentValues();
 	    values.put("Complete", 1 /* True */);
 	    db.update(
@@ -205,5 +251,8 @@ public class DBHelper extends SQLiteOpenHelper {
 	    	"ID_Progress = ?",
 	    	new String[] {Integer.toString(id_progress)}
 	    );
+	    
+		cursor.close();
 	}
+	
 }

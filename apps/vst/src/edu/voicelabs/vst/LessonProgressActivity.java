@@ -47,13 +47,34 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 				//start animations
 				AnimationHelper.runAlphaAnimation(this, R.id.clouds, R.anim.anim_clouds);
 				AnimationHelper.runAlphaAnimation(this, R.id.sunProgress, R.anim.anim_sun);
-				//if (test if user has completed lesson){
-				//AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonPhoneme, R.anim.anim_btn_red_star);
-				//}else{ 
-				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonPhoneme, R.anim.anim_btn_red_circle1);
-				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonSyllable, R.anim.anim_btn_red_circle2);
-				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonWord, R.anim.anim_btn_red_circle3);
-				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonChoose, R.anim.anim_btn_red_circle4);
+				
+//				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonPhoneme, R.anim.anim_btn_red_circle1);
+//				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonSyllable, R.anim.anim_btn_red_circle2);
+//				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonWord, R.anim.anim_btn_red_circle3);
+//				AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonChoose, R.anim.anim_btn_red_circle4);
+				
+				//TODO Change to small star when available
+				DBHelper db = new DBHelper(getApplicationContext());
+				AnimationHelper.runKeyframeAnimation(
+					this, 
+					R.id.imageButtonPhoneme,
+					db.getProgress("Default", "L", "Phoneme") ? R.anim.anim_star_big : R.anim.anim_btn_red_circle1
+				);
+				AnimationHelper.runKeyframeAnimation(
+					this, 
+					R.id.imageButtonSyllable, 
+					db.getProgress("Default", "L", "Syllable") ? R.anim.anim_star_big : R.anim.anim_btn_red_circle2
+				);
+				AnimationHelper.runKeyframeAnimation(
+					this, 
+					R.id.imageButtonWord, 
+					db.getProgress("Default", "L", "Word") ? R.anim.anim_star_big : R.anim.anim_btn_red_circle3
+				);
+				AnimationHelper.runKeyframeAnimation(
+					this, 
+					R.id.imageButtonChoose, 
+					db.getProgress("Default", "L", "Choose") ? R.anim.anim_star_big : R.anim.anim_btn_red_circle4
+				);
 			}
 		}	
 	

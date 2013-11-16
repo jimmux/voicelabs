@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -86,7 +85,7 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 			 Handler handler = new Handler(); 
 			    handler.postDelayed(new Runnable() { 
 			         public void run() { 
-			        	 runLessonCompletion();  
+			 			runGameCompletion("Syllable");
 			         } 
 			    }, 2000); 
 

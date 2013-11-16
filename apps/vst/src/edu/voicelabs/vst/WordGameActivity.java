@@ -102,6 +102,7 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 			this.message.setText("Well Done!");
 			setState(InteractionState.PLAY);
 			//TODO Set visual back to Leo
+			runGameCompletion("Word");
 		}
 		else {			
 			this.playingRef = this.words[this.wordIndex].speechAudio;

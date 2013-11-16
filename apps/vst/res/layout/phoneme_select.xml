@@ -5,6 +5,7 @@
     android:background="@drawable/bg_blue_wash" >
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -40,7 +41,6 @@
                 android:background="@android:color/transparent"
                 android:paddingRight="50dp"
                 android:src="@drawable/btn_level_ch" />
-            
         </LinearLayout>
 
         <LinearLayout
@@ -51,29 +51,29 @@
                 android:id="@+id/txt_level_l"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="L"
-                android:textSize="30sp"
                 android:layout_marginLeft="80dp"
                 android:layout_marginRight="170dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:text="L"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/txt_level_s"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="S"
-                android:textSize="30sp"
                 android:layout_marginRight="165dp"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:text="S"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/txt_level_ch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ch"
-                android:textSize="30sp"
                 android:layout_marginRight="90dp"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:text="Ch"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="30sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -87,7 +87,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="240dp"
                 android:layout_marginRight="130dp"
-                
                 android:background="@drawable/btn_locked_level" />
 
             <ImageButton
@@ -96,7 +95,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_locked_level" />
         </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -123,5 +121,16 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_settings" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageViewProgressL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/linearLayout2"
+        android:layout_marginLeft="67dp"
+        android:layout_marginTop="62dp"
+        android:background="@anim/anim_star_big"
+        android:scaleType="fitCenter" />
 
 </RelativeLayout>
