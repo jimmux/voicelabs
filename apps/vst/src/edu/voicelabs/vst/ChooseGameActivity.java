@@ -1,19 +1,15 @@
 package edu.voicelabs.vst;
 
 import android.content.Intent;
-<<<<<<< HEAD
 import android.graphics.drawable.AnimationDrawable;
-import android.media.MediaPlayer;
-=======
->>>>>>> c53d8b71af953f6c44aebac999c22114a8ee3a30
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
