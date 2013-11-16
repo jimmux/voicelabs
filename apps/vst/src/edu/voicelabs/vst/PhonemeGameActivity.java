@@ -3,8 +3,6 @@ package edu.voicelabs.vst;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -15,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import edu.voicelabs.vst.AbstractGameActivity.InteractionState;
 import edu.voicelabs.vst.RecognizerTask.Mode;
 
 
@@ -37,7 +34,7 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 		
 		// Basic inherited fields to set
 		this.subPattern = "L";
-		this.maxCorrectMatches = 3;
+		this.maxCorrectMatches = 2;
 		this.maxAttempts = 6;
 		
 		setContentView(R.layout.phoneme_game);		
@@ -70,7 +67,7 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 		return (ViewGroup) findViewById(R.id.game_layout_phoneme);
 	}
 
-	protected void fullSuccess(AbstractGameActivity activityToUpdate) {		
+	protected void fullSuccess() {		
 		this.playingRef = R.raw.feedback_pos_really_cool;
 		this.message.setText("You got it!");
 		setState(InteractionState.PLAY);
@@ -83,21 +80,20 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 		         public void run() { 
 		        	 runGameCompletion("Phoneme");
 		        	 Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
-			         startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen
+			         startActivity(intent);   // go to victory for each game - separate screen TBD for final win screen
 		         } 
 		    }, 3000); 
 
 	}
 	
-	protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount) {  //TODO pass of activity no longer needed?		
+	protected void partSuccess() {		
 		this.playingRef = R.raw.feedback_partial_try_one_more;
 		this.message.setText("Great! Say it again.");
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}
 	
-	protected void fullAttempts(AbstractGameActivity activityToUpdate) {
-
-		this.playingRef = R.raw.feedback_neg_have_another_go;		//TODO Need a "try again" type of response - repeat the phoneme? sad sound?
+	protected void fullAttempts() {
+		this.playingRef = R.raw.feedback_neg_have_another_go;
 		this.message.setText("Keep trying...");
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}
@@ -118,16 +114,13 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 	            startActivity(intent); 
 			}
 			else if (v == this.buttonStart) {
-
 				this.playingRef = R.raw.phoneme_lll;
-
 				setState(InteractionState.PLAY_THEN_RECORD);
 				
 				// Play animation manually 
 				buttonStart.setBackgroundResource(R.anim.anim_leo_hand_to_ear);
 				AnimationDrawable leoAnimation = (AnimationDrawable) buttonStart.getBackground();
 				leoAnimation.start();
-
 			}
 		
 		}

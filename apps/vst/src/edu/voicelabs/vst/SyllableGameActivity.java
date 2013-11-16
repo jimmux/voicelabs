@@ -72,7 +72,7 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		return (ViewGroup) findViewById(R.id.game_layout_syllable);
 	}
 
-	protected void fullSuccess(AbstractGameActivity activityToUpdate) {
+	protected void fullSuccess() {
 		// Move to the next syllable, or complete the game
 		this.syllableIndex++;
 		if (this.syllableIndex >= this.syllables.length) {
@@ -90,9 +90,6 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 				        startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen
 			         } 
 			    }, 2000); 
-
-			
-			
 		}
 		else {			
 			this.playingRef = syllableSounds[syllableIndex];
@@ -102,14 +99,14 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		wipeRecognizer();
 	}
 	
-	protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount) {
+	protected void partSuccess() {
 		// Encourage the same syllable		
 		this.playingRef = R.raw.feedback_partial_try_one_more;
 		this.message.setText("Good, do it again!");
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}
 	
-	protected void fullAttempts(AbstractGameActivity activityToUpdate) {
+	protected void fullAttempts() {
 		this.playingRef = syllableSounds[syllableIndex];
 		this.message.setText("Try it again!");
 		setState(InteractionState.PLAY_THEN_RERUN);

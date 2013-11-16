@@ -15,11 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-
 public class StartActivity extends Activity implements OnTouchListener {
 	
 	private ImageButton imageButtonStart;
-//	private Button buttonGoToSettings;
 	private AnimationDrawable leoBlinkAnim;
 	private MediaPlayer music; 
 	
@@ -28,7 +26,7 @@ public class StartActivity extends Activity implements OnTouchListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start);
 		
-		//import fonts
+		// Import fonts
 		TextView txt_phoneme = (TextView) findViewById(R.id.txt_phoneme);
 		TextView txt_friends = (TextView) findViewById(R.id.txt_friends);
 		Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf");  
@@ -36,29 +34,27 @@ public class StartActivity extends Activity implements OnTouchListener {
 		txt_friends.setTypeface(font); 
 		
 		this.imageButtonStart = (ImageButton) findViewById(R.id.imageButtonStart);
-		//this.buttonGoToSettings = (Button) findViewById(R.id.buttonGoToSettings);
-		//this.buttonGoToSettings.setTypeface(font);
-		
 		this.imageButtonStart.setOnTouchListener(this);
-		//this.buttonGoToSettings.setOnTouchListener(this);
 		
 		// Start loading assets
 		Utilities utils = new Utilities(getApplicationContext());
-		utils.SetupSpeechData();
+		utils.setupSpeechData();
 		
 		// Initialise the database, creating profile data if not yet available
 		DBHelper db = new DBHelper(getApplicationContext());
 		db.initialiseWithDefaults(false);
 	}
 	
-	// Show load screen, advance to start screen when ready.
+	/**
+	 *  Show load screen, advance to start screen when ready.
+	 */
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
 		
 		if (hasFocus) {
 			
-			//play intro music
+			// Play intro music
 			music = MediaPlayer.create(getApplicationContext(), R.raw.splash_music);
 			// When it's finished playing back - then run game
 			music.setOnCompletionListener(new OnCompletionListener() {
@@ -70,29 +66,26 @@ public class StartActivity extends Activity implements OnTouchListener {
 			// Play Phoneme recording
 			music.start();	
 			
-			//start fade in animations
+			// Start fade in animations
 			AnimationHelper.runAlphaAnimation(this, R.id.leo_fade_in, R.anim.anim_fade_in);
 			AnimationHelper.runAlphaAnimation(this, R.id.txt_phoneme, R.anim.anim_txt_fade);
 			AnimationHelper.runAlphaAnimation(this, R.id.txt_friends, R.anim.anim_txt_fade1);
 			AnimationHelper.runAlphaAnimation(this, R.id.obj_sun, R.anim.anim_sun);
 			AnimationHelper.runAlphaAnimation(this, R.id.imageButtonStart, R.anim.anim_start_btn);
-			//clear image resource first to prevent dupes
 			ImageView leofadein = (ImageView) findViewById(R.id.leo_fade_in); 
 			
 			leofadein.setBackgroundResource(0);
 			
 			
 			this.leoBlinkAnim = AnimationHelper.runKeyframeAnimation(this, R.id.leo_fade_in, R.anim.anim_leo_blinkonly);
-			//imageButtonStart.setVisibility(View.INVISIBLE);
-			//SystemClock.sleep(10000);
 			imageButtonStart.setVisibility(View.VISIBLE);
 	
 		}
 	}
 	
+	/** Handle all touch input */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.imageButtonStart) {
 				// Go to the phoneme select screen
@@ -102,11 +95,6 @@ public class StartActivity extends Activity implements OnTouchListener {
 	            music.release();
 	            music = null;
 			}
-//			else if (v == this.buttonGoToSettings) {
-//				// Go to the settings screen
-//				Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-//	            startActivity(intent); 
-//			}
 		}
 		
 		return false;

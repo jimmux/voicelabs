@@ -16,6 +16,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import edu.voicelabs.vst.RecognizerTask.Mode;
 
+/**
+ * The games use similar patterns of voice recognition, so this common behaviour is 
+ * encapsulated here to ensure consistency and simplify the logic of concrete games.
+ * 
+ * A nice side effect of this is that control of the speech/listen prompt is
+ * mostly automated.
+ * 
+ * @author James Manley
+ *
+ */
 abstract class AbstractGameActivity extends Activity implements OnTouchListener, RecognitionListener {
 	
 	// Speech recognition bits
@@ -28,7 +38,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	private int successCount = 0;		// Keep track of how many successes had so far.
 	private boolean gotResult = false; 	// Flag for prevention of multiple completion states.
 	
-	// To be set by children - todo: replace with abstract getters
+	// To be set by children - TODO: replace with abstract getters?
 	protected String subPattern = "";		// Determines what we are looking for, e.g. "L", "L-AH", "LOLLY"
 	protected int maxCorrectMatches = 1;	// Number of matches to consider it a successful attempt
 	protected int maxAttempts = 6;			// When this number of attempts is detected, consider the exercise failed
@@ -36,9 +46,9 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	
 	
 	abstract protected ViewGroup getGameLayout();	// Children to return the ViewGroup (usually the top level layout) containing all updateable UI elements
-	abstract protected void fullSuccess(AbstractGameActivity activityToUpdate);
-	abstract protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount);
-	abstract protected void fullAttempts(AbstractGameActivity activityToUpdate);
+	abstract protected void fullSuccess();
+	abstract protected void partSuccess();
+	abstract protected void fullAttempts();
 	
 	// Used by the state control mechanism, most of these need to be set from child layouts
     protected MediaPlayer player;
@@ -50,10 +60,8 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//setContentView(R.layout.practice_game);
 		
 		// Set up speech recognition
-//		this.rec = new RecognizerTask(getApplicationContext(), this.mode);
 		this.rec = new RecognizerTask(getApplicationContext(), this.getMode());
 		this.rec_thread = new Thread(this.rec);
 		this.listening = false;
@@ -61,31 +69,26 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 		this.rec_thread.start();	
 	}
 	
-	
-//	public void onPause(Bundle savedInstanceState) {
-//		this.rec.stop();
-//		
-//	}
-	
-	public void onResume(Bundle savedInstanceState) {
-		//this.rec.start();		
-	}
-	
 	public void onDestroy(Bundle savedInstanceState) {
 		this.rec.shutdown();		
 	}
-	
-	
-	
 	
 
 	// The activity will always be in one of these three states
     protected static enum InteractionState {RECORD, PLAY, IDLE, PLAY_THEN_RECORD, PLAY_THEN_RERUN};
     private InteractionState state = InteractionState.IDLE;
     
-    // Set the state to transition to
+    /**
+     * Update the audio state of the game, which is basically either playing a sound, 
+     * listening for speech, or doing nothing.
+     * 
+     * This helps to coordinate commonly paired activities, like visual indicators
+     * while the sound plays/records.
+     * 
+     * @param newState
+     */
     protected synchronized void setState(final InteractionState newState) {
-        Log.e(getClass().getName(), "*** Switching state from " + this.state + " to " + newState);
+        Log.d(getClass().getName(), "*** Switching state from " + this.state + " to " + newState);
     	
     	// Cancel any current playing or recording (effectively set to IDLE conditions)
     	switch (this.state) {
@@ -105,7 +108,6 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 			break;
     	case IDLE:
     		// Nothing to do
-    		Log.i("idle", "fired idle - absAct 108");
     	}
     	
     	// Now set the expected conditions and update state
@@ -144,25 +146,27 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 			this.player.start();
 		    break;
     	case IDLE:
-    		// Nothing to do
-    		Log.i("idle", "fired idle - absAct 147");
     		this.prompt.setVisibility(View.INVISIBLE);
     	}
     	this.state = newState;  		
     }
-	
+
 
 	
 	@Override
+	/**
+	 * Need to stop the recognizer consuming memory and cycles when 
+	 * the app is unavailable and therefore shouldn't be doing any
+	 * speech recognition or playing.
+	 */
 	public void onPause() {
 	    super.onPause();
 	    setState(InteractionState.IDLE);
 	}
 	
-	
-	
-	
-	
+	/**
+	 * Start the game going. Needs to happen once before recording can work.
+	 */
 	protected void runGame() {		
 		this.successCount = 0;
 		this.gotResult = false;
@@ -176,9 +180,8 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 		final AbstractGameActivity that = this;
 		final String hyp = b.getString("hyp");
 		that.getGameLayout().post(new Runnable() {
-			public void run() {		
-				//Pattern successPattern = Pattern.compile("\\bL(-|\\b)");	//Todo: generalise for other matches
-				Pattern successPattern = Pattern.compile("\\b" + that.subPattern + "(-|\\b)");	//Todo: generalise for other matches
+			public void run() {
+				Pattern successPattern = Pattern.compile("\\b" + that.subPattern + "(-|\\b)");
 				Pattern attemptPattern = Pattern.compile("\\b[A-Z]");
 				int count;
 				String speech = (hyp == null) ? "" : hyp;				
@@ -196,14 +199,14 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 					if (that.successCount < that.maxCorrectMatches) {
 						that.rec.stop();	// Stop while acting on result, to avoid interference if speech is used
 						Log.d(getClass().getName(), "*** Partial success with count: " + that.successCount);
-						partSuccess(that, that.successCount);
+						partSuccess();
 						that.rec.start();
 					}
 					else if (!that.gotResult) {
 						that.gotResult = true;
 						that.rec.stop();
 						Log.d(getClass().getName(), "*** Found enough results");
-						fullSuccess(that);
+						fullSuccess();
 						return;
 					}
 				}
@@ -217,7 +220,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 						that.gotResult = true;
 						that.rec.stop();
 						Log.d(getClass().getName(), "*** Ran out of attempts");
-						fullAttempts(that);
+						fullAttempts();
 					}
 				}
 							
@@ -228,13 +231,13 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	/** Called when full results are generated. */
 	public void onResults(Bundle b) {
 		// No action needed
-		
 		// Consider stopping when failure conditions met, then checking here for success
 	}
-
+	
+	/** Handle recognition errors */
 	public void onError(int err) {
 		// No action needed
-		Log.d(getClass().getName(), "*** game error");
+		Log.e(getClass().getName(), "*** game error");
 	}
 	
 	/**
@@ -243,6 +246,8 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	 * If it is the last in the lesson,
 	 * shows a custom dialog completion screen, then returns to the phoneme select
 	 * screen after a short period of time, or when touched.
+	 * 
+	 * @param gameName
 	 */
 	protected void runGameCompletion(String gameName) {
 		// Update progress
@@ -257,9 +262,9 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	
 	/**
 	 * May be useful when doing extended recognition, to avoid overflows in the recognizer
+	 * and keep recognition accuracy.
 	 */
 	protected void wipeRecognizer() {
-//		this.rec = new RecognizerTask(getApplicationContext(), mode);
 		this.rec = new RecognizerTask(getApplicationContext(), getMode());
 		this.rec_thread = new Thread(this.rec);
 		this.rec.setRecognitionListener(this);

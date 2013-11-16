@@ -1,11 +1,8 @@
 package edu.voicelabs.vst;
 
-import java.io.File;
-
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -120,10 +117,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	}
 	
 
-	protected void fullSuccess(AbstractGameActivity activityToUpdate) {
-		//ChooseGameActivity that = (ChooseGameActivity)activityToUpdate;
-		//that.textViewMessage.setText("Got all the matches!");
-		
+	protected void fullSuccess() {		
 		// Clear the word that was just done, or complete the game
 		this.wordCompletionCount++;
 		
@@ -133,10 +127,11 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		
 		if ((itm == buttonItem3.getId())||(itm == buttonItem4.getId())){
 			animation  = AnimationUtils.loadAnimation(this, R.anim.anim_obj_slide_r_to_l);
-		}else {
+		}
+		else {
 			animation  = AnimationUtils.loadAnimation(this, R.anim.anim_obj_slide_l_to_r);
 		}
-		  // reset initialization state
+		// reset initialization state
 	    animation.reset();	  
 	    // find View by its id attribute in the XML
 	    View v = chosenWordButton;
@@ -144,62 +139,42 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	    if (v != null){
 	      v.clearAnimation();
 	      v.startAnimation(animation);
-	      
 	    }	    	  
 	   
-		
 		this.chosenWordButton.setVisibility(View.INVISIBLE);
-		
-		
 		    //leo eats!
         	// Play animation manually 
-
-				leoAnimation.start();
-
-		
-		
-		 if (this.wordCompletionCount >= this.words.length) {
+			leoAnimation.start();
+		if (this.wordCompletionCount >= this.words.length) {
 			this.playingRef = R.raw.feedback_pos_really_cool;
 			//this.message.setText("Well Done!");
 			setState(InteractionState.PLAY);
 			
-			
 			// Last game, so go to the victory screen after 3 sec delay
-			 Handler handler = new Handler(); 
-			    handler.postDelayed(new Runnable() { 
-			         public void run() { 
-			        	 runGameCompletion("Choose");  // Last game, so go to the victory screen
-			        	 Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
-				         startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen
-			         } 
-			    }, 3000); 
-			
-
+			Handler handler = new Handler(); 
+			handler.postDelayed(new Runnable() { 
+				public void run() { 
+					runGameCompletion("Choose");  // Last game, so go to the victory screen
+			        Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
+				    startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen
+			    } 
+			}, 3000); 
 		}
 		else {			
-			//this.message.setText("Now say " + this.words[this.wordIndex].displayWord + "!");
 			this.playingRef = R.raw.feedback_pos_great_job;
 			setState(InteractionState.PLAY);
 		}				
 		wipeRecognizer(); //TODO Put in rerun bit?
 	}
 	
-	protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount) {
-		//ChooseGameActivity that = (ChooseGameActivity)activityToUpdate;
-		//that.textViewMessage.setText("Matched " + successCount + " times!");
-
+	protected void partSuccess() {
 		// Encourage the same word - note this won't be executed if accepting a single positive attempt
 		this.playingRef = R.raw.feedback_pos_well_done;
-		//this.message.setText("Good, do it again!");
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}
 	
-	protected void fullAttempts(AbstractGameActivity activityToUpdate) {
-		//ChooseGameActivity that = (ChooseGameActivity)activityToUpdate;
-		//that.textViewMessage.setText("Press Start to try again.");
-
+	protected void fullAttempts() {
 		this.playingRef = this.words[this.wordIndex].speechAudio;
-//		this.message.setText("Try it again!");
 		setState(InteractionState.PLAY_THEN_RERUN);
 		wipeRecognizer();
 	}
@@ -210,8 +185,6 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		wipeRecognizer();
 		this.wordIndex = i;
 		this.chosenWordButton = ib;
-//		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), this.words[this.wordIndex].speechAudio);
-//		mediaPlayer.start();
 		this.playingRef = this.words[this.wordIndex].speechAudio;
 		setState(InteractionState.PLAY);
 		this.subPattern = this.words[this.wordIndex].matchWord;
@@ -221,8 +194,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
 		//TODO set leo to talk
-
-		
+	
 		if (feedIntroPlayed == false){
 			MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.leo_after_all_that_work);
 			mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -237,12 +209,9 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	        
 	            }
 			});
-
 			mediaPlayer.start();
 			feedIntroPlayed = true;
 		}
-		
-
 	}
 	
 	

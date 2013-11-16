@@ -21,17 +21,12 @@ public class Utilities {
 		this.context = context;
 	}
 	
-	public void SetupDB() {
-		
-	}
-	
-	public void SetupSpeechData() {
+	public void setupSpeechData() {
 		String base_dir = context.getFilesDir().getAbsolutePath();
-		this.CopyAssetDirectoryToStorage("speech_data/hmm/en_US/hub4wsj_sc_8k", base_dir + "/hmm");
-		this.CopyAssetDirectoryToStorage("speech_data/lm/en_US_phonemes_initials", base_dir + "/lm");
-		this.CopyAssetDirectoryToStorage("speech_data/lm/en_US_allphone", base_dir + "/lm");		
-		this.CopyAssetDirectoryToStorage("speech_data/lm/en_US", base_dir + "/lm");			
-		this.CopyAssetDirectoryToStorage("speech_data/lm/en_US_shortlist", base_dir + "/lm");////		
+		this.copyAssetDirectoryToStorage("speech_data/hmm/en_US/hub4wsj_sc_8k", base_dir + "/hmm");
+		this.copyAssetDirectoryToStorage("speech_data/lm/en_US_phonemes_initials", base_dir + "/lm");
+		this.copyAssetDirectoryToStorage("speech_data/lm/en_US_words", base_dir + "/lm");
+		this.copyAssetDirectoryToStorage("speech_data/lm/filler", base_dir + "/lm");
 		try {			
 			File log = new File(Environment.getExternalStorageDirectory().getPath(), "pocketsphinx.log");
 			log.createNewFile();			
@@ -43,7 +38,7 @@ public class Utilities {
 	}
 	
 	/** Copy all files from the asset directory to the application storage directory */
-	private void CopyAssetDirectoryToStorage(String assets_dir, String storage_dir) {
+	private void copyAssetDirectoryToStorage(String assets_dir, String storage_dir) {
 		
 		// Make sure the destination directory is created.
 		File target_dir = new File(storage_dir);

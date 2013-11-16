@@ -53,7 +53,7 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizzard, R.raw.word_lizzard),
 		new WordData("Lightning", "LIGHTNING", R.drawable.img_obj_lightning, R.raw.word_lightning),
 		new WordData("Lolly", "LOLLY", R.drawable.img_obj_lolly, R.raw.word_lolly),
-		//new WordData("lips", "LIPS", R.drawable.img_obj_lips, R.raw.word_lips), // LIPS doesn't seem to be in the dictionary - Is there any way to add another word?
+		new WordData("lips", "LIPS", R.drawable.img_obj_lips, R.raw.word_lips),
 		new WordData("Leaves", "LEAVES", R.drawable.img_obj_leaves, R.raw.word_leaves)
 	};
 	private int wordIndex = 0;
@@ -101,7 +101,7 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		return (ViewGroup) findViewById(R.id.game_layout_word);
 	}
 	
-	protected void fullSuccess(AbstractGameActivity activityToUpdate) {	
+	protected void fullSuccess() {	
 		// Move to the next word, or complete the game
 		this.wordIndex++;
 		if (this.wordIndex >= this.words.length) {
@@ -115,7 +115,7 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 			         public void run() { 
 			        	 runGameCompletion("Word");
 			        	 Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
-				         startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen
+				         startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen TODO: wrap this into game completion
 			         } 
 			    }, 3000); 
 
@@ -147,20 +147,14 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		wipeRecognizer(); //TODO Put in rerun bit?
 	}
 	
-	protected void partSuccess(AbstractGameActivity activityToUpdate, int successCount) {
-		//WordGameActivity that = (WordGameActivity)activityToUpdate;
-		//that.textViewMessage.setText("Matched " + successCount + " times!");
-		
+	protected void partSuccess() {		
 		// Encourage the same word - note this won't be executed if accepting a single positive attempt
 		this.playingRef = R.raw.feedback_pos_great_job;
 		this.message.setText("Good, do it again!");
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}
 	
-	protected void fullAttempts(AbstractGameActivity activityToUpdate) {
-		//WordGameActivity that = (WordGameActivity)activityToUpdate;
-		//that.textViewMessage.setText("Press Start to try again.");
-
+	protected void fullAttempts() {
 		this.playingRef = this.words[this.wordIndex].speechAudio;
 		this.message.setText("Try it again!");
 		setState(InteractionState.PLAY_THEN_RERUN);

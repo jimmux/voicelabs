@@ -198,7 +198,6 @@ public class RecognizerTask implements Runnable {
 		switch (mode) {
 		case PHONEME:
 //			c.setString("-mode", "allphone");	// Not supported in this version, but may be useful in the future
-//			c.setString("-lm", base_dir + "/lm/interp_nodx.arpa.dmp");	// Better suited to phonemes
 			c.setString("-lm", base_dir + "/lm/en_US_phonemes_initials.dmp");
 			c.setString("-dict", base_dir + "/lm/en_US_phonemes_initials.dic");
 			break;
@@ -207,8 +206,8 @@ public class RecognizerTask implements Runnable {
 			c.setString("-dict", base_dir + "/lm/en_US_phonemes_initials.dic");
 			break;
 		default:	// catches WORD
-			c.setString("-dict", base_dir + "/lm/4608.dic");
-			c.setString("-lm", base_dir + "/lm/4608.dmp");
+			c.setString("-dict", base_dir + "/lm/en_US_words.dic");
+			c.setString("-lm", base_dir + "/lm/en_US_words.dmp");
 		}
 		
 		c.setString("-rawlogdir", base_dir);

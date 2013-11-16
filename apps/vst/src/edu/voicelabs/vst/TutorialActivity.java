@@ -16,7 +16,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.VideoView;
 
 /**
@@ -61,7 +60,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     private static enum InteractionState {RECORD, PLAY, IDLE};
     private InteractionState state = InteractionState.IDLE;
     
-    // Set the state to transition to
+    /** Set the state to transition to */
     private synchronized void setState(InteractionState newState) {
         Log.e(getClass().getName(), "*** Switching state from " + this.state + " to " + newState);
     	
@@ -85,13 +84,11 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     		this.recordAnim.stop();
     		this.playAnim.stop();
     		// Nothing to do
-    		Log.i("idle", "fired idle - tutAct 88");
     	}
     	
     	// Now set the expected conditions and update state
     	switch (newState) {
     	case RECORD:
-    		Log.i("idle", "fired record - tutAct 94");
         	this.recorder = new MediaRecorder();
         	this.recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         	this.recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -116,7 +113,6 @@ public class TutorialActivity extends Activity implements OnTouchListener {
             this.recordAnim.start();
             break;
     	case PLAY:
-    		Log.i("idle", "fired play - tutAct 118");
     		if (!(new File(audioFileName)).exists()) {
     			break;
     		}    		
@@ -141,19 +137,19 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     		// Nothing to do
     		this.recordAnim.stop();
     		this.playAnim.stop();
-    		Log.i("idle", "fired idle - tutAct 142");
     	}
     	this.state = newState;  		
     }
 
 
     public TutorialActivity() {
-    	//JAM todo: use private path?
-    	//JAM todo: at least make sure old file is gone, or it can be played back
+    	//TODO use private path?
+    	//TODO at least make sure old file is gone, or it can be played back
         audioFileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/record.3gp";
 //        audioFileName = getApplicationContext().getFilesDir().getAbsolutePath() + "/record.3gp";
     }
     
+    //TODO use states
     public void playExample() {
     	buttonLeo.setBackgroundResource(R.drawable.leo_animation0015);
     	MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.phoneme_lll);
@@ -164,7 +160,6 @@ public class TutorialActivity extends Activity implements OnTouchListener {
             	buttonLeo.setBackgroundResource(R.anim.anim_leo_blinkonly);
     			AnimationDrawable talkAnimation = (AnimationDrawable) buttonLeo.getBackground();
     			talkAnimation.start();
-        
             }
 		});
     	//first run
@@ -178,22 +173,16 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     		//AnimationHelper.runAlphaAnimation(this, R.id.buttonPlay, R.anim.anim_fade_in);
     	}
     	mediaPlayer.start();
-    	
     }
     
     
     public void introDemo() {
-	
-   	
     	//Red dot animation
 		//play animation manually 
     	buttonLeo.setVisibility(View.VISIBLE);
     	leoHelper.setVisibility(View.VISIBLE);
-		AnimationHelper.runKeyframeAnimation(this, R.id.leo_helper, R.anim.anim_btn_red_circle5);
-		
-		
+		AnimationHelper.runKeyframeAnimation(this, R.id.leo_helper, R.anim.anim_btn_red_circle5);		
     }
-    
 
 
     @Override
@@ -209,14 +198,6 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		
 		setContentView(R.layout.tutorial);
 		
-		//import fonts
-/*  		TextView txt_lemon = (TextView) findViewById(R.id.txt_game_3_lemon);
-  		Typeface fontMabel = Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf");  
-  		txt_lemon.setTypeface(fontMabel);  */
-		
-		//make leo blink - DK
-		//leoBlinkAnim = AnimationHelper.runKeyframeAnimation(this, R.id.buttonLeo, R.anim.anim_leo_blinkonly);
-
 		this.videoView = (VideoView) findViewById(R.id.tutorialVideo);	
 		this.videoView.setVisibility(View.VISIBLE);
 				
@@ -249,14 +230,13 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		setState(InteractionState.IDLE);
 	}
 	
-	// Show video, advance to interactive part when complete
+	/** Show video, advance to interactive part when complete */
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
 		
 		if (videoPlayed) {
-			return;
-			
+			return;	
 		}
 		
 		if (hasFocus) {						
@@ -277,25 +257,21 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 	            	videoView.setVisibility(View.GONE);
 	            	System.gc();
 	            	introDemo();
-	            	
-	            	
 	            }
 			});
 	        
 	        videoView.start();
 	        
-
 		}
 	}
 	
 	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		
+	public boolean onTouch(View v, MotionEvent event) {		
 		// ACTION_UP doesn't trigger on VideoView for some reason
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			if (v == this.videoView) {
 				videoView.stopPlayback();
-            	videoView.setVisibility(View.GONE);		//Todo: prompt to confirm skip
+            	videoView.setVisibility(View.GONE);		//TODO prompt to confirm skip
             	introDemo();
 			}
 		}
@@ -312,7 +288,6 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 				recordAnim.stop();
 				playAnim.stop();
 				playExample();
-
 			}
 			else if ((v == this.buttonRecord) || (v == this.recordHelper)) {
 				//first run
@@ -329,7 +304,6 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 				// Record a sample
 				recordAnim.start();
 				setState(InteractionState.RECORD);
-				
 			}
 			else if ((v == this.buttonPlay) || (v == this.playHelper)) {
 				// Play back whatever we have recorded
@@ -340,7 +314,6 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 				
 				playAnim.start();
 				setState(InteractionState.PLAY);
-				
 			}
 			else if (v == this.buttonSkip) {
 				// Skip to the games
@@ -352,9 +325,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 				// Skip to the Menu
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
-			}
-			
-			
+			}			
 		}
 		
 		return false;
