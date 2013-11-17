@@ -79,24 +79,20 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 			this.playingRef = R.raw.feedback_pos_really_cool;
 			this.message.setText("Finished!");
 			setState(InteractionState.PLAY);
-			//TODO Wait 3 secs - then go to LessonProgress 
-			//TODO Update player progress to reflect that they have completed this stage
 			
-			 Handler handler = new Handler(); 
-			    handler.postDelayed(new Runnable() { 
-			         public void run() { 
-			 			runGameCompletion("Syllable");
-			 			Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
-				        startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen
-			         } 
-			    }, 2000); 
+			// Last game, so go to the victory screen after 3 sec delay
+			Handler handler = new Handler(); 
+		    handler.postDelayed(new Runnable() { 
+		         public void run() { 
+		        	 runGameCompletion("Syllable");
+		         } 
+		    }, 2000); 
 		}
 		else {			
 			this.playingRef = syllableSounds[syllableIndex];
 			this.message.setText("Now say " + syllables[syllableIndex] + "!");
 			setState(InteractionState.PLAY_THEN_RERUN);
-		}				
-		wipeRecognizer();
+		}
 	}
 	
 	protected void partSuccess() {

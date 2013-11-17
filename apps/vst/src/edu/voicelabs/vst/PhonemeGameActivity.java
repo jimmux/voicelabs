@@ -71,19 +71,13 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 		this.playingRef = R.raw.feedback_pos_really_cool;
 		this.message.setText("You got it!");
 		setState(InteractionState.PLAY);
-		wipeRecognizer();
 
-		
-		// Last game, so go to the victory screen after 3 sec delay
-		 Handler handler = new Handler(); 
-		    handler.postDelayed(new Runnable() { 
-		         public void run() { 
-		        	 runGameCompletion("Phoneme");
-		        	 Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
-			         startActivity(intent);   // go to victory for each game - separate screen TBD for final win screen
-		         } 
-		    }, 3000); 
-
+		Handler handler = new Handler(); 
+	    handler.postDelayed(new Runnable() { 
+	         public void run() { 
+	        	 runGameCompletion("Phoneme");
+	         } 
+	    }, 3000); 
 	}
 	
 	protected void partSuccess() {		
@@ -95,7 +89,8 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 	protected void fullAttempts() {
 		this.playingRef = R.raw.feedback_neg_have_another_go;
 		this.message.setText("Keep trying...");
-		setState(InteractionState.PLAY_THEN_RECORD);
+//		setState(InteractionState.PLAY_THEN_RECORD);
+		setState(InteractionState.PLAY_THEN_RERUN);
 	}
 	
 

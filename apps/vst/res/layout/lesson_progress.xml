@@ -11,7 +11,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="126dp"
         android:layout_toLeftOf="@+id/imageButtonChoose"
-        android:background="@drawable/anim_btn_red_circle0010" />
+        android:background="@anim/anim_btn_red_circle3" />
 
     <ImageButton
         android:id="@+id/imageButtonPhoneme"
@@ -20,7 +20,7 @@
         android:layout_alignLeft="@+id/imageButtonWord"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="23dp"
-        android:background="@drawable/anim_btn_red_circle0010" />
+        android:background="@anim/anim_btn_red_circle1" />
 
     <ImageButton
         android:id="@+id/imageButtonSyllable"
@@ -30,7 +30,7 @@
         android:layout_marginBottom="28dp"
         android:layout_marginLeft="39dp"
         android:layout_toRightOf="@+id/imageButtonChoose"
-        android:background="@drawable/anim_btn_red_circle0010" />
+        android:background="@anim/anim_btn_red_circle2" />
 
     <ImageButton
         android:id="@+id/imageButtonChoose"
@@ -39,7 +39,7 @@
         android:layout_alignBottom="@+id/imageButtonWord"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="17dp"
-        android:background="@drawable/anim_btn_red_circle0010" />
+        android:background="@anim/anim_btn_red_circle4" />
     <ImageView
         android:id="@+id/clouds"
         android:layout_width="wrap_content"

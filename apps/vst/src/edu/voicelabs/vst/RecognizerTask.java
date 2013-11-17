@@ -198,12 +198,17 @@ public class RecognizerTask implements Runnable {
 		switch (mode) {
 		case PHONEME:
 //			c.setString("-mode", "allphone");	// Not supported in this version, but may be useful in the future
-			c.setString("-lm", base_dir + "/lm/en_US_phonemes_initials.dmp");
-			c.setString("-dict", base_dir + "/lm/en_US_phonemes_initials.dic");
+			// Adjusted dictionary is more likely to get positives (and therefore false positives)
+//			c.setString("-lm", base_dir + "/lm/en_US_phonemes_initials.dmp");
+//			c.setString("-dict", base_dir + "/lm/en_US_phonemes_initials.dic");
+			c.setString("-lm", base_dir + "/lm/en_US_phonemes_adjusted.dmp");
+			c.setString("-dict", base_dir + "/lm/en_US_phonemes_adjusted.dic");
 			break;
 		case SYLLABLE:
 			c.setString("-lm", base_dir + "/lm/en_US_phonemes_initials.dmp");
 			c.setString("-dict", base_dir + "/lm/en_US_phonemes_initials.dic");
+//			c.setString("-lm", base_dir + "/lm/en_US_phonemes_initials_adjusted.dmp");
+//			c.setString("-dict", base_dir + "/lm/en_US_phonemes_initials_adjusted.dic");
 			break;
 		default:	// catches WORD
 			c.setString("-dict", base_dir + "/lm/en_US_words.dic");

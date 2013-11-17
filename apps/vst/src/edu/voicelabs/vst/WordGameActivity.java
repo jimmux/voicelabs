@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import edu.voicelabs.vst.AbstractGameActivity.InteractionState;
 import edu.voicelabs.vst.RecognizerTask.Mode;
 
 public class WordGameActivity extends AbstractGameActivity implements OnTouchListener {
@@ -108,17 +109,14 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 			this.playingRef = R.raw.feedback_pos_really_cool;
 			this.message.setText("Well Done!");
 			setState(InteractionState.PLAY);
-			//TODO Set visual back to Leo
 			
-			 Handler handler = new Handler(); 
-			    handler.postDelayed(new Runnable() { 
-			         public void run() { 
-			        	 runGameCompletion("Word");
-			        	 Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
-				         startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen TODO: wrap this into game completion
-			         } 
-			    }, 3000); 
-
+			// Last game, so go to the victory screen after 3 sec delay
+			Handler handler = new Handler(); 
+		    handler.postDelayed(new Runnable() { 
+		    	public void run() { 
+		    		runGameCompletion("Word");
+		    	} 
+		    }, 3000); 
 		}
 		else {
 			Animation fadeInAnimation;
@@ -131,20 +129,21 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 			fadeInAnimation.reset();
 			
 			View objectView = findViewById(R.id.btn_game3_obj);
-					
+			/*		
 		    View v = objectView;
 		    // cancel any pending animation and start this one
 		    if (v != null){
 		      v.clearAnimation();
 		      v.startAnimation(fadeInAnimation);
-		      
 		    }
-		    
-		    
+			*/
+		    // cancel any pending animation and start this one
+	    	objectView.clearAnimation();
+	    	objectView.startAnimation(fadeInAnimation);
+	    	
 			this.subPattern = this.words[this.wordIndex].matchWord;
 			setState(InteractionState.PLAY_THEN_RERUN);
-		}				
-		wipeRecognizer(); //TODO Put in rerun bit?
+		}
 	}
 	
 	protected void partSuccess() {		
@@ -164,7 +163,6 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.buttonSkip) {
 				// Skip to the games
@@ -178,7 +176,7 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 			}
 			else if (v == this.buttonStart) {
 				// Start the game
-				runGame();	//TODO replace with setting state to PLAY_THEN_RECORD, which starts the recogniser if it's not running?
+				//runGame();	//TODO replace with setting state to PLAY_THEN_RECORD, which starts the recogniser if it's not running?
 				this.wordIndex = 0;
 				this.message.setText(this.words[wordIndex].displayWord);
 				this.wordObject.setBackgroundResource(this.words[wordIndex].drawable);
@@ -189,7 +187,7 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 				fadeInAnimation.reset();
 				
 				View objectView = findViewById(R.id.btn_game3_obj);
-						
+				/*
 			    View vw = objectView;
 			    // cancel any pending animation and start this one
 			    if (v != null){
@@ -197,10 +195,16 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 			      vw.startAnimation(fadeInAnimation);
 			      
 			    }
+			    */
+			    // cancel any pending animation and start this one
+				objectView.clearAnimation();
+				objectView.startAnimation(fadeInAnimation);
 				
 				//Play Object sound
-				MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), this.words[this.wordIndex].speechAudio);
-				mediaPlayer.start();
+//				MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), this.words[this.wordIndex].speechAudio);
+//				mediaPlayer.start();
+				this.playingRef = this.words[this.wordIndex].speechAudio;
+				setState(InteractionState.PLAY_THEN_RECORD);
 				
 				this.buttonStart.setVisibility(View.INVISIBLE);
 				this.wordObject.setVisibility(View.VISIBLE);

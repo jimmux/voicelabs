@@ -156,22 +156,30 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-            	//go back to just blinking
+            	// Go back to just blinking
             	buttonLeo.setBackgroundResource(R.anim.anim_leo_blinkonly);
     			AnimationDrawable talkAnimation = (AnimationDrawable) buttonLeo.getBackground();
     			talkAnimation.start();
             }
 		});
-    	//first run
+    	// First run
+		/*
     	final boolean uiVisible = buttonRecord.isShown();
     	
-    	if(uiVisible == false){
+    	if (uiVisible == false) {
     		leoHelper.setVisibility(View.GONE);
         	buttonRecord.setVisibility(View.VISIBLE);
     		buttonPlay.setVisibility(View.VISIBLE);
     		//AnimationHelper.runAlphaAnimation(this, R.id.buttonRecord, R.anim.anim_fade_in);
     		//AnimationHelper.runAlphaAnimation(this, R.id.buttonPlay, R.anim.anim_fade_in);
     	}
+    	*/
+    	buttonRecord.setVisibility(View.VISIBLE);
+		buttonPlay.setVisibility(View.VISIBLE);
+		recordAnim.stop();
+		playAnim.stop();
+		leoHelper.setVisibility(View.GONE);
+    	
     	mediaPlayer.start();
     }
     
@@ -260,8 +268,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 	            }
 			});
 	        
-	        videoView.start();
-	        
+	        videoView.start();        
 		}
 	}
 	
@@ -278,8 +285,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if ((v == this.buttonLeo) ||  (v == this.leoHelper)){
-				// start by tapping on leo
-				
+				// Start by tapping on Leo
 				if (leoPressed == false){
 					recordHelper.setVisibility(View.VISIBLE);
 					AnimationHelper.runKeyframeAnimation(this, R.id.record_helper, R.anim.anim_btn_red_circle5);
@@ -290,8 +296,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 				playExample();
 			}
 			else if ((v == this.buttonRecord) || (v == this.recordHelper)) {
-				//first run
-				Log.i("info", String.valueOf(recordPressed));
+				// First run
 				if (recordPressed == false){
 					playHelper.setVisibility(View.VISIBLE);
 					AnimationHelper.runKeyframeAnimation(this, R.id.play_helper, R.anim.anim_btn_red_circle5);
@@ -302,7 +307,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 				}
 				
 				// Record a sample
-				recordAnim.start();
+				//recordAnim.start();
 				setState(InteractionState.RECORD);
 			}
 			else if ((v == this.buttonPlay) || (v == this.playHelper)) {
@@ -311,13 +316,12 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 					playHelper.setVisibility(View.GONE);
 					playPressed = true;
 				}
-				
-				playAnim.start();
+				//playAnim.start();
 				setState(InteractionState.PLAY);
 			}
 			else if (v == this.buttonSkip) {
 				// Skip to the games
-				setState(InteractionState.IDLE);
+				//setState(InteractionState.IDLE);
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			}

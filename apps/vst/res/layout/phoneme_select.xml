@@ -128,9 +128,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/linearLayout2"
-        android:layout_marginLeft="67dp"
-        android:layout_marginTop="62dp"
-        android:background="@anim/anim_star_big"
+        android:layout_marginLeft="132dp"
+        android:layout_marginTop="139dp"
+        android:background="@anim/anim_star_small"
         android:scaleType="fitCenter" />
 
 </RelativeLayout>

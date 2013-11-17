@@ -64,13 +64,25 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 		
 		this.buttonGoToSettings.setOnTouchListener(this);
 		
+//		DBHelper db = new DBHelper(getApplicationContext());
+//		if (db.getComplete("Default", "L")) {	//TODO use smaller star when available
+//			this.animProgressL = AnimationHelper.runKeyframeAnimation(this, R.id.imageViewProgressL, R.anim.anim_star_big);
+//			this.imageViewProgressL.setVisibility(View.VISIBLE);
+//		}
+//		else {
+//			this.imageViewProgressL.setVisibility(View.INVISIBLE);
+//		}
+		this.imageViewProgressL.setVisibility(View.INVISIBLE);
+	}
+	
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		
+		// Show and animate the progress star, if completed.
 		DBHelper db = new DBHelper(getApplicationContext());
-		if (db.getComplete("Default", "L")) {	//TODO use smaller star when available
-			this.animProgressL = AnimationHelper.runKeyframeAnimation(this, R.id.imageViewProgressL, R.anim.anim_star_big);
+		if (db.getComplete("Default", "L")) {
+			this.animProgressL = AnimationHelper.runKeyframeAnimation(this, R.id.imageViewProgressL, R.anim.anim_star_small);
 			this.imageViewProgressL.setVisibility(View.VISIBLE);
-		}
-		else {
-			this.imageViewProgressL.setVisibility(View.INVISIBLE);
 		}
 	}
 

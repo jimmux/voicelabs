@@ -118,53 +118,47 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	
 
 	protected void fullSuccess() {		
-		// Clear the word that was just done, or complete the game
+		// Clear the word that was just done, and complete the game if all done
 		this.wordCompletionCount++;
 		
 		int itm = this.chosenWordButton.getId();
-		
 		Animation animation;
-		
 		if ((itm == buttonItem3.getId())||(itm == buttonItem4.getId())){
 			animation  = AnimationUtils.loadAnimation(this, R.anim.anim_obj_slide_r_to_l);
 		}
 		else {
 			animation  = AnimationUtils.loadAnimation(this, R.anim.anim_obj_slide_l_to_r);
 		}
-		// reset initialization state
+		// Reset initialization state
 	    animation.reset();	  
-	    // find View by its id attribute in the XML
+	    // Find View by its id attribute in the XML
 	    View v = chosenWordButton;
-	    // cancel any pending animation and start this one
-	    if (v != null){
-	      v.clearAnimation();
-	      v.startAnimation(animation);
-	    }	    	  
+	    // Cancel any pending animation and start this one
+	    v.clearAnimation();
+	    v.startAnimation(animation);	    	  
 	   
 		this.chosenWordButton.setVisibility(View.INVISIBLE);
-		    //leo eats!
-        	// Play animation manually 
-			leoAnimation.start();
+	    // Leo eats!
+    	// Play animation manually 
+		leoAnimation.start();
 		if (this.wordCompletionCount >= this.words.length) {
 			this.playingRef = R.raw.feedback_pos_really_cool;
-			//this.message.setText("Well Done!");
 			setState(InteractionState.PLAY);
 			
 			// Last game, so go to the victory screen after 3 sec delay
 			Handler handler = new Handler(); 
-			handler.postDelayed(new Runnable() { 
-				public void run() { 
-					runGameCompletion("Choose");  // Last game, so go to the victory screen
-			        Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
-				    startActivity(intent);   // go to victory for each game - seperate screen TBD for final win screen
-			    } 
-			}, 3000); 
+		    handler.postDelayed(new Runnable() { 
+		    	public void run() { 
+		    		runGameCompletion("Choose");
+		    	} 
+		    }, 3000); 
 		}
 		else {			
 			this.playingRef = R.raw.feedback_pos_great_job;
 			setState(InteractionState.PLAY);
+//			setState(InteractionState.PLAY_THEN_RERUN); //TODO: check
 		}				
-		wipeRecognizer(); //TODO Put in rerun bit?
+//		wipeRecognizer(); //TODO Put in rerun bit? 
 	}
 	
 	protected void partSuccess() {
@@ -176,19 +170,22 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	protected void fullAttempts() {
 		this.playingRef = this.words[this.wordIndex].speechAudio;
 		setState(InteractionState.PLAY_THEN_RERUN);
-		wipeRecognizer();
+//		wipeRecognizer();
 	}
 	
 	
 	private void startGameForWord(int i, ImageButton ib) {
 		setState(InteractionState.IDLE);
-		wipeRecognizer();
+		wipeRecognizer(); //TODO Check
 		this.wordIndex = i;
 		this.chosenWordButton = ib;
-		this.playingRef = this.words[this.wordIndex].speechAudio;
-		setState(InteractionState.PLAY);
 		this.subPattern = this.words[this.wordIndex].matchWord;
-		runGame();	//TODO replace with setting state to RECORD or PLAY_THEN_RECORD, which starts the recogniser if it's not running?
+		this.playingRef = this.words[this.wordIndex].speechAudio;
+		/*
+		setState(InteractionState.PLAY);
+		runGame();	//TODO replace with setting state to PLAY_THEN_RECORD, which starts the recogniser if it's not running?
+		*/
+		setState(InteractionState.PLAY_THEN_RERUN);
 	}
 	
 	public void onWindowFocusChanged(boolean hasFocus) {
@@ -205,8 +202,6 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	        		buttonItem2.setVisibility(View.VISIBLE);
 	        		buttonItem3.setVisibility(View.VISIBLE);
 	        		buttonItem4.setVisibility(View.VISIBLE);
-
-	        
 	            }
 			});
 			mediaPlayer.start();

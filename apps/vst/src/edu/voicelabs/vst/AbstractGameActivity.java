@@ -167,7 +167,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	/**
 	 * Start the game going. Needs to happen once before recording can work.
 	 */
-	protected void runGame() {		
+	protected void runGame() {		//TODO Check if called from children, and make private if not
 		this.successCount = 0;
 		this.gotResult = false;
 		this.listening = true;
@@ -189,12 +189,12 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 				Matcher successMatcher = successPattern.matcher(speech);
 				count = 0;
 				// Count how many successful matches we have
-				while (successMatcher.find() && (count < that.maxCorrectMatches)) {
+				while (successMatcher.find() /*&& (count < that.maxCorrectMatches)*/) {
 					count++;
 				}
 				// count can revert, so go with the max count found so far (or update)
 				if (count > that.successCount) {
-					that.successCount = count;		
+					that.successCount = count;
 
 					if (that.successCount < that.maxCorrectMatches) {
 						that.rec.stop();	// Stop while acting on result, to avoid interference if speech is used
@@ -250,11 +250,17 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	 * @param gameName
 	 */
 	protected void runGameCompletion(String gameName) {
+		wipeRecognizer();
 		// Update progress
 		DBHelper db = new DBHelper(getApplicationContext());
 		db.setProgress("Default", "L", gameName);
+    	System.gc();	// Let the system know it's a good time to clean up memory
 		// Advance if completed
 		if (db.getComplete("Default", "L")) {
+			Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class); //TODO: got to final screen
+	        startActivity(intent);
+		}
+		else {
 			Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
 	        startActivity(intent);
 		}
