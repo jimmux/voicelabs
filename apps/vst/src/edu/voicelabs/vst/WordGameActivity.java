@@ -157,7 +157,7 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		this.playingRef = this.words[this.wordIndex].speechAudio;
 		this.message.setText("Try it again!");
 		setState(InteractionState.PLAY_THEN_RERUN);
-		wipeRecognizer();
+		//wipeRecognizer();
 	}
 	
 
