@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="true">
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="false">
     
 	<item android:drawable="@drawable/anim_btn_red_circle0000" android:duration="40"/>
     <item android:drawable="@drawable/anim_btn_red_circle0001" android:duration="40"/>
@@ -12,6 +12,6 @@
 	<item android:drawable="@drawable/anim_btn_red_circle0007" android:duration="40"/>
     <item android:drawable="@drawable/anim_btn_red_circle0008" android:duration="40"/>
     <item android:drawable="@drawable/anim_btn_red_circle0009" android:duration="40"/>
-    <item android:drawable="@drawable/anim_btn_red_circle0010" android:duration="40"/>
+    <item android:drawable="@drawable/anim_btn_red_circle0010" android:duration="10000"/>
 
 </animation-list>

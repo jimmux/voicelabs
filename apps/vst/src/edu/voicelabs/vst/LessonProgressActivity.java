@@ -1,9 +1,13 @@
 package edu.voicelabs.vst;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -17,6 +21,10 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 	private ImageButton imageButtonChoose;
 	private ImageButton imageButtonBack;
 	
+	
+	 public void runRedCircleAnimation() {
+	    System.out.println("Hello world");
+	  } 
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,7 +43,7 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 		this.imageButtonChoose.setOnTouchListener(this);
 		this.imageButtonBack.setOnTouchListener(this);
 		
-		//TODO If game has been completed - swap the red circle for a star
+
 	}
 	
 	// Show load screen, advance to start screen when ready.
@@ -47,29 +55,57 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 			//start animations
 			AnimationHelper.runAlphaAnimation(this, R.id.clouds, R.anim.anim_clouds);
 			AnimationHelper.runAlphaAnimation(this, R.id.sunProgress, R.anim.anim_sun);
-		
-			//TODO Change to small star when available
-			DBHelper db = new DBHelper(getApplicationContext());
-			AnimationHelper.runKeyframeAnimation(
-				this, 
-				R.id.imageButtonPhoneme,
-				db.getProgress("Default", "L", "Phoneme") ? R.anim.anim_star_small : R.anim.anim_btn_red_circle1
-			);
-			AnimationHelper.runKeyframeAnimation(
-				this, 
-				R.id.imageButtonSyllable, 
-				db.getProgress("Default", "L", "Syllable") ? R.anim.anim_star_small : R.anim.anim_btn_red_circle2
-			);
-			AnimationHelper.runKeyframeAnimation(
-				this, 
-				R.id.imageButtonWord, 
-				db.getProgress("Default", "L", "Word") ? R.anim.anim_star_small : R.anim.anim_btn_red_circle3
-			);
-			AnimationHelper.runKeyframeAnimation(
-				this, 
-				R.id.imageButtonChoose, 
-				db.getProgress("Default", "L", "Choose") ? R.anim.anim_star_small : R.anim.anim_btn_red_circle4
-			);
+			
+			final DBHelper db = new DBHelper(getApplicationContext());
+			
+			// fire phoneme circle after delay
+			final Handler phonemeCircleHandler = new Handler();		
+			phonemeCircleHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					imageButtonPhoneme.setBackgroundResource(db.getProgress("Default", "L", "Phoneme") ? R.anim.anim_star_small : R.anim.anim_btn_red_circle1);
+	    			AnimationDrawable phonemeLevelAnimation = (AnimationDrawable) imageButtonPhoneme.getBackground();
+	    			phonemeLevelAnimation.start();	
+				}
+				
+			}, 1000);
+			
+			// fire syllable circle after delay
+			final Handler syllableCircleHandler = new Handler();		
+			syllableCircleHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					imageButtonSyllable.setBackgroundResource(db.getProgress("Default", "L", "Syllable") ? R.anim.anim_star_small : R.anim.anim_btn_red_circle1);
+	    			AnimationDrawable syllableLevelAnimation = (AnimationDrawable) imageButtonSyllable.getBackground();
+	    			syllableLevelAnimation.start();	
+				}
+				
+			}, 2000);
+			
+			// fire word circle after delay
+			final Handler wordCircleHandler = new Handler();	
+			wordCircleHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					imageButtonWord.setBackgroundResource(db.getProgress("Default", "L", "Word") ? R.anim.anim_star_small : R.anim.anim_btn_red_circle1);
+	    			AnimationDrawable wordLevelAnimation = (AnimationDrawable) imageButtonWord.getBackground();
+	    			wordLevelAnimation.start();	
+				}
+				
+			}, 3000);
+			
+			// fire feed circle after delay
+			final Handler feedCircleHandler = new Handler();			
+			feedCircleHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					imageButtonChoose.setBackgroundResource(db.getProgress("Default", "L", "Choose") ? R.anim.anim_star_small : R.anim.anim_btn_red_circle1);
+	    			AnimationDrawable feedLevelAnimation = (AnimationDrawable) imageButtonChoose.getBackground();
+	    			feedLevelAnimation.start();	
+				}
+				
+			}, 4000);
+
 		}
 	}	
 	
@@ -106,7 +142,7 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 	            startActivity(intent); 
 			}
 			else if (v == this.imageButtonBack) {
-				Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
+				Intent intent = new Intent(getApplicationContext(), PhonemeSelectActivity.class);
 	            startActivity(intent); 
 			}
 		}

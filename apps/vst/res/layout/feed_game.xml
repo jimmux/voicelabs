@@ -47,56 +47,54 @@
         android:background="@drawable/leo_animation0132"
         android:visibility="visible" />
 
-      <ImageView
-          android:id="@+id/imageViewPrompt"
+      <ImageButton
+          android:id="@+id/btn_lemon"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_above="@+id/btn_lemon"
-          android:layout_centerHorizontal="true"
-          android:background="@drawable/anim_btn_play0001"
-          android:scaleX="0.7"
-          android:scaleY="0.7" />
+          android:layout_alignParentLeft="true"
+          android:layout_alignTop="@+id/buttonStartWord"
+          android:layout_marginLeft="84dp"
+          android:background="@drawable/img_obj_feed_lemon"
+          android:visibility="invisible" />
 
       <ImageButton
           android:id="@+id/btn_lizzard"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignParentRight="true"
-          android:layout_alignTop="@+id/buttonStartWord"
-          android:layout_marginRight="30dp"
-          android:layout_marginTop="21dp"
-          android:visibility="visible"
-          android:background="@drawable/img_obj_feed_lizzard" />
-
-      <ImageButton
-          android:id="@+id/btn_lemon"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_alignTop="@+id/btn_lizzard"
-          android:layout_marginLeft="76dp"
-          android:visibility="visible"
-          android:background="@drawable/img_obj_feed_lemon" />
-
-      <ImageButton
-          android:id="@+id/btn_lettuce"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignLeft="@+id/btn_lemon"
-          android:layout_alignParentBottom="true"
-          android:translationY="-20dp"
-          android:background="@drawable/img_obj_feed_lettuce"
-          android:visibility="visible" />
+          android:layout_centerVertical="true"
+          android:layout_marginRight="28dp"
+          android:background="@drawable/img_obj_feed_lizzard"
+          android:visibility="invisible" />
 
       <ImageButton
           android:id="@+id/btn_lamb"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_alignParentBottom="true"
           android:layout_alignRight="@+id/btn_lizzard"
-          android:layout_marginRight="24dp"
-           android:translationY="-10dp"
+          android:layout_below="@+id/btn_lemon"
+          android:layout_marginRight="27dp"
+          android:layout_marginTop="22dp"
           android:background="@drawable/img_obj_feed_lamb"
-          android:visibility="visible" />
+          android:visibility="invisible" />
+
+      <ImageButton
+          android:id="@+id/btn_lettuce"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignBottom="@+id/btn_lamb"
+          android:layout_alignLeft="@+id/btn_lemon"
+          android:background="@drawable/img_obj_feed_lettuce"
+          android:visibility="invisible" />
+
+      <ImageView
+          android:id="@+id/imageViewPrompt"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/menuLayout"
+          android:layout_centerHorizontal="true"
+          android:background="@drawable/anim_btn_play0001"
+          android:scaleX="0.7"
+          android:scaleY="0.7" />
 
 </RelativeLayout>
