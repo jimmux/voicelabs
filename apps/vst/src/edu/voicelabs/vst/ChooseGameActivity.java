@@ -173,6 +173,21 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 //		wipeRecognizer();
 	}
 	
+	private void setupGame() {
+		buttonItem1.setVisibility(View.VISIBLE);
+		buttonItem2.setVisibility(View.VISIBLE);
+		buttonItem3.setVisibility(View.VISIBLE);
+		buttonItem4.setVisibility(View.VISIBLE);
+		
+		AnimationHelper.runAlphaAnimation(this, R.id.btn_lemon, R.anim.anim_fade_in);
+		AnimationHelper.runAlphaAnimation(this, R.id.btn_lettuce, R.anim.anim_fade_in);
+		AnimationHelper.runAlphaAnimation(this, R.id.btn_lamb, R.anim.anim_fade_in);
+		AnimationHelper.runAlphaAnimation(this, R.id.btn_lizzard, R.anim.anim_fade_in);
+		
+		//TODO implement circle helper for feed game items here?
+		
+	}
+	
 	
 	private void startGameForWord(int i, ImageButton ib) {
 		setState(InteractionState.IDLE);
@@ -181,6 +196,21 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		this.chosenWordButton = ib;
 		this.subPattern = this.words[this.wordIndex].matchWord;
 		this.playingRef = this.words[this.wordIndex].speechAudio;
+		
+		//swap ib for highlight state resource
+		
+		if (ib == buttonItem1){
+			buttonItem1.setBackgroundResource(R.drawable.img_obj_feed_lemon_hl);
+		}else if (ib == buttonItem2){
+			buttonItem2.setBackgroundResource(R.drawable.img_obj_feed_lettuce_hl);
+		}else if (ib == buttonItem3){
+			buttonItem3.setBackgroundResource(R.drawable.img_obj_feed_lizzard_hl);
+		}else if (ib == buttonItem4){
+			buttonItem4.setBackgroundResource(R.drawable.img_obj_feed_lamb_hl);
+		}
+		
+		//
+			
 		/*
 		setState(InteractionState.PLAY);
 		runGame();	//TODO replace with setting state to PLAY_THEN_RECORD, which starts the recogniser if it's not running?
@@ -195,13 +225,11 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		if (feedIntroPlayed == false){
 			MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.leo_after_all_that_work);
 			mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+				
 	            @Override
 	            public void onCompletion(MediaPlayer mp) {
 	            	//TODO set leo back to idle
-	        		buttonItem1.setVisibility(View.VISIBLE);
-	        		buttonItem2.setVisibility(View.VISIBLE);
-	        		buttonItem3.setVisibility(View.VISIBLE);
-	        		buttonItem4.setVisibility(View.VISIBLE);
+	        		setupGame();
 	            }
 			});
 			mediaPlayer.start();

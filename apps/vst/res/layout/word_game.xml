@@ -69,9 +69,9 @@
         android:id="@+id/btn_game3_obj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/txt_game_3"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:translationY="40dp"
+        android:layout_marginBottom="45dp"
         android:background="@drawable/img_obj_lemon"
         android:visibility="visible" />
 
