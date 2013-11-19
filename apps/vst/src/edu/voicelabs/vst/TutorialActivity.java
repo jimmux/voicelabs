@@ -46,7 +46,6 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     
     private AnimationDrawable recordAnim;
     private AnimationDrawable playAnim;
-    private AnimationDrawable leoAnim;
 
 	private VideoView videoView;	
 	

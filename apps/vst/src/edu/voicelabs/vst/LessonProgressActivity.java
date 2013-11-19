@@ -1,8 +1,5 @@
 package edu.voicelabs.vst;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -118,6 +115,7 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 					AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonPhoneme, R.anim.anim_btn_red_circle_backwards);
 				}
 				Intent intent = new Intent(getApplicationContext(), PhonemeGameActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	            startActivity(intent); 
 			}
 			else if (v == this.imageButtonSyllable) {
@@ -125,6 +123,7 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 					AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonSyllable, R.anim.anim_btn_red_circle_backwards);
 				}
 				Intent intent = new Intent(getApplicationContext(), SyllableGameActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				startActivity(intent); 
 			}
 			else if (v == this.imageButtonWord) {
@@ -132,6 +131,7 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 					AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonWord, R.anim.anim_btn_red_circle_backwards);
 				}
 				Intent intent = new Intent(getApplicationContext(), WordGameActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	            startActivity(intent); 
 			}
 			else if (v == this.imageButtonChoose) {
@@ -139,6 +139,7 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 					AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonChoose, R.anim.anim_btn_red_circle_backwards);
 				}
 				Intent intent = new Intent(getApplicationContext(), ChooseGameActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	            startActivity(intent); 
 			}
 			else if (v == this.imageButtonBack) {

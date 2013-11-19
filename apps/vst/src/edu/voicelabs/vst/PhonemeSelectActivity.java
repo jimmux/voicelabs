@@ -6,7 +6,6 @@ package edu.voicelabs.vst;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,7 +27,6 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 	
 	// Update to show completion
 	private ImageView imageViewProgressL;
-	private AnimationDrawable animProgressL;
 	
 	private ImageButton buttonGoToSettings;
 
@@ -81,7 +79,7 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 		// Show and animate the progress star, if completed.
 		DBHelper db = new DBHelper(getApplicationContext());
 		if (db.getComplete("Default", "L")) {
-			this.animProgressL = AnimationHelper.runKeyframeAnimation(this, R.id.imageViewProgressL, R.anim.anim_star_small);
+			AnimationHelper.runKeyframeAnimation(this, R.id.imageViewProgressL, R.anim.anim_star_small);
 			this.imageViewProgressL.setVisibility(View.VISIBLE);
 		}
 	}
@@ -93,6 +91,7 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 			if (v == this.imageButtonL) {
 				// Go to the lesson
 				Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	            startActivity(intent); 
 			}
 			else if (v == this.imageButtonS) {
@@ -110,6 +109,7 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 			else if (v == this.buttonGoToSettings) {
 				// Go to the video
 				Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	            startActivity(intent); 
 			}
 		}

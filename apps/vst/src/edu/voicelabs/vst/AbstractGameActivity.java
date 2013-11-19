@@ -261,10 +261,12 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 		// Advance if completed
 		if (db.getComplete("Default", "L")) {
 			Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class); //TODO: got to final screen
+			intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	        startActivity(intent);
 		}
 		else {
 			Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	        startActivity(intent);
 		}
 	}

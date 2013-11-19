@@ -2,20 +2,18 @@ package edu.voicelabs.vst;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import edu.voicelabs.vst.AbstractGameActivity.InteractionState;
 import edu.voicelabs.vst.RecognizerTask.Mode;
 
 public class WordGameActivity extends AbstractGameActivity implements OnTouchListener {

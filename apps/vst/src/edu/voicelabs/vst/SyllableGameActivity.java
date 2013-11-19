@@ -42,8 +42,8 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		super.onCreate(savedInstanceState);
 		
 		subPattern = "L";
-		maxCorrectMatches = 1;
-		maxAttempts = 2;
+		maxCorrectMatches = 2;
+		maxAttempts = 6;
 		
 		setContentView(R.layout.syllable_game);
 		

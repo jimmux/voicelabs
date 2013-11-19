@@ -40,13 +40,13 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	 *
 	 */
 	private class WordData {
-		String displayWord;		// Text to use for display
+//		String displayWord;		// Text to use for display
 		String matchWord;		// Text to use for speech matching
 		int drawable;			// The reference of the image in res/drawable to use
 		int speechAudio;		// The reference of the sound file in res/raw to use, e.g. R.raw.tmp_lolly
 		
 		public WordData(String displayWord, String matchWord, int drawable, int speechAudio) {
-			this.displayWord = displayWord;
+//			this.displayWord = displayWord;
 			this.matchWord = matchWord;
 			this.drawable = drawable;
 			this.speechAudio = speechAudio;
@@ -85,7 +85,6 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		// UI
 		this.prompt = (ImageView) findViewById(R.id.imageViewPrompt);
 		this.leo = (ImageButton) findViewById(R.id.buttonStartWord);
-		
 		this.leo.setBackgroundResource(R.anim.anim_leo_eat);
 		this.leoAnimation = (AnimationDrawable) this.leo.getBackground();
 		
@@ -138,14 +137,10 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	    v.startAnimation(animation);	    	  
 	   
 		this.chosenWordButton.setVisibility(View.INVISIBLE);
-		
-		
 	    // Leo eats!
     	// Play animation manually 
 		leoAnimation.stop();
 		leoAnimation.start();
-		
-		
 		if (this.wordCompletionCount >= this.words.length) {
 			this.playingRef = R.raw.feedback_pos_really_cool;
 			setState(InteractionState.PLAY);

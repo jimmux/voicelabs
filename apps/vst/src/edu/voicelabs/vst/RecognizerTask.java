@@ -7,12 +7,10 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import edu.cmu.pocketsphinx.Config;
 import edu.cmu.pocketsphinx.Decoder;
 import edu.cmu.pocketsphinx.Hypothesis;
-import edu.cmu.pocketsphinx.pocketsphinx;
 
 /**
  * Speech recognition task, which runs in a worker thread.
@@ -97,7 +95,7 @@ public class RecognizerTask implements Runnable {
 			short[] buf = new short[this.block_size];
 			int nshorts = this.rec.read(buf, 0, buf.length);
 			if (nshorts > 0) {
-				Log.d(getClass().getName(), "Posting " + nshorts + " samples to queue");
+//				Log.d(getClass().getName(), "Posting " + nshorts + " samples to queue");
 				this.q.add(buf);
 			}
 			return nshorts;
@@ -190,7 +188,7 @@ public class RecognizerTask implements Runnable {
 		
 		// Copy data files to storage
 		String base_dir = context.getFilesDir().getAbsolutePath();
-		pocketsphinx.setLogfile(Environment.getExternalStorageDirectory().getPath() + "/pocketsphinx.log");
+//		pocketsphinx.setLogfile(Environment.getExternalStorageDirectory().getPath() + "/pocketsphinx.log");
 		Config c = new Config();
 		
 		c.setString("-hmm", base_dir + "/hmm");
@@ -293,7 +291,7 @@ public class RecognizerTask implements Runnable {
 					/* Drain the audio queue. */
 					short[] buf;
 					while ((buf = this.audioq.poll()) != null) {
-						Log.d(getClass().getName(), "Reading " + buf.length + " samples from queue");
+//						Log.d(getClass().getName(), "Reading " + buf.length + " samples from queue");
 						this.ps.processRaw(buf, buf.length, false, false);
 					}
 					this.ps.endUtt();
@@ -339,12 +337,13 @@ public class RecognizerTask implements Runnable {
 				assert this.audio != null;
 				try {
 					short[] buf = this.audioq.take();
-					Log.d(getClass().getName(), "Reading " + buf.length + " samples from queue");
+//					Log.d(getClass().getName(), "Reading " + buf.length + " samples from queue");
 					this.ps.processRaw(buf, buf.length, false, false);
 					Hypothesis hyp = this.ps.getHyp();
 					if (hyp != null) {
 						String hypstr = hyp.getHypstr();
-						if (hypstr != partial_hyp) {
+//						if (hypstr != partial_hyp) {
+						if ((hypstr != null) && !hypstr.equals(partial_hyp)) {	//TODO check
 							Log.d(getClass().getName(), "Hypothesis: " + hyp.getHypstr());
 							if (this.rl != null && hyp != null) {
 								Bundle b = new Bundle();

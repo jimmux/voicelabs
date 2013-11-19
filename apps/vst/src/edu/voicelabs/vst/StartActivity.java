@@ -3,7 +3,6 @@ package edu.voicelabs.vst;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 public class StartActivity extends Activity implements OnTouchListener {
 	
 	private ImageButton imageButtonStart;
-	private AnimationDrawable leoBlinkAnim;
 	private MediaPlayer music; 
 	
 	/** Called when the activity is first created. */
@@ -76,8 +74,7 @@ public class StartActivity extends Activity implements OnTouchListener {
 			
 			leofadein.setBackgroundResource(0);
 			
-			
-			this.leoBlinkAnim = AnimationHelper.runKeyframeAnimation(this, R.id.leo_fade_in, R.anim.anim_leo_blinkonly);
+			AnimationHelper.runKeyframeAnimation(this, R.id.leo_fade_in, R.anim.anim_leo_blinkonly);
 			imageButtonStart.setVisibility(View.VISIBLE);
 	
 		}
