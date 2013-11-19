@@ -1,26 +1,46 @@
+/*
+ * Copyright (c) VoiceLabs (James Manley and Dylan Kelly), 2013
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: 
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
+ * 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ * The views and conclusions contained in the software and documentation are those
+ * of the authors and should not be interpreted as representing official policies, 
+ * either expressed or implied, of VoiceLabs.
+ */
+
 package edu.voicelabs.vst;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import edu.voicelabs.vst.AbstractGameActivity.InteractionState;
 import edu.voicelabs.vst.RecognizerTask.Mode;
 
+/**
+ * Game to cycle through a collection of words that have the main phoneme in common.
+ * 
+ * @author James Manley
+ * @author Dylan Kelly
+ *
+ */
 public class WordGameActivity extends AbstractGameActivity implements OnTouchListener {
-	
-	//TODO Add speaking of current word when the object is touched.
 	
 	// Layout elements
 	protected RelativeLayout gameLayout;	
@@ -61,7 +81,8 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 	};
 	private int wordIndex = 0;
 
-	
+	/** Set expected values and assign interactive elements in the layout */
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -83,7 +104,6 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		this.message = (TextView) findViewById(R.id.txt_game_3);
 		this.message.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Mabel.ttf"));
 		
-		
 		this.prompt = (ImageView) findViewById(R.id.imageViewPrompt);
 
 		this.wordObject = (ImageButton) findViewById(R.id.btn_game3_obj); 
@@ -101,14 +121,25 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		setState(InteractionState.IDLE);	
 	}
 	
+	/** Set the type of recognition for this game */
+	@Override
 	protected Mode getMode() {
 		return Mode.WORD;
 	}
 	
+	/** 
+	 * Get reference to top level layout element, so the recogniser thread
+	 * knows what to update.
+	 */
+	@Override
 	protected ViewGroup getGameLayout() {
 		return (ViewGroup) findViewById(R.id.game_layout_word);
 	}
 	
+	/**
+	 * Move to the next word, and if all done, finish the game.
+	 */
+	@Override
 	protected void fullSuccess() {	
 		// Move to the next word, or complete the game
 		this.wordIndex++;
@@ -131,20 +162,13 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 			this.message.setText(this.words[this.wordIndex].displayWord);
 			this.wordObject.setBackgroundResource(this.words[this.wordIndex].drawable);
 			
-			//FADE IN
+			// Fade in
 			fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_fade_in_obj);
 			fadeInAnimation.reset();
 			
 			View objectView = findViewById(R.id.btn_game3_obj);
-			/*		
-		    View v = objectView;
-		    // cancel any pending animation and start this one
-		    if (v != null){
-		      v.clearAnimation();
-		      v.startAnimation(fadeInAnimation);
-		    }
-			*/
-		    // cancel any pending animation and start this one
+
+		    // Cancel any pending animation and start this one
 	    	objectView.clearAnimation();
 	    	objectView.startAnimation(fadeInAnimation);
 	    	
@@ -153,6 +177,11 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		}
 	}
 	
+	/** 
+	 * Currently set to full success on a single match, so never called.
+	 * Left here to allow for adjustment, as needed by future implementations.
+	 */
+	@Override
 	protected void partSuccess() {		
 		// Encourage the same word - note this won't be executed if accepting a single positive attempt
 		this.playingRef = R.raw.feedback_pos_great_job;
@@ -160,14 +189,15 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}
 	
+	/** When maximum speech attempts detected, repeat the expected word to remind the user. */
+	@Override
 	protected void fullAttempts() {
 		this.playingRef = this.words[this.wordIndex].speechAudio;
 		this.message.setText("Try it again!");
 		setState(InteractionState.PLAY_THEN_RERUN);
-		//wipeRecognizer();
 	}
 	
-
+	/** Touch Leo to start */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -183,40 +213,34 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 			}
 			else if ((v == this.buttonStart) || (v == this.leoHelper))  {
 				// Start the game
-				//runGame();	//TODO replace with setting state to PLAY_THEN_RECORD, which starts the recogniser if it's not running?
 				this.wordIndex = 0;
 				this.message.setText(this.words[wordIndex].displayWord);
 				this.wordObject.setBackgroundResource(this.words[wordIndex].drawable);
 				
 				//First run
-				if (leoPressed == false){
+				if (this.leoPressed == false){
 					this.leoHelper.setVisibility(View.INVISIBLE);
 					this.buttonStart.setVisibility(View.INVISIBLE);
 					this.wordObject.setVisibility(View.VISIBLE);
 					this.message.setText("Lemon");
-					
-					leoPressed = true;
-					
+					this.leoPressed = true;
 				}
 				
-				
-				//FADE IN
+				// Fade in
 				Animation fadeInAnimation;
 				fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_fade_in_obj);
 				fadeInAnimation.reset();
 				
 				View objectView = findViewById(R.id.btn_game3_obj);
 
-			    // cancel any pending animation and start this one
+			    // Cancel any pending animation and start this one
 				objectView.clearAnimation();
 				objectView.startAnimation(fadeInAnimation);
 				
 				this.playingRef = this.words[this.wordIndex].speechAudio;
 				setState(InteractionState.PLAY_THEN_RECORD);
 				
-
 			}
-		
 		}
 	return false;
 	}

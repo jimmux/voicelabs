@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) VoiceLabs (James Manley and Dylan Kelly), 2013
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: 
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
+ * 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ * The views and conclusions contained in the software and documentation are those
+ * of the authors and should not be interpreted as representing official policies, 
+ * either expressed or implied, of VoiceLabs.
+ */
+
 package edu.voicelabs.vst;
 
 import android.content.Intent;
@@ -16,6 +33,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import edu.voicelabs.vst.RecognizerTask.Mode;
 
+/**
+ * Game activity where user selects the objects to speak, and recogniser is used to confirm.
+ * Successful matches are cleared, and the game is complete when all words are matched.
+ * 
+ * @author James Manley
+ * @author Dylan Kelly
+ *
+ */
 public class ChooseGameActivity extends AbstractGameActivity implements OnTouchListener {
 	// Layout elements
 	protected RelativeLayout gameLayout;
@@ -40,13 +65,11 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	 *
 	 */
 	private class WordData {
-		String displayWord;		// Text to use for display
 		String matchWord;		// Text to use for speech matching
 		int drawable;			// The reference of the image in res/drawable to use
 		int speechAudio;		// The reference of the sound file in res/raw to use, e.g. R.raw.tmp_lolly
 		
 		public WordData(String displayWord, String matchWord, int drawable, int speechAudio) {
-			this.displayWord = displayWord;
 			this.matchWord = matchWord;
 			this.drawable = drawable;
 			this.speechAudio = speechAudio;
@@ -60,11 +83,13 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 
 	};
 	private int wordIndex;	// Set to the currently chosen word;
+	
 	private ImageButton chosenWordButton;
 	
 	private int wordCompletionCount = 0;	// Increment as each word is successfully completed, so we know when to finish
 	
-	
+	/** Set expected values and assign interactive elements in the layout */
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -85,7 +110,6 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		// UI
 		this.prompt = (ImageView) findViewById(R.id.imageViewPrompt);
 		this.leo = (ImageButton) findViewById(R.id.buttonStartWord);
-		
 		this.leo.setBackgroundResource(R.anim.anim_leo_eat);
 		this.leoAnimation = (AnimationDrawable) this.leo.getBackground();
 		
@@ -108,15 +132,26 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		setState(InteractionState.IDLE);
 	}
 	
+	/** Set the type of recognition for this game */
+	@Override
 	protected Mode getMode() {
 		return Mode.WORD;
 	}
 	
+	/** 
+	 * Get reference to top level layout element, so the recogniser thread
+	 * knows what to update.
+	 */
+	@Override
 	protected ViewGroup getGameLayout() {
 		return (ViewGroup) findViewById(R.id.game_layout_feed);
 	}
-	
 
+	/**
+	 * Clear the word that was successfully matched, and if all done,
+	 * finish the game.
+	 */
+	@Override
 	protected void fullSuccess() {		
 		// Clear the word that was just done, and complete the game if all done
 		this.wordCompletionCount++;
@@ -138,14 +173,10 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	    v.startAnimation(animation);	    	  
 	   
 		this.chosenWordButton.setVisibility(View.INVISIBLE);
-		
-		
 	    // Leo eats!
     	// Play animation manually 
 		leoAnimation.stop();
 		leoAnimation.start();
-		
-		
 		if (this.wordCompletionCount >= this.words.length) {
 			this.playingRef = R.raw.feedback_pos_really_cool;
 			setState(InteractionState.PLAY);
@@ -161,23 +192,28 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		else {			
 			this.playingRef = R.raw.feedback_pos_great_job;
 			setState(InteractionState.PLAY);
-//			setState(InteractionState.PLAY_THEN_RERUN); //TODO: check
-		}				
-//		wipeRecognizer(); //TODO Put in rerun bit? 
+		}
 	}
 	
+	/** 
+	 * Currently set to full success on a single match, so never called.
+	 * Left here to allow for adjustment, as needed by future implementations.
+	 */
+	@Override
 	protected void partSuccess() {
 		// Encourage the same word - note this won't be executed if accepting a single positive attempt
 		this.playingRef = R.raw.feedback_pos_well_done;
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}
 	
+	/** When maximum speech attempts detected, repeat the expected word to remind the user. */
+	@Override
 	protected void fullAttempts() {
 		this.playingRef = this.words[this.wordIndex].speechAudio;
 		setState(InteractionState.PLAY_THEN_RERUN);
-//		wipeRecognizer();
 	}
 	
+	/** Initialise elements unique to this game */
 	private void setupGame() {
 		buttonItem1.setVisibility(View.VISIBLE);
 		buttonItem2.setVisibility(View.VISIBLE);
@@ -188,63 +224,55 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		AnimationHelper.runAlphaAnimation(this, R.id.btn_lettuce, R.anim.anim_fade_in);
 		AnimationHelper.runAlphaAnimation(this, R.id.btn_lamb, R.anim.anim_fade_in);
 		AnimationHelper.runAlphaAnimation(this, R.id.btn_lizzard, R.anim.anim_fade_in);
-		
-		//TODO implement circle helper for feed game items here?
-		
 	}
 	
-	
+	/** Update for the chosen word and begin recogniser */
 	private void startGameForWord(int i, ImageButton ib) {
 		setState(InteractionState.IDLE);
-		wipeRecognizer(); //TODO Check
+		wipeRecognizer();
 		this.wordIndex = i;
 		this.chosenWordButton = ib;
 		this.subPattern = this.words[this.wordIndex].matchWord;
 		this.playingRef = this.words[this.wordIndex].speechAudio;
 		
-		//swap ib for highlight state resource
-		
-		if (ib == buttonItem1){
+		if (ib == buttonItem1) {
 			buttonItem1.setBackgroundResource(R.drawable.img_obj_feed_lemon_hl);
-		}else if (ib == buttonItem2){
+		}
+		else if (ib == buttonItem2) {
 			buttonItem2.setBackgroundResource(R.drawable.img_obj_feed_lettuce_hl);
-		}else if (ib == buttonItem3){
+		}
+		else if (ib == buttonItem3) {
 			buttonItem3.setBackgroundResource(R.drawable.img_obj_feed_lizzard_hl);
-		}else if (ib == buttonItem4){
+		}
+		else if (ib == buttonItem4) {
 			buttonItem4.setBackgroundResource(R.drawable.img_obj_feed_lamb_hl);
 		}
 		
-		
 		leoAnimation = (AnimationDrawable) this.leo.getBackground();
 		leoAnimation.selectDrawable(0);
-		/*
-		setState(InteractionState.PLAY);
-		runGame();	//TODO replace with setting state to PLAY_THEN_RECORD, which starts the recogniser if it's not running?
-		*/
+
 		setState(InteractionState.PLAY_THEN_RERUN);
 	}
 	
+	/** Play an introduction to set up the premise of the game */
+	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
-		//TODO set leo to talk
 	
 		if (hasFocus && !this.feedIntroPlayed) {
 			MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.leo_after_all_that_work);
 			mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-				
 	            @Override
 	            public void onCompletion(MediaPlayer mp) {
-	            	//TODO set leo back to idle
 	        		setupGame();
 	            }
 			});
 			mediaPlayer.start();
-			//leoAnimation.start();
 			this.feedIntroPlayed = true;
 		}
 	}
 	
-	
+	/** Respond to touches on the food objects by starting the game with appropriate details */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {

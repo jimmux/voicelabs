@@ -1,32 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="true">
-
-    <item android:drawable="@drawable/leo_animation0132" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0133" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0134" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0135" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0136" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0137" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0138" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0139" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0140" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0141" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0142" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0143" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0144" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0145" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0146" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0147" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0148" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0149" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0150" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0151" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0152" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0153" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0154" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0155" android:duration="50"/>
-    <item android:drawable="@drawable/leo_animation0156" android:duration="50"/>
-
-
+    <item android:drawable="@drawable/leo_animation0132" android:duration="200"/>
+    <item android:drawable="@drawable/leo_animation0136" android:duration="200"/>
+    <item android:drawable="@drawable/leo_animation0140" android:duration="250"/>
+    <item android:drawable="@drawable/leo_animation0145" android:duration="250"/>
+    <item android:drawable="@drawable/leo_animation0150" android:duration="200"/>
 </animation-list>
