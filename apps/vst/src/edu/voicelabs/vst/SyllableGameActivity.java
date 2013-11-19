@@ -70,6 +70,10 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		this.leoHelper = (ImageButton) findViewById(R.id.leo_helper);
 		this.leoHelper.setOnTouchListener(this);
 		AnimationHelper.runKeyframeAnimation(this, R.id.leo_helper, R.anim.anim_btn_red_circle5);
+		
+		//Intro sound
+		MediaPlayer leoInstructions = MediaPlayer.create(getApplicationContext(), R.raw.leo_now_your_turn);
+		leoInstructions.start();
 	}
 	
 
@@ -126,13 +130,6 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 //		wipeRecognizer();
 	}
 	
-	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-		super.onWindowFocusChanged(hasFocus);
-		
-		MediaPlayer leoInstructions = MediaPlayer.create(getApplicationContext(), R.raw.leo_now_your_turn);
-		leoInstructions.start();
-	}
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {

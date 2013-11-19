@@ -67,6 +67,10 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 		AnimationHelper.runKeyframeAnimation(this, R.id.leo_helper, R.anim.anim_btn_red_circle5);	
 
 		setState(InteractionState.IDLE);
+		
+		//Intro sound
+		MediaPlayer leoInstructions = MediaPlayer.create(getApplicationContext(), R.raw.leo_now_your_turn);
+		leoInstructions.start();
 	}
 
 	protected Mode getMode() {
@@ -103,13 +107,6 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 		setState(InteractionState.PLAY_THEN_RERUN);
 	}
 	
-	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-		super.onWindowFocusChanged(hasFocus);
-		
-		MediaPlayer leoInstructions = MediaPlayer.create(getApplicationContext(), R.raw.leo_now_your_turn);
-		leoInstructions.start();
-	}
 	
 
 	@Override
