@@ -1,8 +1,12 @@
 package edu.voicelabs.vst;
 
+import java.io.File;
+
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -28,6 +32,7 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 	
 	//helper red circle
 	private ImageButton leoHelper;
+	private boolean leoPressed = false;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,7 +59,12 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 		
 		// Click on leo to start the game
 		this.buttonStart = (ImageButton) findViewById(R.id.buttonStartWord);	
-		this.buttonStart.setOnTouchListener(this);		
+		this.buttonStart.setOnTouchListener(this);
+		
+		//touch helper red circle
+		this.leoHelper = (ImageButton) findViewById(R.id.leo_helper);
+		this.leoHelper.setOnTouchListener(this);
+		AnimationHelper.runKeyframeAnimation(this, R.id.leo_helper, R.anim.anim_btn_red_circle5);	
 
 		setState(InteractionState.IDLE);
 	}
@@ -93,6 +103,14 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 		setState(InteractionState.PLAY_THEN_RERUN);
 	}
 	
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		
+		MediaPlayer leoInstructions = MediaPlayer.create(getApplicationContext(), R.raw.leo_now_your_turn);
+		leoInstructions.start();
+	}
+	
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
@@ -108,14 +126,24 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			}
-			else if (v == this.buttonStart) {
+			else if ((v == this.buttonStart) || (v == this.leoHelper)) {
+				//First run
+				if (leoPressed == false){
+					this.leoHelper.setVisibility(View.INVISIBLE);			
+					leoPressed = true;
+					
+					// Play animation manually 
+					buttonStart.setBackgroundResource(R.anim.anim_leo_hand_to_ear);
+					AnimationDrawable leoAnimation = (AnimationDrawable) buttonStart.getBackground();
+					leoAnimation.start();
+					
+				}
+				
+				
 				this.playingRef = R.raw.phoneme_lll;
 				setState(InteractionState.PLAY_THEN_RECORD);
 				
-				// Play animation manually 
-				buttonStart.setBackgroundResource(R.anim.anim_leo_hand_to_ear);
-				AnimationDrawable leoAnimation = (AnimationDrawable) buttonStart.getBackground();
-				leoAnimation.start();
+
 			}
 		
 		}

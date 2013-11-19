@@ -85,6 +85,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		// UI
 		this.prompt = (ImageView) findViewById(R.id.imageViewPrompt);
 		this.leo = (ImageButton) findViewById(R.id.buttonStartWord);
+		
 		this.leo.setBackgroundResource(R.anim.anim_leo_eat);
 		this.leoAnimation = (AnimationDrawable) this.leo.getBackground();
 		
@@ -137,9 +138,14 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	    v.startAnimation(animation);	    	  
 	   
 		this.chosenWordButton.setVisibility(View.INVISIBLE);
+		
+		
 	    // Leo eats!
     	// Play animation manually 
+		leoAnimation.stop();
 		leoAnimation.start();
+		
+		
 		if (this.wordCompletionCount >= this.words.length) {
 			this.playingRef = R.raw.feedback_pos_really_cool;
 			setState(InteractionState.PLAY);
@@ -208,8 +214,9 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 			buttonItem4.setBackgroundResource(R.drawable.img_obj_feed_lamb_hl);
 		}
 		
-		//
-			
+		
+		leoAnimation = (AnimationDrawable) this.leo.getBackground();
+		leoAnimation.selectDrawable(0);
 		/*
 		setState(InteractionState.PLAY);
 		runGame();	//TODO replace with setting state to PLAY_THEN_RECORD, which starts the recogniser if it's not running?
@@ -232,6 +239,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	            }
 			});
 			mediaPlayer.start();
+			//leoAnimation.start();
 			this.feedIntroPlayed = true;
 		}
 	}

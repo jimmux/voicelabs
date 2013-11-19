@@ -65,5 +65,19 @@
         android:textSize="30sp"
         android:translationY="-80dp"
         android:visibility="visible" />
+    
+    
+            <ImageButton
+            android:id="@+id/leo_helper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/buttonStartWord"
+            android:layout_marginRight="152dp"
+            android:background="@drawable/anim_btn_red_circle0010"
+            android:minHeight="140dp"
+            android:minWidth="140dp"
+            android:translationY="-50dp"
+            android:visibility="visible" />
 
 </RelativeLayout>

@@ -74,6 +74,7 @@ public class SettingsActivity extends Activity implements OnTouchListener {
 
 			}
 			else if (v == this.buttonResetProfile) {
+				licenseContext = true;
 				// Recreate empty profile
 				DBHelper db = new DBHelper(getApplicationContext());
 				db.initialiseWithDefaults(true);		

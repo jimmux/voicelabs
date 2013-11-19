@@ -34,13 +34,16 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	
 	private boolean started = false;
 	
+	//Touch circle helper
+	private ImageButton leoHelper;
+	private boolean leoPressed = false;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		subPattern = "L";
-		maxCorrectMatches = 2;
-		maxAttempts = 4;
+		maxCorrectMatches = 1;
+		maxAttempts = 2;
 		
 		setContentView(R.layout.syllable_game);
 		
@@ -62,6 +65,11 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		this.buttonStart.setOnTouchListener(this);		
 
 		setState(InteractionState.IDLE);
+		
+		// Touch helper circle
+		this.leoHelper = (ImageButton) findViewById(R.id.leo_helper);
+		this.leoHelper.setOnTouchListener(this);
+		AnimationHelper.runKeyframeAnimation(this, R.id.leo_helper, R.anim.anim_btn_red_circle5);
 	}
 	
 
@@ -119,6 +127,14 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	}
 	
 	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		
+		MediaPlayer leoInstructions = MediaPlayer.create(getApplicationContext(), R.raw.leo_now_your_turn);
+		leoInstructions.start();
+	}
+	
+	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.buttonSkip) {
@@ -131,7 +147,16 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			}
-			else if (v == this.buttonStart) {
+			else if ((v == this.buttonStart) || (v == this.leoHelper)) {
+				
+				//First run
+				if (leoPressed == false){
+					this.leoHelper.setVisibility(View.INVISIBLE);			
+					leoPressed = true;
+					
+				}
+				
+				
 				//Change text to first syllable
 //				this.syllableIndex = 0;
 				this.message.setText(this.syllables[this.syllableIndex]);

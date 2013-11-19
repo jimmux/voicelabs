@@ -263,7 +263,6 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 	            public void onCompletion(MediaPlayer mp) {
 		            videoPlayed = true;
 	            	videoView.setVisibility(View.GONE);
-	            	System.gc();
 	            	introDemo();
 	            }
 			});

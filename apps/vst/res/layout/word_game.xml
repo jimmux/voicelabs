@@ -59,7 +59,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Lemon"
         android:textColor="#fff"
         android:textSize="40sp"
         android:translationY="-20dp"
@@ -73,6 +72,18 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="45dp"
         android:background="@drawable/img_obj_lemon"
+        android:visibility="visible" />
+    
+    <ImageButton
+        android:id="@+id/leo_helper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/anim_btn_red_circle0010"
+        android:minHeight="140dp"
+        android:minWidth="140dp"
+        android:translationY="-50dp"
         android:visibility="visible" />
 
 </RelativeLayout>
