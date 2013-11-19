@@ -3,6 +3,7 @@ package edu.voicelabs.vst;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -28,10 +29,10 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	
 	// Loops through the set of syllables to speak
 	private final String[] syllables = {"LA", "LI", "LU", "LE", "LO"};
-
 	private final int[] syllableSounds = {R.raw.syllable_la, R.raw.syllable_li, R.raw.syllable_lu, R.raw.syllable_le, R.raw.syllable_lo};
-
 	private int syllableIndex = 0;
+	
+	private boolean started = false;
 	
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -88,10 +89,18 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		         } 
 		    }, 2000); 
 		}
-		else {			
-			this.playingRef = syllableSounds[syllableIndex];
-			this.message.setText("Now say " + syllables[syllableIndex] + "!");
-			setState(InteractionState.PLAY_THEN_RERUN);
+		else {
+			setState(InteractionState.IDLE);
+			this.message.setText("Say " + this.syllables[this.syllableIndex]);
+			MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.feedback_pos_super);
+			mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+	            @Override
+	            public void onCompletion(MediaPlayer mp) {
+	    			playingRef = syllableSounds[syllableIndex];
+	    			setState(InteractionState.PLAY_THEN_RERUN);
+	            }
+			});
+			mediaPlayer.start();
 		}
 	}
 	
@@ -103,10 +112,10 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	}
 	
 	protected void fullAttempts() {
-		this.playingRef = syllableSounds[syllableIndex];
+		this.playingRef = syllableSounds[this.syllableIndex];
 		this.message.setText("Try it again!");
 		setState(InteractionState.PLAY_THEN_RERUN);
-		wipeRecognizer();
+//		wipeRecognizer();
 	}
 	
 	@Override
@@ -124,17 +133,22 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 			}
 			else if (v == this.buttonStart) {
 				//Change text to first syllable
-				this.syllableIndex = 0;
-				this.message.setText(this.syllables[syllableIndex]);
-				this.playingRef = syllableSounds[syllableIndex];
-				setState(InteractionState.PLAY_THEN_RECORD);
-				
-				// Play animation manually 
-				buttonStart.setBackgroundResource(R.anim.anim_leo_hand_to_ear);
-				AnimationDrawable leoAnimation = (AnimationDrawable) buttonStart.getBackground();
-				leoAnimation.start();
+//				this.syllableIndex = 0;
+				this.message.setText(this.syllables[this.syllableIndex]);
+				this.playingRef = syllableSounds[this.syllableIndex];
+				if (this.started) {
+					setState(InteractionState.PLAY_THEN_RECORD);
+				}
+				else {		
+					this.started = true;
+					setState(InteractionState.PLAY_THEN_RERUN);
+					
+					// Play animation manually 
+					buttonStart.setBackgroundResource(R.anim.anim_leo_hand_to_ear);
+					AnimationDrawable leoAnimation = (AnimationDrawable) buttonStart.getBackground();
+					leoAnimation.start();
+				}
 			}
-		
 		}
 	return false;
 	}

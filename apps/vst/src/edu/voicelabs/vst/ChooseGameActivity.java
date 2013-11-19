@@ -33,7 +33,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	
 	private AnimationDrawable leoAnimation;
 	
-	Boolean feedIntroPlayed = false; 
+	private boolean feedIntroPlayed = false; 
 
 	/**
 	 * Simple struct for associated word data
@@ -85,6 +85,8 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		// UI
 		this.prompt = (ImageView) findViewById(R.id.imageViewPrompt);
 		this.leo = (ImageButton) findViewById(R.id.buttonStartWord);
+		this.leo.setBackgroundResource(R.anim.anim_leo_eat);
+		this.leoAnimation = (AnimationDrawable) this.leo.getBackground();
 		
 		//Food items
 		this.buttonItem1 = (ImageButton) findViewById(R.id.btn_lemon);
@@ -101,9 +103,6 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		this.buttonItem2.setBackgroundResource(this.words[1].drawable);
 		this.buttonItem3.setBackgroundResource(this.words[2].drawable);
 		this.buttonItem4.setBackgroundResource(this.words[3].drawable);
-		
-		leo.setBackgroundResource(R.anim.anim_leo_eat);
-		leoAnimation = (AnimationDrawable) leo.getBackground();
 		
 		setState(InteractionState.IDLE);
 	}
@@ -222,7 +221,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		super.onWindowFocusChanged(hasFocus);
 		//TODO set leo to talk
 	
-		if (feedIntroPlayed == false){
+		if (hasFocus && !this.feedIntroPlayed) {
 			MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.leo_after_all_that_work);
 			mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 				
@@ -233,7 +232,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	            }
 			});
 			mediaPlayer.start();
-			feedIntroPlayed = true;
+			this.feedIntroPlayed = true;
 		}
 	}
 	

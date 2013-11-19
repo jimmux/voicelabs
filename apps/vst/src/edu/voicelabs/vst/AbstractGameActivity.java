@@ -93,13 +93,15 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
     	// Cancel any current playing or recording (effectively set to IDLE conditions)
     	switch (this.state) {
     	case RECORD:
+    	case PLAY_THEN_RECORD:
+    	case PLAY_THEN_RERUN:
         	this.promptAnim.stop();
         	this.prompt.clearAnimation();
     		this.rec.stop();
     		break;
     	case PLAY:
-    	case PLAY_THEN_RECORD:
-    	case PLAY_THEN_RERUN:
+//    	case PLAY_THEN_RECORD:
+//    	case PLAY_THEN_RERUN:
         	this.promptAnim.stop();
         	this.prompt.clearAnimation();
 			this.player.stop();
@@ -201,6 +203,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 						Log.d(getClass().getName(), "*** Partial success with count: " + that.successCount);
 						partSuccess();
 						that.rec.start();
+						return;
 					}
 					else if (!that.gotResult) {
 						that.gotResult = true;
