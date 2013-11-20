@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) VoiceLabs (James Manley and Dylan Kelly), 2013
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: 
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
+ * 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ * The views and conclusions contained in the software and documentation are those
+ * of the authors and should not be interpreted as representing official policies, 
+ * either expressed or implied, of VoiceLabs.
+ */
+
 package edu.voicelabs.vst;
 
 import android.content.Intent;
@@ -16,6 +33,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import edu.voicelabs.vst.RecognizerTask.Mode;
 
+/**
+ * Game to cycle through a collection of syllables that have the main phoneme in common.
+ * 
+ * @author James Manley
+ * @author Dylan Kelly
+ *
+ */
 public class SyllableGameActivity extends AbstractGameActivity implements OnTouchListener {
 	
 	// Layout elements
@@ -37,13 +61,15 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	//Touch circle helper
 	private ImageButton leoHelper;
 	private boolean leoPressed = false;
-	
+
+	/** Set expected values and assign interactive elements in the layout */
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		subPattern = "L";
-		maxCorrectMatches = 2;
-		maxAttempts = 6;
+		maxCorrectMatches = 1;
+		maxAttempts = 2;
 		
 		setContentView(R.layout.syllable_game);
 		
@@ -76,15 +102,25 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		leoInstructions.start();
 	}
 	
-
+	/** Set the type of recognition for this game */
+	@Override
 	protected Mode getMode() {
 		return Mode.SYLLABLE;
 	}
 	
+	/** 
+	 * Get reference to top level layout element, so the recogniser thread
+	 * knows what to update.
+	 */
+	@Override
 	protected ViewGroup getGameLayout() {
 		return (ViewGroup) findViewById(R.id.game_layout_syllable);
 	}
 
+	/**
+	 * Move to the next syllable, and if all done, finish the game.
+	 */
+	@Override
 	protected void fullSuccess() {
 		// Move to the next syllable, or complete the game
 		this.syllableIndex++;
@@ -116,6 +152,11 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		}
 	}
 	
+	/** 
+	 * Currently set to full success on a single match, so never called.
+	 * Left here to allow for adjustment, as needed by future implementations.
+	 */
+	@Override
 	protected void partSuccess() {
 		// Encourage the same syllable		
 		this.playingRef = R.raw.feedback_partial_try_one_more;
@@ -123,6 +164,8 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		setState(InteractionState.PLAY_THEN_RECORD);
 	}
 	
+	/** When maximum speech attempts detected, repeat the expected syllable to remind the user. */
+	@Override
 	protected void fullAttempts() {
 		this.playingRef = syllableSounds[this.syllableIndex];
 		this.message.setText("Try it again!");
@@ -130,7 +173,7 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 //		wipeRecognizer();
 	}
 	
-	
+	/** Touch Leo to start */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {

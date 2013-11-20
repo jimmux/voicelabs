@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) VoiceLabs (James Manley and Dylan Kelly), 2013
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: 
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
+ * 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ * The views and conclusions contained in the software and documentation are those
+ * of the authors and should not be interpreted as representing official policies, 
+ * either expressed or implied, of VoiceLabs.
+ */
+
 package edu.voicelabs.vst;
 
 import java.util.regex.Matcher;
@@ -24,6 +41,7 @@ import edu.voicelabs.vst.RecognizerTask.Mode;
  * mostly automated.
  * 
  * @author James Manley
+ * @author Dylan Kelly
  *
  */
 abstract class AbstractGameActivity extends Activity implements OnTouchListener, RecognitionListener {
@@ -38,7 +56,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	private int successCount = 0;		// Keep track of how many successes had so far.
 	private boolean gotResult = false; 	// Flag for prevention of multiple completion states.
 	
-	// To be set by children - TODO: replace with abstract getters?
+	// To be set by all child games
 	protected String subPattern = "";		// Determines what we are looking for, e.g. "L", "L-AH", "LOLLY"
 	protected int maxCorrectMatches = 1;	// Number of matches to consider it a successful attempt
 	protected int maxAttempts = 6;			// When this number of attempts is detected, consider the exercise failed
@@ -58,6 +76,8 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	protected AnimationDrawable promptAnim;
     
 	
+	/** Initialise the speech recogniser */
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -69,12 +89,12 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 		this.rec_thread.start();	
 	}
 	
-	public void onDestroy(Bundle savedInstanceState) {
+	/** Ensure the recogniser thread isn't left running when leaving the game */
+	protected void onDestroy(Bundle savedInstanceState) {
 		this.rec.shutdown();		
 	}
-	
 
-	// The activity will always be in one of these three states
+	/** The activity will always be in one of these three states */
     protected static enum InteractionState {RECORD, PLAY, IDLE, PLAY_THEN_RECORD, PLAY_THEN_RERUN};
     private InteractionState state = InteractionState.IDLE;
     
@@ -100,8 +120,6 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
     		this.rec.stop();
     		break;
     	case PLAY:
-//    	case PLAY_THEN_RECORD:
-//    	case PLAY_THEN_RERUN:
         	this.promptAnim.stop();
         	this.prompt.clearAnimation();
 			this.player.stop();
@@ -112,7 +130,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
     		// Nothing to do
     	}
     	
-    	// Now set the expected conditions and update state
+    	// Now set the visual prompt and update state
     	switch (newState) {
     	case RECORD:
         	this.prompt.setBackgroundResource(R.anim.anim_record_btn);
@@ -129,6 +147,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	    	this.promptAnim.start();
     		this.prompt.setVisibility(View.VISIBLE);
 			this.player = MediaPlayer.create(getApplicationContext(), this.playingRef);
+			// When playing is done, go to the next state
 			this.player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 	            @Override
 	            public void onCompletion(MediaPlayer mp) {
@@ -153,29 +172,25 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
     	this.state = newState;  		
     }
 
-
 	
-	@Override
 	/**
-	 * Need to stop the recognizer consuming memory and cycles when 
+	 * Need to stop the recogniser consuming memory and cycles when 
 	 * the app is unavailable and therefore shouldn't be doing any
 	 * speech recognition or playing.
 	 */
+	@Override
 	public void onPause() {
 	    super.onPause();
 	    setState(InteractionState.IDLE);
 	}
 	
-	/**
-	 * Start the game going. Needs to happen once before recording can work.
-	 */
-	protected void runGame() {		//TODO Check if called from children, and make private if not
+	/** Start the game going. Needs to happen once before recording can work. */
+	private void runGame() {
 		this.successCount = 0;
 		this.gotResult = false;
 		this.listening = true;
 		this.rec.start();
 	}
-	
 	
 	/** Called when partial results are generated. */
 	public void onPartialResults(Bundle b) {
@@ -191,7 +206,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 				Matcher successMatcher = successPattern.matcher(speech);
 				count = 0;
 				// Count how many successful matches we have
-				while (successMatcher.find() /*&& (count < that.maxCorrectMatches)*/) {
+				while (successMatcher.find()) {
 					count++;
 				}
 				// count can revert, so go with the max count found so far (or update)
@@ -233,8 +248,9 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 
 	/** Called when full results are generated. */
 	public void onResults(Bundle b) {
-		// No action needed
-		// Consider stopping when failure conditions met, then checking here for success
+		// No action needed.
+		// Marginal improvement could be had be checking the same as partial results, but not worth
+		// the extra complexity.
 	}
 	
 	/** Handle recognition errors */

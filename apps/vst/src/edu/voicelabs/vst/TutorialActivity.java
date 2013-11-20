@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) VoiceLabs (James Manley and Dylan Kelly), 2013
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: 
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
+ * 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ * The views and conclusions contained in the software and documentation are those
+ * of the authors and should not be interpreted as representing official policies, 
+ * either expressed or implied, of VoiceLabs.
+ */
+
 package edu.voicelabs.vst;
 
 import java.io.File;
@@ -19,11 +36,18 @@ import android.widget.ImageButton;
 import android.widget.VideoView;
 
 /**
+ * Run through the explanatory video, then have a brief interactive session allowing the
+ * user to record and play back their own voice, so they can listen for the sounds they
+ * are making.
+ * 
  * Adapted from example at http://developer.android.com/guide/topics/media/audio-capture.html
  * 
  * Modified for different interaction pattern:
  * 	On record button, record up to the time limit.
  * 	On play button, stop any running recording (if any) and play back (if any).
+ * 
+ * @author James Manley
+ * @author Dylan Kelly
  * 
  */
 public class TutorialActivity extends Activity implements OnTouchListener {
@@ -141,14 +165,12 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     }
 
 
+    /** Constructor, simply assigns the path for storage of temporary samples */
     public TutorialActivity() {
-    	//TODO use private path?
-    	//TODO at least make sure old file is gone, or it can be played back
         audioFileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/record.3gp";
-//        audioFileName = getApplicationContext().getFilesDir().getAbsolutePath() + "/record.3gp";
     }
     
-    //TODO use states
+    /** Play the example sound for the user to imitate */
     public void playExample() {
     	buttonLeo.setBackgroundResource(R.drawable.leo_animation0015);
     	MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.phoneme_lll);
@@ -161,18 +183,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     			talkAnimation.start();
             }
 		});
-    	// First run
-		/*
-    	final boolean uiVisible = buttonRecord.isShown();
     	
-    	if (uiVisible == false) {
-    		leoHelper.setVisibility(View.GONE);
-        	buttonRecord.setVisibility(View.VISIBLE);
-    		buttonPlay.setVisibility(View.VISIBLE);
-    		//AnimationHelper.runAlphaAnimation(this, R.id.buttonRecord, R.anim.anim_fade_in);
-    		//AnimationHelper.runAlphaAnimation(this, R.id.buttonPlay, R.anim.anim_fade_in);
-    	}
-    	*/
     	buttonRecord.setVisibility(View.VISIBLE);
 		buttonPlay.setVisibility(View.VISIBLE);
 		recordAnim.stop();
@@ -183,15 +194,16 @@ public class TutorialActivity extends Activity implements OnTouchListener {
     }
     
     
-    public void introDemo() {
-    	//Red dot animation
-		//play animation manually 
+    private void introDemo() {
+    	// Red dot animation
+		// Play animation manually 
     	buttonLeo.setVisibility(View.VISIBLE);
     	leoHelper.setVisibility(View.VISIBLE);
 		AnimationHelper.runKeyframeAnimation(this, R.id.leo_helper, R.anim.anim_btn_red_circle5);		
     }
 
 
+    /** Stop any recording when leaving the activity */
     @Override
     public void onPause() {
         super.onPause();
@@ -276,7 +288,7 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			if (v == this.videoView) {
 				videoView.stopPlayback();
-            	videoView.setVisibility(View.GONE);		//TODO prompt to confirm skip
+            	videoView.setVisibility(View.GONE);
             	introDemo();
 			}
 		}
@@ -305,7 +317,6 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 				}
 				
 				// Record a sample
-				//recordAnim.start();
 				setState(InteractionState.RECORD);
 			}
 			else if ((v == this.buttonPlay) || (v == this.playHelper)) {
@@ -314,12 +325,10 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 					playHelper.setVisibility(View.GONE);
 					playPressed = true;
 				}
-				//playAnim.start();
 				setState(InteractionState.PLAY);
 			}
 			else if (v == this.buttonSkip) {
 				// Skip to the games
-				//setState(InteractionState.IDLE);
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			}
