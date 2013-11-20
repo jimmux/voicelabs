@@ -65,13 +65,13 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	 *
 	 */
 	private class WordData {
-		String displayWord;		// Text to use for display
+//		String displayWord;		// Text to use for display
 		String matchWord;		// Text to use for speech matching
 		int drawable;			// The reference of the image in res/drawable to use
 		int speechAudio;		// The reference of the sound file in res/raw to use, e.g. R.raw.tmp_lolly
 		
 		public WordData(String displayWord, String matchWord, int drawable, int speechAudio) {
-			this.displayWord = displayWord;
+//			this.displayWord = displayWord;
 			this.matchWord = matchWord;
 			this.drawable = drawable;
 			this.speechAudio = speechAudio;

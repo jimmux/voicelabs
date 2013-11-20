@@ -62,7 +62,7 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 		this.imageButtonBack.setOnTouchListener(this);
 	}
 	
-	/** Wait until the user actually sees the activity to start the anmations */
+	/** Wait until the user actually sees the activity to start the animations */
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
