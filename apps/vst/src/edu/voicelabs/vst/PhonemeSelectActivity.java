@@ -89,7 +89,7 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 		super.onWindowFocusChanged(hasFocus);
 		
 		// Show and animate the progress star, if completed.
-		DBHelper db = new DBHelper(getApplicationContext());
+		DbHelper db = new DbHelper(getApplicationContext());
 		if (db.getComplete("Default", "L")) {
 			AnimationHelper.runKeyframeAnimation(this, R.id.imageViewProgressL, R.anim.anim_star_small);
 			this.imageViewProgressL.setVisibility(View.VISIBLE);
@@ -105,20 +105,17 @@ public class PhonemeSelectActivity extends Activity implements OnTouchListener {
 				Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	            startActivity(intent); 
-			}
-			else if (v == this.imageButtonS) {
+			} else if (v == this.imageButtonS) {
 				// Go nowhere (yet)
 				//TODO play a lock closing sound (and maybe shake to indicate it's locked?) - I'll try and source something - DK
 				AnimationHelper.runAlphaAnimation(this, R.id.btn_lockedS, R.anim.anim_shake);
 				Toast.makeText(getApplicationContext(), "Coming Soon!", Toast.LENGTH_SHORT).show();
-			}
-			else if (v == this.imageButtonCH) {
+			} else if (v == this.imageButtonCH) {
 				// Go nowhere (yet)
 				//play a lock closing sound - I'll try and source something - DK
 				AnimationHelper.runAlphaAnimation(this, R.id.btn_lockedCh, R.anim.anim_shake);
 				Toast.makeText(getApplicationContext(), "Coming Soon!", Toast.LENGTH_SHORT).show();
-			}
-			else if (v == this.buttonGoToSettings) {
+			} else if (v == this.buttonGoToSettings) {
 				// Go to the video
 				Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

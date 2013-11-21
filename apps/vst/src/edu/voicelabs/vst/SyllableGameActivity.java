@@ -136,8 +136,7 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		        	 runGameCompletion("Syllable");
 		         } 
 		    }, 2000); 
-		}
-		else {
+		} else {
 			setState(InteractionState.IDLE);
 			this.message.setText("Say " + this.syllables[this.syllableIndex]);
 			MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.feedback_pos_super);
@@ -181,30 +180,23 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 				// Skip to the games
 				Intent intent = new Intent(getApplicationContext(), WordGameActivity.class);
 	            startActivity(intent); 
-			}
-			else if (v == this.buttonMenu) {
+			} else if (v == this.buttonMenu) {
 				// Skip to the Menu
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
-			}
-			else if ((v == this.buttonStart) || (v == this.leoHelper)) {
-				
+			} else if ((v == this.buttonStart) || (v == this.leoHelper)) {
 				//First run
 				if (leoPressed == false){
 					this.leoHelper.setVisibility(View.INVISIBLE);			
 					leoPressed = true;
-					
 				}
 				
-				
-				//Change text to first syllable
-//				this.syllableIndex = 0;
+				// Change text to first syllable
 				this.message.setText(this.syllables[this.syllableIndex]);
 				this.playingRef = syllableSounds[this.syllableIndex];
 				if (this.started) {
 					setState(InteractionState.PLAY_THEN_RECORD);
-				}
-				else {		
+				} else {		
 					this.started = true;
 					setState(InteractionState.PLAY_THEN_RERUN);
 					

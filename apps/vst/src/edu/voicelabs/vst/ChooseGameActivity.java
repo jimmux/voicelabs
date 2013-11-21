@@ -162,8 +162,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		Animation animation;
 		if ((itm == buttonItem3.getId())||(itm == buttonItem4.getId())){
 			animation  = AnimationUtils.loadAnimation(this, R.anim.anim_obj_slide_r_to_l);
-		}
-		else {
+		} else {
 			animation  = AnimationUtils.loadAnimation(this, R.anim.anim_obj_slide_l_to_r);
 		}
 		// Reset initialization state
@@ -190,8 +189,7 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		    		runGameCompletion("Choose");
 		    	} 
 		    }, 3000); 
-		}
-		else {			
+		} else {			
 			this.playingRef = R.raw.feedback_pos_great_job;
 			setState(InteractionState.PLAY);
 		}
@@ -239,14 +237,11 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		
 		if (ib == buttonItem1) {
 			buttonItem1.setBackgroundResource(R.drawable.img_obj_feed_lemon_hl);
-		}
-		else if (ib == buttonItem2) {
+		} else if (ib == buttonItem2) {
 			buttonItem2.setBackgroundResource(R.drawable.img_obj_feed_lettuce_hl);
-		}
-		else if (ib == buttonItem3) {
+		} else if (ib == buttonItem3) {
 			buttonItem3.setBackgroundResource(R.drawable.img_obj_feed_lizzard_hl);
-		}
-		else if (ib == buttonItem4) {
+		} else if (ib == buttonItem4) {
 			buttonItem4.setBackgroundResource(R.drawable.img_obj_feed_lamb_hl);
 		}
 		
@@ -282,22 +277,17 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 				// Skip to the games
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
-			}
-			else if (v == this.buttonMenu) {
+			} else if (v == this.buttonMenu) {
 				// Skip to the Menu
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
-			}
-			else if (v == this.buttonItem1) {
+			} else if (v == this.buttonItem1) {
 				startGameForWord(0, (ImageButton) v);
-			}
-			else if (v == this.buttonItem2) {
+			} else if (v == this.buttonItem2) {
 				startGameForWord(1, (ImageButton) v);
-			}
-			else if (v == this.buttonItem3) {
+			} else if (v == this.buttonItem3) {
 				startGameForWord(2, (ImageButton) v);
-			}
-			else if (v == this.buttonItem4) {	
+			} else if (v == this.buttonItem4) {	
 				startGameForWord(3, (ImageButton) v);
 			}
 		}

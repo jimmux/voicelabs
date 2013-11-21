@@ -88,27 +88,21 @@ public class SettingsActivity extends Activity implements OnTouchListener {
 				if (licenseContext == true){
 					showStuff();
 					licenseContext = false;
-				}else{
+				} else {
 					Intent intent = new Intent(getApplicationContext(), PhonemeSelectActivity.class);
 		            startActivity(intent); 
 				}
-
-			}
-			else if (v == this.buttonResetProfile) {
+			} else if (v == this.buttonResetProfile) {
 				licenseContext = true;
 				// Recreate empty profile
-				DBHelper db = new DBHelper(getApplicationContext());
+				DbHelper db = new DbHelper(getApplicationContext());
 				db.initialiseWithDefaults(true);		
 				Toast.makeText(getApplicationContext(), "Profile Reset!", Toast.LENGTH_SHORT).show();
-			}
-			else if (v == this.buttonAbout) {
+			} else if (v == this.buttonAbout) {
 				licenseContext = true;
 				txtLicense.setText(this.getResources().getString(R.string.about));
 				hideStuff();
-				
-			}
-			
-			else if (v == this.buttonLicense) {
+			} else if (v == this.buttonLicense) {
 				licenseContext = true;
 				txtLicense.setText(this.getResources().getString(R.string.license));
 				hideStuff();

@@ -52,15 +52,13 @@ public class Utilities {
 		this.copyAssetDirectoryToStorage("speech_data/hmm/en_US/hub4wsj_sc_8k", base_dir + "/hmm");
 		this.copyAssetDirectoryToStorage("speech_data/lm/en_US_phonemes_initials", base_dir + "/lm");
 		this.copyAssetDirectoryToStorage("speech_data/lm/en_US_phonemes_adjusted", base_dir + "/lm");
-//		this.copyAssetDirectoryToStorage("speech_data/lm/en_US_words", base_dir + "/lm");
 		this.copyAssetDirectoryToStorage("speech_data/lm/en_US_words", base_dir + "/lm");
 		this.copyAssetDirectoryToStorage("speech_data/lm/filler", base_dir + "/lm");
 		try {			
 			File log = new File(Environment.getExternalStorageDirectory().getPath(), "pocketsphinx.log");
 			log.createNewFile();			
 			Log.e(getClass().getName(), "Logging to location " + log.getAbsolutePath());
-		}
-		catch(IOException e) {
+		} catch(IOException e) {
 			Log.e(getClass().getName(), "Could not create log file.");
 		}
 	}

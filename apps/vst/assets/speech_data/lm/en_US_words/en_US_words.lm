@@ -1,0 +1,49 @@
+Language model created by QuickLM on Sat Nov 16 20:06:06 EST 2013
+Copyright (c) 1996-2010 Carnegie Mellon University and Alexander I. Rudnicky
+
+The model is in standard ARPA format, designed by Doug Paul while he was at MITRE.
+
+The code that was used to produce this language model is available in Open Source.
+Please visit http://www.speech.cs.cmu.edu/tools/ for more information
+
+The (fixed) discount mass is 0.5. The backoffs are computed using the ratio method.
+This model based on a corpus of 8 sentences and 10 words
+
+\data\
+ngram 1=8
+ngram 2=12
+ngram 3=6
+
+\1-grams:
+-0.7782 </s> -0.3010
+-0.7782 <s> -0.2218
+-1.6812 LAMB -0.2218
+-1.6812 LEAVES -0.2218
+-1.6812 LEMON -0.2218
+-1.6812 LETTUCE -0.2218
+-1.6812 LIGHTNING -0.2218
+-1.6812 LIZARD -0.2218
+
+\2-grams:
+-1.2041 <s> LAMB 0.0000
+-1.2041 <s> LEAVES 0.0000
+-1.2041 <s> LEMON 0.0000
+-1.2041 <s> LETTUCE 0.0000
+-1.2041 <s> LIGHTNING 0.0000
+-1.2041 <s> LIZARD 0.0000
+-0.3010 LAMB </s> -0.3010
+-0.3010 LEAVES </s> -0.3010
+-0.3010 LEMON </s> -0.3010
+-0.3010 LETTUCE </s> -0.3010
+-0.3010 LIGHTNING </s> -0.3010
+-0.3010 LIZARD </s> -0.3010
+
+\3-grams:
+-0.3010 <s> LAMB </s>
+-0.3010 <s> LEAVES </s>
+-0.3010 <s> LEMON </s>
+-0.3010 <s> LETTUCE </s>
+-0.3010 <s> LIGHTNING </s>
+-0.3010 <s> LIZARD </s>
+
+\end\

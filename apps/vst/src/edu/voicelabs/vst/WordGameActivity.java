@@ -76,7 +76,6 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		new WordData("Lettuce", "LETTUCE", R.drawable.img_obj_lettuce, R.raw.word_lettuce),
 		new WordData("Lizard", "LIZARD", R.drawable.img_obj_lizzard, R.raw.word_lizzard),
 		new WordData("Lightning", "LIGHTNING", R.drawable.img_obj_lightning, R.raw.word_lightning),
-//		new WordData("Lolly", "LOLLY", R.drawable.img_obj_lolly, R.raw.word_lolly),
 		new WordData("Leaves", "LEAVES", R.drawable.img_obj_leaves, R.raw.word_leaves)
 	};
 	private int wordIndex = 0;
@@ -155,8 +154,7 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		    		runGameCompletion("Word");
 		    	} 
 		    }, 3000); 
-		}
-		else {
+		} else {
 			Animation fadeInAnimation;
 			this.playingRef = this.words[this.wordIndex].speechAudio;
 			this.message.setText(this.words[this.wordIndex].displayWord);
@@ -205,13 +203,11 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 				// Skip to the games
 				Intent intent = new Intent(getApplicationContext(), ChooseGameActivity.class);
 	            startActivity(intent); 
-			}
-			else if (v == this.buttonMenu) {
+			} else if (v == this.buttonMenu) {
 				// Skip to the Menu
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
-			}
-			else if ((v == this.buttonStart) || (v == this.leoHelper))  {
+			} else if ((v == this.buttonStart) || (v == this.leoHelper))  {
 				// Start the game
 				this.wordIndex = 0;
 				this.message.setText(this.words[wordIndex].displayWord);

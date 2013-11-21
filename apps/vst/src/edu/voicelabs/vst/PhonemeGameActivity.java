@@ -152,13 +152,11 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 				// Skip to the games
 				Intent intent = new Intent(getApplicationContext(), SyllableGameActivity.class);
 	            startActivity(intent); 
-			}
-			else if (v == this.buttonMenu) {
+			} else if (v == this.buttonMenu) {
 				// Skip to the Menu
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
-			}
-			else if ((v == this.buttonStart) || (v == this.leoHelper)) {
+			} else if ((v == this.buttonStart) || (v == this.leoHelper)) {
 				//First run
 				if (leoPressed == false){
 					this.leoHelper.setVisibility(View.INVISIBLE);			

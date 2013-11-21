@@ -72,7 +72,7 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 			AnimationHelper.runAlphaAnimation(this, R.id.clouds, R.anim.anim_clouds);
 			AnimationHelper.runAlphaAnimation(this, R.id.sunProgress, R.anim.anim_sun);
 			
-			final DBHelper db = new DBHelper(getApplicationContext());
+			final DbHelper db = new DbHelper(getApplicationContext());
 			
 			// fire phoneme circle after delay
 			final Handler phonemeCircleHandler = new Handler();		
@@ -128,7 +128,7 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {		
-			DBHelper db = new DBHelper(getApplicationContext());
+			DbHelper db = new DbHelper(getApplicationContext());
 			if (v == this.imageButtonPhoneme) {
 				if (!db.getProgress("Default", "L", "Phoneme")) {
 					AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonPhoneme, R.anim.anim_btn_red_circle_backwards);
@@ -136,32 +136,28 @@ public class LessonProgressActivity extends Activity implements OnTouchListener 
 				Intent intent = new Intent(getApplicationContext(), PhonemeGameActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	            startActivity(intent); 
-			}
-			else if (v == this.imageButtonSyllable) {
+			} else if (v == this.imageButtonSyllable) {
 				if (!db.getProgress("Default", "L", "Syllable")) {
 					AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonSyllable, R.anim.anim_btn_red_circle_backwards);
 				}
 				Intent intent = new Intent(getApplicationContext(), SyllableGameActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				startActivity(intent); 
-			}
-			else if (v == this.imageButtonWord) {
+			} else if (v == this.imageButtonWord) {
 				if (!db.getProgress("Default", "L", "Word")) {
 					AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonWord, R.anim.anim_btn_red_circle_backwards);
 				}
 				Intent intent = new Intent(getApplicationContext(), WordGameActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	            startActivity(intent); 
-			}
-			else if (v == this.imageButtonChoose) {
+			} else if (v == this.imageButtonChoose) {
 				if (!db.getProgress("Default", "L", "Choose")) {
 					AnimationHelper.runKeyframeAnimation(this, R.id.imageButtonChoose, R.anim.anim_btn_red_circle_backwards);
 				}
 				Intent intent = new Intent(getApplicationContext(), ChooseGameActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	            startActivity(intent); 
-			}
-			else if (v == this.imageButtonBack) {
+			} else if (v == this.imageButtonBack) {
 				Intent intent = new Intent(getApplicationContext(), PhonemeSelectActivity.class);
 	            startActivity(intent); 
 			}

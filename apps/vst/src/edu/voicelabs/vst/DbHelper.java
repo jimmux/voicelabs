@@ -30,7 +30,7 @@ import android.util.Log;
  * @author James Manley
  *
  */
-public class DBHelper extends SQLiteOpenHelper {
+public class DbHelper extends SQLiteOpenHelper {
 	
 	private static final String DATABASE_NAME = "vst";
 	
@@ -108,39 +108,39 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 
 	/** Constructor */
-	public DBHelper(Context context) {
-		super(context, DBHelper.DATABASE_NAME, null, 1 /* DB version */);
+	public DbHelper(Context context) {
+		super(context, DbHelper.DATABASE_NAME, null, 1 /* DB version */);
 	}
 
 	/** Define the database with table creation commands, run when a new database is needed. */
 	@Override
 	public void onCreate(SQLiteDatabase db) {	
 		db.execSQL(
-			" create table Profile ( " +
-			" 	ID_Profile integer primary key, " +
-			"   Name char(20) " +
-			" ) "
+				" create table Profile ( " +
+				" 	ID_Profile integer primary key, " +
+				"   Name char(20) " +
+				" ) "
 		);
 		db.execSQL(
-			" create table Progress ( " +
-			"   ID_Progress integer primary key, " +
-			"   ID_Profile integer, " +
-			"   ID_Phoneme integer, " +
-			"   ID_Stage integer, " +
-			"   Complete boolean " +
-			" ) "
+				" create table Progress ( " +
+				"   ID_Progress integer primary key, " +
+				"   ID_Profile integer, " +
+				"   ID_Phoneme integer, " +
+				"   ID_Stage integer, " +
+				"   Complete boolean " +
+				" ) "
 		);
 		db.execSQL(
-			" create table Phoneme ( " +
-			" 	ID_Phoneme integer primary key, " +
-			"   ARPAbet char(4) " +
-			" ) "
+				" create table Phoneme ( " +
+				" 	ID_Phoneme integer primary key, " +
+				"   ARPAbet char(4) " +
+				" ) "
 		);
 		db.execSQL(
-			" create table Stage ( " +
-			" 	ID_Stage integer primary key, " +
-			"   Name char(40) " +
-			" ) "
+				" create table Stage ( " +
+				" 	ID_Stage integer primary key, " +
+				"   Name char(40) " +
+				" ) "
 		);
 	}
 
@@ -172,20 +172,19 @@ public class DBHelper extends SQLiteOpenHelper {
 		int result = 0;
 		
 		Cursor cursor = db.rawQuery(
-			" select count(ID_Progress) " +
-			" from Progress " +
-			" join Profile on Progress.ID_Profile = Profile.ID_Profile " +
-			" join Phoneme on Progress.ID_Phoneme = Phoneme.ID_Phoneme " +
-			" where Profile.Name = ? " +
-			" and Phoneme.ARPAbet = ? " +
-			" and Progress.Complete = 1 ",
-			new String[] {profileName, phoneme}
+				" select count(ID_Progress) " +
+				" from Progress " +
+				" join Profile on Progress.ID_Profile = Profile.ID_Profile " +
+				" join Phoneme on Progress.ID_Phoneme = Phoneme.ID_Phoneme " +
+				" where Profile.Name = ? " +
+				" and Phoneme.ARPAbet = ? " +
+				" and Progress.Complete = 1 ",
+				new String[] {profileName, phoneme}
 		);
 		cursor.moveToFirst();
 		if (cursor != null && cursor.getCount() > 0) {
 			result = cursor.getInt(0);
-		}
-		else {
+		} else {
 			Log.e(getClass().getName(), "Could not get progress.");
 		}
 		cursor.close();
@@ -218,8 +217,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		cursor.moveToFirst();
 		if (cursor != null && cursor.getCount() > 0) {
 			result = (cursor.getInt(0) != 0);
-		}
-		else {
+		} else {
 			Log.e(getClass().getName(), "Could not get progress.");
 		}
 		cursor.close();
@@ -252,21 +250,20 @@ public class DBHelper extends SQLiteOpenHelper {
 		
 	    // Get the id of the row to update
 		cursor = db.rawQuery(
-			" select Progress.ID_Progress " +
-			" from Progress " +
-			" join Profile on Progress.ID_Profile = Profile.ID_Profile " +
-			" join Phoneme on Progress.ID_Phoneme = Phoneme.ID_Phoneme " +
-			" join Stage on Progress.ID_Stage = Stage.ID_Stage " +
-			" where Profile.Name = ? " +
-			" and Phoneme.ARPAbet = ? " +
-			" and Stage.Name = ? ", 
-			new String[] {profileName, phoneme, stageName}
+				" select Progress.ID_Progress " +
+				" from Progress " +
+				" join Profile on Progress.ID_Profile = Profile.ID_Profile " +
+				" join Phoneme on Progress.ID_Phoneme = Phoneme.ID_Phoneme " +
+				" join Stage on Progress.ID_Stage = Stage.ID_Stage " +
+				" where Profile.Name = ? " +
+				" and Phoneme.ARPAbet = ? " +
+				" and Stage.Name = ? ", 
+				new String[] {profileName, phoneme, stageName}
 		);
 		cursor.moveToFirst();  // Should always get a result
 		if (cursor != null && cursor.getCount() > 0) {
 			id_progress = cursor.getInt(0);
-		}
-		else {
+		} else {
 			Log.e(getClass().getName(), "Could not update progress.");
 			return;
 		}
@@ -274,10 +271,10 @@ public class DBHelper extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 	    values.put("Complete", 1 /* True */);
 	    db.update(
-	    	"Progress", 
-	    	values, 
-	    	"ID_Progress = ?",
-	    	new String[] {Integer.toString(id_progress)}
+	    		"Progress", 
+	    		values, 
+	    		"ID_Progress = ?",
+	    		new String[] {Integer.toString(id_progress)}
 	    );
 	    
 		cursor.close();

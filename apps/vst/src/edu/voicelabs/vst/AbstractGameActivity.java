@@ -153,13 +153,11 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	            public void onCompletion(MediaPlayer mp) {
 	    			if (newState == InteractionState.PLAY_THEN_RECORD) {
 	    				setState(InteractionState.RECORD);
-	    			}
-	    			else if (newState == InteractionState.PLAY_THEN_RERUN) {
+	    			} else if (newState == InteractionState.PLAY_THEN_RERUN) {
 		    			wipeRecognizer();
 		    			runGame();
 	    				setState(InteractionState.RECORD);
-	    			}	    			
-	    			else {
+	    			} else {
 	    				setState(InteractionState.IDLE);
 	    			}
 	            }
@@ -219,8 +217,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 						partSuccess();
 						that.rec.start();
 						return;
-					}
-					else if (!that.gotResult) {
+					} else if (!that.gotResult) {
 						that.gotResult = true;
 						that.rec.stop();
 						Log.d(getClass().getName(), "*** Found enough results");
@@ -271,7 +268,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 	protected void runGameCompletion(String gameName) {
 		wipeRecognizer();
 		// Update progress
-		DBHelper db = new DBHelper(getApplicationContext());
+		DbHelper db = new DbHelper(getApplicationContext());
 		db.setProgress("Default", "L", gameName);
     	System.gc();	// Let the system know it's a good time to clean up memory
 		// Advance if completed
@@ -279,8 +276,7 @@ abstract class AbstractGameActivity extends Activity implements OnTouchListener,
 			Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class); //TODO: got to final screen
 			intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	        startActivity(intent);
-		}
-		else {
+		} else {
 			Intent intent = new Intent(getApplicationContext(), LessonCompleteActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	        startActivity(intent);

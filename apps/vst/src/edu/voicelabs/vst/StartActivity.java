@@ -63,7 +63,7 @@ public class StartActivity extends Activity implements OnTouchListener {
 		utils.setupSpeechData();
 		
 		// Initialise the database, creating profile data if not yet available
-		DBHelper db = new DBHelper(getApplicationContext());
+		DbHelper db = new DbHelper(getApplicationContext());
 		db.initialiseWithDefaults(false);
 	}
 	
@@ -100,7 +100,6 @@ public class StartActivity extends Activity implements OnTouchListener {
 			
 			AnimationHelper.runKeyframeAnimation(this, R.id.leo_fade_in, R.anim.anim_leo_blinkonly);
 			imageButtonStart.setVisibility(View.VISIBLE);
-	
 		}
 	}
 	

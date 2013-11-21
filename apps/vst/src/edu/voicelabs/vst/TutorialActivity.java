@@ -304,35 +304,31 @@ public class TutorialActivity extends Activity implements OnTouchListener {
 				recordAnim.stop();
 				playAnim.stop();
 				playExample();
-			}
-			else if ((v == this.buttonRecord) || (v == this.recordHelper)) {
+			} else if ((v == this.buttonRecord) || (v == this.recordHelper)) {
 				// First run
 				if (recordPressed == false){
 					playHelper.setVisibility(View.VISIBLE);
 					AnimationHelper.runKeyframeAnimation(this, R.id.play_helper, R.anim.anim_btn_red_circle5);
 					recordPressed = true;
 					recordHelper.setVisibility(View.GONE);
-				}else {
+				} else {
 					recordHelper.setVisibility(View.GONE);
 				}
 				
 				// Record a sample
 				setState(InteractionState.RECORD);
-			}
-			else if ((v == this.buttonPlay) || (v == this.playHelper)) {
+			} else if ((v == this.buttonPlay) || (v == this.playHelper)) {
 				// Play back whatever we have recorded
 				if (playPressed == false){
 					playHelper.setVisibility(View.GONE);
 					playPressed = true;
 				}
 				setState(InteractionState.PLAY);
-			}
-			else if (v == this.buttonSkip) {
+			} else if (v == this.buttonSkip) {
 				// Skip to the games
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
-			}
-			else if (v == this.buttonMenu) {
+			} else if (v == this.buttonMenu) {
 				// Skip to the Menu
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
