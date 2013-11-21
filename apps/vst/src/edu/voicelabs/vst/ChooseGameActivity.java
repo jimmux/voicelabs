@@ -65,13 +65,11 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	 *
 	 */
 	private class WordData {
-//		String displayWord;		// Text to use for display
 		String matchWord;		// Text to use for speech matching
 		int drawable;			// The reference of the image in res/drawable to use
 		int speechAudio;		// The reference of the sound file in res/raw to use, e.g. R.raw.tmp_lolly
 		
 		public WordData(String displayWord, String matchWord, int drawable, int speechAudio) {
-//			this.displayWord = displayWord;
 			this.matchWord = matchWord;
 			this.drawable = drawable;
 			this.speechAudio = speechAudio;
@@ -89,16 +87,24 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	private ImageButton chosenWordButton;
 	
 	private int wordCompletionCount = 0;	// Increment as each word is successfully completed, so we know when to finish
+
+	
+	/** Constructor */
+	public ChooseGameActivity() {
+		super();
+
+		// Basic inherited fields to set
+		subPattern = "";
+		maxCorrectMatches = 1;
+		maxAttempts = 3;
+		mode = Mode.WORD;
+	}
+	
 	
 	/** Set expected values and assign interactive elements in the layout */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		// Basic inherited fields to set
-		subPattern = "L";
-		maxCorrectMatches = 1;
-		maxAttempts = 3;
 		
 		setContentView(R.layout.feed_game);
 		
@@ -132,12 +138,6 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		this.buttonItem4.setBackgroundResource(this.words[3].drawable);
 		
 		setState(InteractionState.IDLE);
-	}
-	
-	/** Set the type of recognition for this game */
-	@Override
-	protected Mode getMode() {
-		return Mode.WORD;
 	}
 	
 	/** 
@@ -229,7 +229,6 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 	/** Update for the chosen word and begin recogniser */
 	private void startGameForWord(int i, ImageButton ib) {
 		setState(InteractionState.IDLE);
-		wipeRecognizer();
 		this.wordIndex = i;
 		this.chosenWordButton = ib;
 		this.subPattern = this.words[this.wordIndex].matchWord;
@@ -275,10 +274,12 @@ public class ChooseGameActivity extends AbstractGameActivity implements OnTouchL
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.buttonSkip) {
 				// Skip to the games
+				setState(InteractionState.IDLE);
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			} else if (v == this.buttonMenu) {
 				// Skip to the Menu
+				setState(InteractionState.IDLE);
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			} else if (v == this.buttonItem1) {

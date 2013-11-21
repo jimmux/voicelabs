@@ -57,15 +57,22 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 	private ImageButton leoHelper;
 	private boolean leoPressed = false;
 
+
+	/** Constructor */
+	public PhonemeGameActivity() {
+		super();
+
+		// Basic inherited fields to set
+		subPattern = "L";
+		maxCorrectMatches = 2;
+		maxAttempts = 6;
+		mode = Mode.PHONEME;
+	}
+	
 	/** Set expected values and assign interactive elements in the layout */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		// Basic inherited fields to set
-		this.subPattern = "L";
-		this.maxCorrectMatches = 2;
-		this.maxAttempts = 6;
 		
 		setContentView(R.layout.phoneme_game);		
 		
@@ -96,12 +103,6 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 		//Intro sound
 		MediaPlayer leoInstructions = MediaPlayer.create(getApplicationContext(), R.raw.leo_now_your_turn);
 		leoInstructions.start();
-	}
-
-	/** Set the type of recognition for this game */
-	@Override
-	protected Mode getMode() {
-		return Mode.PHONEME;
 	}
 	
 	/** 
@@ -150,10 +151,12 @@ public class PhonemeGameActivity extends AbstractGameActivity implements OnTouch
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.buttonSkip) {
 				// Skip to the games
+				setState(InteractionState.IDLE);
 				Intent intent = new Intent(getApplicationContext(), SyllableGameActivity.class);
 	            startActivity(intent); 
 			} else if (v == this.buttonMenu) {
 				// Skip to the Menu
+				setState(InteractionState.IDLE);
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			} else if ((v == this.buttonStart) || (v == this.leoHelper)) {

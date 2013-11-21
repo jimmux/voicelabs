@@ -189,6 +189,7 @@ public class RecognizerTask implements Runnable {
 	 * @param mode
 	 */
 	public RecognizerTask(Context context, Mode mode) {
+		Log.d(getClass().getName(), "### New recognizer with: mode " + mode);
 		
 		// Copy data files to storage
 		String base_dir = context.getFilesDir().getAbsolutePath();

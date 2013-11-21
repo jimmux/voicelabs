@@ -80,15 +80,22 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 	};
 	private int wordIndex = 0;
 
-	/** Set expected values and assign interactive elements in the layout */
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
+
+	/** Constructor */
+	public WordGameActivity() {
+		super();
+
 		// Basic inherited fields to set
 		subPattern = "";
 		maxCorrectMatches = 1;
 		maxAttempts = 3;
+		mode = Mode.WORD;
+	}
+	
+	/** Set expected values and assign interactive elements in the layout */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.word_game);
 		
@@ -118,12 +125,6 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		this.buttonStart.setOnTouchListener(this);		
 
 		setState(InteractionState.IDLE);	
-	}
-	
-	/** Set the type of recognition for this game */
-	@Override
-	protected Mode getMode() {
-		return Mode.WORD;
 	}
 	
 	/** 
@@ -201,10 +202,12 @@ public class WordGameActivity extends AbstractGameActivity implements OnTouchLis
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.buttonSkip) {
 				// Skip to the games
+				setState(InteractionState.IDLE);
 				Intent intent = new Intent(getApplicationContext(), ChooseGameActivity.class);
 	            startActivity(intent); 
 			} else if (v == this.buttonMenu) {
 				// Skip to the Menu
+				setState(InteractionState.IDLE);
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			} else if ((v == this.buttonStart) || (v == this.leoHelper))  {

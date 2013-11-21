@@ -62,14 +62,22 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 	private ImageButton leoHelper;
 	private boolean leoPressed = false;
 
+
+	/** Constructor */
+	public SyllableGameActivity() {
+		super();
+
+		// Basic inherited fields to set
+		subPattern = "L";
+		maxCorrectMatches = 1;
+		maxAttempts = 2;
+		mode = Mode.SYLLABLE;
+	}
+	
 	/** Set expected values and assign interactive elements in the layout */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		subPattern = "L";
-		maxCorrectMatches = 1;
-		maxAttempts = 2;
 		
 		setContentView(R.layout.syllable_game);
 		
@@ -100,12 +108,6 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		//Intro sound
 		MediaPlayer leoInstructions = MediaPlayer.create(getApplicationContext(), R.raw.leo_now_your_turn);
 		leoInstructions.start();
-	}
-	
-	/** Set the type of recognition for this game */
-	@Override
-	protected Mode getMode() {
-		return Mode.SYLLABLE;
 	}
 	
 	/** 
@@ -169,7 +171,6 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		this.playingRef = syllableSounds[this.syllableIndex];
 		this.message.setText("Try it again!");
 		setState(InteractionState.PLAY_THEN_RERUN);
-//		wipeRecognizer();
 	}
 	
 	/** Touch Leo to start */
@@ -178,10 +179,12 @@ public class SyllableGameActivity extends AbstractGameActivity implements OnTouc
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (v == this.buttonSkip) {
 				// Skip to the games
+				setState(InteractionState.IDLE);
 				Intent intent = new Intent(getApplicationContext(), WordGameActivity.class);
 	            startActivity(intent); 
 			} else if (v == this.buttonMenu) {
 				// Skip to the Menu
+				setState(InteractionState.IDLE);
 				Intent intent = new Intent(getApplicationContext(), LessonProgressActivity.class);
 	            startActivity(intent); 
 			} else if ((v == this.buttonStart) || (v == this.leoHelper)) {
