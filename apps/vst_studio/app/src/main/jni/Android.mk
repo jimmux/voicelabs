@@ -3,7 +3,8 @@
 # You MUST change this to the absolute path of the directory containing
 # sphinxbase and pocketsphinx source code.
 #SPHINX_PATH := $(HOME)/Projects/Sphinx/trunk
-SPHINX_PATH := $(HOME)/Development
+#SPHINX_PATH := $(HOME)/Development
+SPHINX_PATH := $(call my-dir)/sphinx
 
 # Copy this Android.mk along with pocketsphinx_wrap.c and the contents of the 'edu' folder
 # built by swig to the jni/ directory of your Android project.
