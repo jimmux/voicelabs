@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\layout\\phoneme_select.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\layout\\phoneme_select.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\layout\\lesson_progress.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\layout\\lesson_progress.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\layout\\word_game.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\layout\\word_game.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\layout\\splash_anim.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\layout\\splash_anim.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\layout\\tutorial.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\layout\\tutorial.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\layout\\debug_speech.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\layout\\debug_speech.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\layout\\syllable_game.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\layout\\syllable_game.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\layout\\phoneme_game.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\layout\\phoneme_game.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\layout\\settings.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\layout\\settings.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\layout\\start.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\layout\\start.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\layout\\feed_game.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\layout\\feed_game.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\layout\\practice_game.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\layout\\practice_game.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\layout\\lesson_complete.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\layout\\lesson_complete.xml"
+    }
+]

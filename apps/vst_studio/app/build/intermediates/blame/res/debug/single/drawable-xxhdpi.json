@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\bg_phoneme_select.png",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\drawable-xxhdpi\\bg_phoneme_select.png"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\bg_start.png",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\drawable-xxhdpi\\bg_start.png"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_launcher.png",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\drawable-xxhdpi\\ic_launcher.png"
+    }
+]

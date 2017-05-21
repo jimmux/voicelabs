@@ -1,0 +1,106 @@
+[
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_fade_in.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_fade_in.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_leo_hand_to_ear.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_leo_hand_to_ear.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_record_btn.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_record_btn.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_btn_red_circle2.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_btn_red_circle2.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_fade_in_obj.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_fade_in_obj.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_start_btn.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_start_btn.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_btn_red_circle5.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_btn_red_circle5.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_txt_fade.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_txt_fade.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_leo_blinkonly.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_leo_blinkonly.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_star_small.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_star_small.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_star_big.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_star_big.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_play_btn.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_play_btn.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_clouds.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_clouds.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_obj_slide_l_to_r.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_obj_slide_l_to_r.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_sun.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_sun.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_move_clouds.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_move_clouds.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_btn_red_circle3.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_btn_red_circle3.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_leo_eat.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_leo_eat.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\unused_anim_leo_talk.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\unused_anim_leo_talk.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_btn_red_circle_backwards.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_btn_red_circle_backwards.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_obj_slide_r_to_l.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_obj_slide_r_to_l.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_btn_red_circle4.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_btn_red_circle4.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_txt_fade1.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_txt_fade1.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_shake.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_shake.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_btn_speak.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_btn_speak.xml"
+    },
+    {
+        "merged": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\res\\merged\\debug\\anim\\anim_btn_red_circle1.xml",
+        "source": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\anim\\anim_btn_red_circle1.xml"
+    }
+]

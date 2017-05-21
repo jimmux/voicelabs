@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:drawable="@drawable/leo_animation0001" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0002" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0003" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0004" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0005" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0006" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0007" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0008" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0009" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0010" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0011" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0012" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0013" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0014" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0015" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0016" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0017" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0018" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0019" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0020" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0021" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0022" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0023" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0024" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0025" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0026" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0027" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0028" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0029" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0030" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0031" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0032" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0033" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0034" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0035" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0036" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0037" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0038" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0039" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0040" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0041" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0042" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0043" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0044" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0045" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0046" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0047" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0048" android:duration="20"/>
+    <item android:drawable="@drawable/leo_animation0049" android:duration="20"/>
+
+
+
+</animation-list>

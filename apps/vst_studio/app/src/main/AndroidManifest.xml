@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.voicelabs.vst"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar" >
+        <activity
+            android:name="edu.voicelabs.vst.StartActivity"
+            android:label="@string/app_name" 
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="DebugScreenActivity"
+            android:screenOrientation="landscape" >
+
+        </activity>
+        <activity android:name="PhonemeSelectActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="PhonemeGameActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="LessonProgressActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="SyllableGameActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="WordGameActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="ChooseGameActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="LessonCompleteActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="TutorialActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name="TutorialVideo" android:screenOrientation="landscape"></activity>
+        <activity android:name="SettingsActivity"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,245 @@
+[
+    {
+        "outputFile": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 57,
+                    "endOffset": 108
+                },
+                "from": {
+                    "file": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 92,
+                        "endColumn": 57,
+                        "endOffset": 145
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 113,
+                    "endColumn": 55,
+                    "endOffset": 164
+                },
+                "from": {
+                    "file": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 151,
+                        "endColumn": 55,
+                        "endOffset": 202
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 169,
+                    "endLine": 23,
+                    "endColumn": 77,
+                    "endOffset": 1512
+                },
+                "from": {
+                    "file": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 35,
+                        "startColumn": 0,
+                        "startOffset": 2154,
+                        "endLine": 54,
+                        "endColumn": 77,
+                        "endOffset": 3516
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 1517,
+                    "endColumn": 52,
+                    "endOffset": 1565
+                },
+                "from": {
+                    "file": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 112,
+                        "endColumn": 52,
+                        "endOffset": 160
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 1570,
+                    "endColumn": 51,
+                    "endOffset": 1617
+                },
+                "from": {
+                    "file": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 59,
+                        "endColumn": 51,
+                        "endOffset": 106
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 1622,
+                    "endColumn": 52,
+                    "endOffset": 1670
+                },
+                "from": {
+                    "file": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 166,
+                        "endColumn": 52,
+                        "endOffset": 214
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 1675,
+                    "endLine": 53,
+                    "endColumn": 38,
+                    "endOffset": 3478
+                },
+                "from": {
+                    "file": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 323,
+                        "endLine": 34,
+                        "endColumn": 38,
+                        "endOffset": 2152
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 54,
+                    "startColumn": 4,
+                    "startOffset": 3483,
+                    "endColumn": 46,
+                    "endOffset": 3525
+                },
+                "from": {
+                    "file": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 220,
+                        "endColumn": 46,
+                        "endOffset": 262
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 55,
+                    "startColumn": 4,
+                    "startOffset": 3530,
+                    "endColumn": 53,
+                    "endOffset": 3579
+                },
+                "from": {
+                    "file": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 268,
+                        "endColumn": 53,
+                        "endOffset": 317
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 56,
+                    "startColumn": 4,
+                    "startOffset": 3584,
+                    "endLine": 62,
+                    "endColumn": 12,
+                    "endOffset": 3870
+                },
+                "from": {
+                    "file": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 192,
+                        "endLine": 12,
+                        "endColumn": 12,
+                        "endOffset": 484
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 63,
+                    "startColumn": 4,
+                    "startOffset": 3875,
+                    "endLine": 65,
+                    "endColumn": 12,
+                    "endOffset": 4030
+                },
+                "from": {
+                    "file": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 525,
+                        "endLine": 17,
+                        "endColumn": 12,
+                        "endOffset": 682
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 66,
+                    "startColumn": 4,
+                    "startOffset": 4035,
+                    "endLine": 68,
+                    "endColumn": 12,
+                    "endOffset": 4124
+                },
+                "from": {
+                    "file": "D:\\Projects\\voicelabs\\apps\\vst_studio\\app\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 694,
+                        "endLine": 21,
+                        "endColumn": 12,
+                        "endOffset": 786
+                    }
+                }
+            }
+        ]
+    }
+]

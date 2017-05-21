@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lesson_complete"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/bg_blue_wash" >
+
+    <LinearLayout
+        android:id="@+id/settings_btn_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical" 
+        android:visibility="visible">
+		
+        <ImageButton
+            android:id="@+id/btn_reset_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_reset_profile"
+            android:textColor="#fff" />
+
+        <ImageButton
+            android:id="@+id/btn_license"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_license"
+            android:textColor="#fff" />
+
+        <ImageButton
+            android:id="@+id/btn_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_about"
+            android:textColor="#fff" />
+        
+		<ScrollView
+		    android:id="@+id/txt_scroll_view"
+		   	android:weightSum="100"
+		   	android:layout_width="500dp"
+		    android:layout_height="300dp"
+		    android:scrollbars="vertical"
+		    android:fillViewport="true"
+		    android:visibility="gone"
+		    >
+		   
+		        <TextView
+		        android:id="@+id/txt_license"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"	      	
+		        android:text="@string/license"
+		        
+		        />
+			               
+
+   		 </ScrollView>
+        
+    </LinearLayout>
+	
+    
+    
+    
+    <ImageButton
+        android:id="@+id/buttonExit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="36dp"
+        android:layout_marginLeft="75dp"
+        android:background="@android:color/transparent"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:translationY="-50dp"
+        android:src="@drawable/btn_skip_back" />
+
+</RelativeLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item android:drawable="@drawable/leo_animation0060" android:duration="2000"/>
+    <item android:drawable="@drawable/leo_animation0061" android:duration="80"/>
+    <item android:drawable="@drawable/leo_animation0063" android:duration="40"/>
+    <item android:drawable="@drawable/leo_animation0060" android:duration="240"/>
+    <item android:drawable="@drawable/leo_animation0067" android:duration="160"/>
+    <item android:drawable="@drawable/leo_animation0069" android:duration="80"/>
+    <item android:drawable="@drawable/leo_animation0070" android:duration="80"/>
+    <item android:drawable="@drawable/leo_animation0069" android:duration="80"/>
+    <item android:drawable="@drawable/leo_animation0067" android:duration="80"/>
+    <item android:drawable="@drawable/leo_animation0064" android:duration="160"/>
+</animation-list>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_blue_wash" >
+
+    <LinearLayout
+        android:id="@+id/menuLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:background="#99999999"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/buttonMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:background="@android:color/transparent"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:visibility="invisible"
+            android:src="@drawable/btn_menu_go" />
+
+        <ImageButton
+            android:id="@+id/buttonSkip"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="700dp"
+            android:background="@android:color/transparent"
+            android:padding="20dp"
+            android:paddingTop="50dp"
+            android:src="@drawable/btn_skip" />
+
+    </LinearLayout>
+
+
+
+    <ImageButton
+        android:id="@+id/buttonPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="100dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/anim_btn_play0001"
+        android:minHeight="170dp"  
+        android:scaleX="-1"
+        android:visibility="invisible" />
+
+    <ImageButton
+        
+        android:id="@+id/buttonRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="100dp"
+        android:background="@drawable/anim_btn_speak0001"
+        android:minHeight="170dp"
+        
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:id="@+id/buttonLeo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/leo_animation0001"
+        android:translationY="20dp"
+        android:visibility="visible" />
+    
+     <ImageButton
+        android:id="@+id/leo_helper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/anim_btn_red_circle0010"
+        android:minHeight="170dp"
+        android:minWidth="170dp"
+        android:translationY="-50dp"
+        android:visibility="invisible" />
+    
+        <VideoView
+        android:id="@+id/tutorialVideo"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+       	android:layout_alignParentRight="true"
+       	android:layout_alignParentBottom="true"
+       	android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/record_helper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/buttonRecord"
+            android:background="@drawable/anim_btn_red_circle0010"
+            android:minHeight="100dp"
+            android:minWidth="100dp"
+            android:visibility="invisible" />
+
+        <ImageButton
+            android:id="@+id/play_helper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/buttonPlay"
+            android:layout_centerVertical="true"
+            android:background="@drawable/anim_btn_red_circle0010"
+            android:minHeight="100dp"
+            android:minWidth="100dp"
+            android:visibility="invisible" />
+
+</RelativeLayout>

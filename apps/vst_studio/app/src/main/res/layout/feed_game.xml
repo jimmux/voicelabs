@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/game_layout_feed"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_blue_wash" >
+
+    <LinearLayout
+        android:id="@+id/menuLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:background="#99999999"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/buttonMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="50dp"
+            android:background="@android:color/transparent"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:src="@drawable/btn_menu_go" />
+
+        <ImageButton
+            android:id="@+id/buttonSkip"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginLeft="700dp"
+            android:background="@android:color/transparent"
+            android:padding="20dp"
+            android:paddingTop="50dp"
+            android:src="@drawable/btn_skip" />
+
+    </LinearLayout>
+    
+      <ImageButton
+        android:id="@+id/buttonStartWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/leo_animation0132"
+        android:visibility="visible" />
+
+      <ImageButton
+          android:id="@+id/btn_lemon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_alignTop="@+id/buttonStartWord"
+          android:layout_marginLeft="84dp"
+          android:background="@drawable/img_obj_feed_lemon"
+          android:visibility="invisible" />
+
+      <ImageButton
+          android:id="@+id/btn_lizzard"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:layout_centerVertical="true"
+          android:layout_marginRight="28dp"
+          android:background="@drawable/img_obj_feed_lizzard"
+          android:visibility="invisible" />
+
+      <ImageButton
+          android:id="@+id/btn_lamb"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignRight="@+id/btn_lizzard"
+          android:layout_below="@+id/btn_lemon"
+          android:layout_marginRight="27dp"
+          android:layout_marginTop="22dp"
+          android:background="@drawable/img_obj_feed_lamb"
+          android:visibility="invisible" />
+
+      <ImageButton
+          android:id="@+id/btn_lettuce"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignBottom="@+id/btn_lamb"
+          android:layout_alignLeft="@+id/btn_lemon"
+          android:background="@drawable/img_obj_feed_lettuce"
+          android:visibility="invisible" />
+
+      <ImageView
+          android:id="@+id/imageViewPrompt"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/menuLayout"
+          android:layout_centerHorizontal="true"
+          android:background="@drawable/anim_btn_play0001"
+          android:scaleX="0.7"
+          android:scaleY="0.7" />
+
+</RelativeLayout>
